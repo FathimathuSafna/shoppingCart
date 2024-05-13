@@ -4,10 +4,8 @@ const productHelpers = require('../helpers/product-helpers');
 const userHelpers=require('../helpers/user-helper');
 const { log } = require('handlebars');
 const { render } = require('../app');
-var userHeader=require('../views/partials/user-header')
-var showHeader=true
 const verifyLogin=(req,res,next)=>{
-  if(req.session.user.loggedIn){
+  if(req.session.user){
     next()
   }else{
     res.redirect('/login')
@@ -50,8 +48,8 @@ router.get('/signup',(req,res)=>{
 router.post('/signup',(req,res)=>{
  userHelpers.doSignup(req.body).then((response)=>{
   console.log(response)
-  req.session.user=response
-  req.session.user.loggedIn=true
+  // req.session.user=response
+  // req.session.user.loggedIn=true
   res.redirect('/')
  })
 })

@@ -1,43 +1,61 @@
-<section>
-    <div class="container mt-5">
-<form action="" id="checkout-form">
-      <div class="row">
-        <div class="col-md-6">
-  <h2>Enter Delivery Details</h2><br>
-      <div>
-        <label for="address">Address:</label>
-        <input type="text" class="form-control" id="address" name="address">
-     
-        <label for="pincode">Pincode:</label>
-        <input type="text" class="form-control" id="pincode" name="pincode">
-      
-        <label for="mobile">Mobile:</label>
-        <input type="text" class="form-control" id="mobile" name="mobile">
-        <input type="text" name="userId" id="" value="{{user._id}}"hidden>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="container mt-5 ml-5 checkout">
-        <h5>Total Amount:{{total}}<h5>
-            <hr>
-      <div class="payment">
-        <h5>Payment Method:</h5>
-        <label class="radio-inline">
-          <input class="form-check-input" type="radio" name="payment-method" id="cod" value="cod" checked>COD
-          </label>
-          <label class="radio-inline mt-2">
-             <input class="form-check-input" type="radio" name="payment-method" id="online" value="online">onlinePayment
-          </label>
+<body class="background" style="background-color: #E9F1FA">
+    <div class="container mt-5" >
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title">Delivery Details</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="checkout-form">
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address:</label>
+                                <input type="text" class="form-control" id="address" name="address">
+                            </div>
+                            <div class="mb-3">
+                                <label for="pincode" class="form-label">Pincode:</label>
+                                <input type="text" class="form-control" id="pincode" name="pincode">
+                            </div>
+                            <div class="mb-3">
+                                <label for="mobile" class="form-label">Mobile:</label>
+                                <input type="text" class="form-control" id="mobile" name="mobile">
+                                <input type="hidden" name="userId" value="{{user._id}}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email:</label>
+                                <input type="text" class="form-control" id="email" name="email">                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title">Payment Method</h4>
+                    </div>
+                    <div class="card-body">
+                      <h5>Total Amount:{{total}}</h5>
+                      <hr>
+                        <div class="payment">
+                            <h5>Payment Method:</h5>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="payment-method" id="cod" value="cod" checked>
+                                <label class="form-check-label" for="cod">COD</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="payment-method" id="online" value="online">
+                                <label class="form-check-label" for="online">Online Payment</label>
+                            </div>
+                        </div>
+                        <hr>
+                        <button type="submit" class="btn btn-primary float-end">Checkout</button>
+                    </div>
+                </div>
+            </div>
         </div>
-            <button type="submit" class="btn btn-primary float-right">Checkout</button>
-        </div>
-      </div>
     </div>
-  </div>
+</body>
 
-</form>
-</div>
-</section>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
     $("#checkout-form").submit((e)=>{

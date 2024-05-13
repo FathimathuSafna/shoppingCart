@@ -1,42 +1,84 @@
-<section>
-    <div class="container">
-        <table class="table mt-5">
-            <thead>
-                <tr>
-                    <th scope="col">Item</th>
-                    <th scope="col">Title</th>   
-                    <th scope="col">price</th>                                                                    
-                    <th scope="col">Quantity</th>
+<div class="container mt-2">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-md-9">
+                <!-- Items in Cart Card -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Items in your cart</h5>
+                        <div class="table-responsive ">
+                            <table class="table shoping-cart-table ">
+                                <!-- Cart items rendering goes here -->
+                                <tbody>
+                                    {{#if products.length}}
+                                        {{#each products}}
+                                            <tr>
+                                                <td width="90">
+                                                    <div class="cart-product-imitation">
+                                                        <td><img style="width: 70px;height:70px" src="/images/{{this.product._id}}.png"></td>
+                                                    </div>
+                                                </td>
+                                                <td class="desc">
+                                                    <h6>{{this.product.name}}</h6>
+                                                    <dl class="small m-b-none">
+                                                        <dd>{{this.product.description}}</dd>
+                                                    </dl>
+                                                   
+                                                </td>
+                                                <td>
+                                                    
+                                                    <button class="cart-item-count mr-3 btn btn-sm btn-primary" onClick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',-1)">-</button>
+                                                    <span id="{{this.product._id}}">{{this.quantity}}</span>
+                                                    <button class="cart-item-count ml-3 btn btn-sm btn-primary" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',1)">+</button>
+                                                </td>
+                                                <td>
+                                                    <h5>{{this.product.price}}</h5>
+                                                </td>
+                                                 <td>
+                                                    <button class="btn btn-sm btn-danger" onClick="removeProduct('{{this._id}}','{{this.product._id}}')">
+                                                      <i class="fa fa-trash"></i> Remove item
+                                                     </button>
+                                                </td>
 
-                </tr>
-            </thead>
-            <tbody>
-                {{#each products}}
-                <tr>
-                    <td><img style="width: 70px;height:70px" src="/images/{{this.product._id}}.png"></td>
-                    <td>{{this.product.name}}</td>
-                    <td>{{this.product.price}}</td>
-                
-                    <td>
-                        <button class="cart-item-count mr-3"   onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',-1)">-</button>
-                        <span id="{{this.product._id}}">{{this.quantity}}</span>
-                        <button class="cart-item-count ml-3" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',1)">+</button>
-                    </td>
-                    <td>
-                        <button class="removeButton btn btn-danger" onClick="removeProduct('{{this._id}}','{{this.product._id}}')"><span>Remove</span></button>
-                    </td>
-                    
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
-        <hr>
-       <div class="container">
-    <div class="row">
-        <div class="col-md-6 offset-md-6"> <!-- Use offset-md-6 to move the column to the right -->
-            <div class="float-right pr-5">
-                <h5 class="float-left mt-1">Total: RS.<span id="total">{{totalValue}}</span></h5><br>
-                <a href="/place-order" class="btn btn-success mt-2" style="width:50%"><b>Place Order</b></a>
+                                            </tr>
+                                        {{/each}}
+                                    {{else}}
+                                        <tr>
+                                            <td colspan="4" class="text-center">Your shopping cart is empty</td>
+                                        </tr>
+                                    {{/if}}
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <div class="text-center mt-3">
+                            <a href="/place-order" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Checkout</a>
+                            <a href="/" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Continue shopping</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <!-- Cart Summary Card -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Cart Summary</h5>
+                        <p>Total RS: {{totalValue}}</p>
+                        <hr>
+                        <p class="text-muted small">Confirm your order</p>
+                        <div class="text-center">
+                            <a href="/place-order" class="btn btn-primary btn-sm"><i class="fa fa-shopping-cart"></i> Checkout</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Support/Contact Card -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Support</h5>
+                        <p class="text-center"><i class="fa fa-phone"></i> +43 100 783 001</p>
+                        <p class="text-center small">Please contact with us if you have any questions. We are available 24h.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -44,8 +86,40 @@
 
 
 
+            {{!-- <div class="ibox">
+                <div class="ibox-content">
+
+                    <p class="font-bold">
+                    Other products you may be interested
+                    </p>
+                    <hr>
+                    <div>
+                        <a href="#" class="product-name">{{this.name}}</a>
+                        <div class="small m-t-xs">
+                            Many desktop publishing packages and web page editors now.
+                        </div>
+                        <div class="m-t text-righ">
+
+                            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <a href="#" class="product-name"> Product 2</a>
+                        <div class="small m-t-xs">
+                            Many desktop publishing packages and web page editors now.
+                        </div>
+                        <div class="m-t text-righ">
+
+                            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
+                        </div>
+                    </div> --}}
+                {{!-- </div>
+            </div>
+        </div> --}}
     </div>
-</section>
+</div>
+</div>
 
 <script>
     function changeQuantity(cartId,prodId,userId,count){
@@ -95,3 +169,5 @@
     }
 
 </script>
+
+
