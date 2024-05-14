@@ -327,6 +327,12 @@ changePaymentStatus:(orderId)=>{
         resolve()
     })  
     })
-}
+},
+productByClick:(prodId)=>{
+    return new Promise(async(resolve,reject)=>{
+        let product=await db.get().collection(collection.PRODUCT_COLLECTION).findOne({_id:new ObjectId(prodId)})
+       resolve()
+    })
+ }
 
 }

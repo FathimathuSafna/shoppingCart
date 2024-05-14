@@ -1,0 +1,54 @@
+<div class="container mt-4">
+        <div class="row">
+            <!-- Cart Summary Card -->
+           
+            <!-- Items in Cart Card -->
+            
+            <div class="col-md-9">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            {{#each product}}
+
+                            <div class="col-md-6 mb-3">
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                        <h6>{{this.products.name}}</h6>
+
+                                </div>
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Other Content (optional) -->
+            <div class="col-md-3">
+                <!-- You can add other content here if needed -->
+                {{!-- Other products you may be interested in --}}
+                <div class="ibox">
+                    <div class="ibox-content">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Cart Summary</h5>
+                        <p>Total RS: {{totalValue}}</p>
+                        <hr>
+                        <p class="text-muted small">Confirm your order</p>
+                        <div class="text-center">
+                            <a href="/place-order" class="btn btn-primary btn-sm">
+                                <i class="fa fa-shopping-cart"></i> Checkout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+        
+                       
+                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

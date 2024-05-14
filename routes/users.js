@@ -4,6 +4,7 @@ const productHelpers = require('../helpers/product-helpers');
 const userHelpers=require('../helpers/user-helper');
 const { log } = require('handlebars');
 const { render } = require('../app');
+
 const verifyLogin=(req,res,next)=>{
   if(req.session.user){
     next()
@@ -110,7 +111,7 @@ router.post('/signup',(req,res)=>{
   })
   router.get('/place-order',verifyLogin,async(req,res)=>{
     let total=await userHelpers.getTotalAmount(req.session.user._id)
-    res.render('user/place-order',{total,user:req.session.user})
+    res.render('user/place-order',{total,user:req.session.user,showHeader:true})
   })
   router.post('/place-order',async(req,res)=>{
     let products=await userHelpers.getCartProductList(req.body.userId)
@@ -127,11 +128,13 @@ router.post('/signup',(req,res)=>{
     console.log(req.body)
   })
   router.get('/order-success',(req,res)=>{
-    res.render('user/order-success',{user:req.session.user})
+    res.render('user/order-success',{user:req.session.user._id})
   })
-  router.get('/orders', async (req, res) => {
+  router.get('/orders',verifyLogin, async (req, res) => {
+    let products= await userHelpers.getCartProducts(req.session.user._id)
     let orders = await userHelpers.getUserOrders(req.session.user._id);
-    res.render('user/orders', { user: req.session.user, orders,showHeader:true});
+    const combined = [...products, ...orders];
+    res.render('user/orders', { combined,user: req.session.user._id,products, orders,showHeader:true});
 });
 
   router.get('/view-order-products/:id', async (req, res) => {
@@ -150,5 +153,10 @@ router.post('/verify-payment',(req,res)=>{
     console.log(err)
     res.json({status:false,errMsg:''})
   })
+})
+router.get('/view-each-product',async(req,res)=>{
+  console.log(req.body)
+  let products= await userHelpers.productByClick(req.body)
+  res.render('user/view-each-product')
 })
 module.exports = router;
