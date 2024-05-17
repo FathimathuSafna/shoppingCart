@@ -27,9 +27,9 @@
                                                 </td>
                                                 <td>
                                                     
-                                                    <button class="cart-item-count mr-3 btn btn-sm btn-primary" onClick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',-1)">-</button>
-                                                    <span id="{{this.product._id}}">{{this.quantity}}</span>
-                                                    <button class="cart-item-count ml-3 btn btn-sm btn-primary" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',1)">+</button>
+                                                   <button class="cart-item-count mr-3 btn btn-white border border-secondary px-3" onClick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',-1)"><i class="fas fa-minus"></i></button></td>
+                                                   <td> <span id="{{this.product._id}}">{{this.quantity}}</span> </td>
+                                                   <td> <button class="cart-item-count ml-3 btn btn-white border border-secondary px-3" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',1)"><i class="fas fa-plus"></i></button>
                                                 </td>
                                                 <td>
                                                     <h5>{{this.product.price}}</h5>

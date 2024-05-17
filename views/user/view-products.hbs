@@ -1,11 +1,11 @@
   <section>
-    <div class="container mt-5">
+    <div class="container mt-5" >
       <div class="row">
         {{#each products}}
        
-        <div class="col-md-3 p-3">
-           <a href="/view-each-product" style="text-decoration: none; color: inherit;">
-          <div class="card" style="width: 16rem; height:28 rem">
+        <div class="col-md-3 p-3 text-center" >
+           <a href="/view-each-product/{{this._id}}" style="text-decoration: none; color: inherit;">
+          <div class="card" style="width: 20rem; height:20 rem">
             <img class="card-img-top"
               src="/images/{{this._id}}.png"
               alt="Card image cap" style="height:12rem">
@@ -16,7 +16,7 @@
               <p class="card-text">{{this.description}}</p>
               </a>
               
-             <button onClick="{{#if ../user}}addToCart('{{this._id}}'){{else}}alert('Please login'){{/if}}" class="btn btn-primary">Add to cart</button>
+             <button onClick="{{#if ../user}}addToCart('{{this._id}}'){{else}}alert('Please login'){{/if}}" class="btn btn-primary mt-2">Add to cart</button>
 
              
             </div>
@@ -29,5 +29,11 @@
       
     </div>
   </section>
+
+  <style>
+    .card{
+       align-items: center
+    }
+  </style>
 
   

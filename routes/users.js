@@ -64,7 +64,7 @@ router.post('/signup',(req,res)=>{
         req.session.user.loggedIn=true
         res.redirect('/')
       }else{
-        req.session.user.loginErroginErr="invalid email or password"
+        req.session.user.loginErr="invalid email or password"
         res.redirect('/login')
       }
       
@@ -133,8 +133,7 @@ router.post('/signup',(req,res)=>{
   router.get('/orders',verifyLogin, async (req, res) => {
     let products= await userHelpers.getCartProducts(req.session.user._id)
     let orders = await userHelpers.getUserOrders(req.session.user._id);
-    const combined = [...products, ...orders];
-    res.render('user/orders', { combined,user: req.session.user._id,products, orders,showHeader:true});
+    res.render('user/orders', { user: req.session.user._id,products, orders,showHeader:true});
 });
 
   router.get('/view-order-products/:id', async (req, res) => {
@@ -154,9 +153,15 @@ router.post('/verify-payment',(req,res)=>{
     res.json({status:false,errMsg:''})
   })
 })
-router.get('/view-each-product',async(req,res)=>{
-  console.log(req.body)
-  let products= await userHelpers.productByClick(req.body)
-  res.render('user/view-each-product')
+router.get('/view-each-product/:id',async(req,res)=>{
+  console.log(req.params.id)
+  let user=req.session.user
+  let product=await userHelpers.clickOneProduct(req.params.id)
+
+  console.log(product)
+  res.render('user/view-each-product',{product,user,showHeader:true})
+ // userHelpers.clickOneProduct().then((products)=>{
+
+  // })
 })
 module.exports = router;

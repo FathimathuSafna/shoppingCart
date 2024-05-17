@@ -158,12 +158,15 @@ module.exports={
 
         })
     },
-    removeProduct: (details) => {
+    removeProduct :(details) => {
         return new Promise((resolve, reject) => {
+            const cartId = new ObjectId(details.cart); // Get the cart ID from details
+            const productId = new ObjectId(details.product); // Get the product ID from details
+    
             db.get().collection(collection.CART_COLLECTION).updateOne(
-                { _id: new ObjectId(details.cart) },
+                { _id: cartId },
                 {
-                    $pull: { products: { item: new ObjectId(details.product) } }
+                    $pull: { products: { item: productId } } // Remove the specific product from the cart
                 }
             ).then((response) => {
                 resolve({ removeProduct: true });
@@ -328,11 +331,11 @@ changePaymentStatus:(orderId)=>{
     })  
     })
 },
-productByClick:(prodId)=>{
+clickOneProduct:(prodId)=>{
     return new Promise(async(resolve,reject)=>{
-        let product=await db.get().collection(collection.PRODUCT_COLLECTION).findOne({_id:new ObjectId(prodId)})
-       resolve()
+        let product = await db.get().collection(collection.PRODUCT_COLLECTION).findOne({_id:new ObjectId(prodId)})
+        // console.log(product)
+             resolve(product)
     })
- }
-
+}
 }

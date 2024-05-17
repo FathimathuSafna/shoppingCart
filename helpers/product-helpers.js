@@ -44,7 +44,11 @@ console.log(product)
                     name:proDetails.name,
                     description:proDetails.description,
                     price:proDetails.price,
-                    category:proDetails.category
+                    category:proDetails.category,
+                    type:proDetails.type,
+                    color:proDetails.color,
+                    material:proDetails.material,
+                    brand:proDetails.brand
                 }
             }).then((response)=>{
                 resolve()

@@ -1,54 +1,86 @@
-<div class="container mt-4">
-        <div class="row">
-            <!-- Cart Summary Card -->
-           
-            <!-- Items in Cart Card -->
-            
-            <div class="col-md-9">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <div class="row">
-                            {{#each product}}
-
-                            <div class="col-md-6 mb-3">
-                                    
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                        <h6>{{this.products.name}}</h6>
-
-                                </div>
-                            </div>
-                            {{/each}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Other Content (optional) -->
-            <div class="col-md-3">
-                <!-- You can add other content here if needed -->
-                {{!-- Other products you may be interested in --}}
-                <div class="ibox">
-                    <div class="ibox-content">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title">Cart Summary</h5>
-                        <p>Total RS: {{totalValue}}</p>
-                        <hr>
-                        <p class="text-muted small">Confirm your order</p>
-                        <div class="text-center">
-                            <a href="/place-order" class="btn btn-primary btn-sm">
-                                <i class="fa fa-shopping-cart"></i> Checkout
-                            </a>
-                        </div>
-                    </div>
-                </div>
-        
-                       
-                    
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- content -->
+<section class="py-5">
+  <div class="container">
+    <div class="row gx-5">
+      <aside class="col-lg-6">
+        <div class="border rounded-4 mb-3 d-flex justify-content-center">
+          <a data-fslightbox="mygalley" class="rounded-4" target="_blank" data-type="image" href="/images/{{product._id}}.png">
+            <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit"  src="/images/{{product._id}}.png"/>
+          </a>
         </div>
+      </aside>
+      <main class="col-lg-6">
+        <div class="ps-lg-3">
+          <h4 class="title text-dark text-center">
+            {{product.name}}
+          </h4>
+
+          <div class="mb-3 text-center">
+            <span class="h5">{{product.price}}</span>
+          </div>
+
+          <p>
+            {{product.description}}
+          </p>
+
+          <div class="row">
+            <dt class="col-3">Type:</dt>
+            <dd class="col-9">{{product.type}}</dd>
+
+            <dt class="col-3">Color</dt>
+            <dd class="col-9">{{product.color}}</dd>
+
+            <dt class="col-3">Material</dt>
+            <dd class="col-9">{{product.material}}</dd>
+
+            <dt class="col-3">Brand</dt>
+            <dd class="col-9">{{product.brand}}</dd>
+          </div>
+          <hr />         
+    <i class="me-1 fa fa-shopping-basket"></i>
+    <button onClick="{{#if user}}addToCart('{{product._id}}'){{else}}alert('Please login'){{/if}}" class="btn btn-primary shadow-0">Add to cart</button>
+        </div>
+      </main>
     </div>
+  </div>
+</section>
+<!-- content -->
+
+
+<style>
+.icon-hover:hover {
+  border-color: #3b71ca !important;
+  background-color: white !important;
+  color: #3b71ca !important;
+}
+
+.icon-hover:hover i {
+  color: #3b71ca !important;
+}
+</style>
+
+<script>
+    function changeQuantity(cartId,prodId,userId,count){
+        let quantity=parseInt(document.getElementById(prodId).innerHTML)
+        count=parseInt(count)
+    $.ajax({
+        url:'/change-product-quantity',
+        data:{
+            user:userId,
+            cart:cartId,
+            product:prodId,
+            count:count,
+            quantity:quantity
+        },
+        method:'post',
+        success:(response)=>{
+            if(response.removeProduct){
+            alert("Product Removed from cart")
+            location.reload()
+            }else{
+                document.getElementById(prodId).innerHTML=quantity+count
+                document.getElementById('total').innerHTML=response.total         
+            }
+        }
+    })
+    }
