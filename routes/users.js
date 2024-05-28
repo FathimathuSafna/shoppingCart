@@ -143,7 +143,7 @@ router.post('/signup',(req,res)=>{
     console.log(req.body)
   })
   router.get('/order-success',(req,res)=>{
-    res.render('user/order-success',{user:req.session.user._id})
+    res.render('user/order-success',{user:req.session.user._id});
   })
   router.get('/orders',verifyLogin, async (req, res) => {    
     let orders = await userHelpers.getUserOrders(req.session.user._id);
@@ -162,7 +162,7 @@ router.post('/signup',(req,res)=>{
   if(req.session.user){
     cartCount=await userHelpers.getCartCount(req.session.user._id)
   } 
-    res.render('user/view-order-products', {cartCount, user: req.session.user, products,showHeader:true })
+    res.render('user/view-order-products', {user: req.session.user, products,cartCount, showHeader:true })
 })
 
 router.post('/verify-payment',(req,res)=>{

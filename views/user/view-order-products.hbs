@@ -1,48 +1,151 @@
-<!-- content -->
-<body class="py-5">
-  <div class="container " >
+<section class="products py-5">
+  <div class="container">
     <div class="row gx-5">
       {{#each products}}
-      <div class="col-lg-6">
-        <div class="row g-0">
-          <div class="col-md-6">
-            <div class="border rounded-4 mb-3 d-flex justify-content-center">
-              <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="/images/{{this.product._id}}.png"/>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="ps-lg-3">
-              <h4 class="title text-dark">{{this.product.name}}</h4>
-
-              <div class="mb-3">
-                <span class="h5">{{this.product.price}}</span>
-              </div>
-
-              <p>
-                {{this.product.description}}
-              </p>
-
-              <div class="row mb-6">
-                <dt class="col-3">Type:</dt>
-                <dd class="col-9">{{this.product.type}}</dd>
-
-                <dt class="col-3">Color</dt>
-                <dd class="col-9">{{this.product.color}}</dd>
-
-                <dt class="col-3">Material</dt>
-                <dd class="col-9">{{this.product.material}}</dd>
-
-                <dt class="col-3">Brand</dt>
-                <dd class="col-9">{{this.product.brand}}</dd>
-              </div>
-              <hr/>
-            </div>
-          </div>
+      <aside class="col-lg-6">
+        <div class="product-img border rounded-4 mb-3 d-flex justify-content-center img-container">
+          <a data-fslightbox="mygalley" class="rounded-4 zoom" target="_blank" data-type="image" href="/images/{{product._id}}.png">
+            <img id="product-image-{{product._id}}" style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit zoom" src="/images/{{product._id}}.png" />
+            <div id="magnifier-lens-{{product._id}}" class="magnifier-lens"></div>
+          </a>
         </div>
-        <hr />
-      </div>
+      </aside>
+      <main class="col-lg-6">
+        <div class="ps-lg-3">
+          <h4 class="title text-dark">{{product.name}}</h4>
+          <div class="mb-3">
+            <span class="h5">{{product.price}}</span>
+          </div>
+          <p>{{product.description}}</p>
+          <div class="row">
+            <dt class="col-3">Type:</dt>
+            <dd class="col-9">{{product.type}}</dd>
+            <dt class="col-3">Color</dt>
+            <dd class="col-9">{{product.color}}</dd>
+            <dt class="col-3">Material</dt>
+            <dd class="col-9">{{product.material}}</dd>
+            <dt class="col-3">Brand</dt>
+            <dd class="col-9">{{product.brand}}</dd>
+          </div>
+          <hr />
+          <h4>Available offers</h4>
+          <ul>
+            <p><i class="fa-solid fa-tag" style="color: green;"></i> Bank Offer: Get ₹50 instant discount on first Flipkart UPI txn on order of ₹200 and above T&C</p>
+            <p><i class="fa-solid fa-tag" style="color: green;"></i> Bank Offer: 5% Cashback on Flipkart Axis Bank Card T&C</p>
+            <p><i class="fa-solid fa-tag" style="color: green;"></i> Bank Offer: 6% off up to ₹2000 on HDFC Bank Credit Card EMI Txns, Tenure: 6 months and above, Min Txn Value: ₹7500 T&C</p>
+            <p><i class="fa-solid fa-tag" style="color: green;"></i> Special Price: Get extra 71% off (price inclusive of cashback/coupon) T&C</p>
+            <p><i class="fa-solid fa-tag" style="color: green;"></i> No Cost EMI available for XYZ Bank cardholders.</p>
+          </ul>
+        </div>
+      </main>
+       <hr class="paddingTop">
       {{/each}}
     </div>
   </div>
-</body>
-<!-- content -->
+ 
+</section>
+
+
+<style>
+  .fit{
+    padding-top:50px;
+  }
+  .paddingTop{
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+  .product-img {
+  position: relative;
+}
+
+.magnifier-lens {
+  position: absolute;
+  width: 150px;
+  height: 100px;
+  border: 1px solid var(--orange);
+  pointer-events: none; /* Prevent the lens from capturing mouse events */
+  display: none; /* Hide lens by default */
+  background-repeat: no-repeat;
+  opacity: 0;
+}
+
+.magnifier-lens.active {
+  display: block;
+  opacity: 1;
+}
+
+.products {
+  position: relative;
+  padding-top: 150px;
+}
+
+.icon-hover:hover {
+  border-color: #3b71ca !important;
+  background-color: white !important;
+  color: #3b71ca !important;
+}
+
+.icon-hover:hover i {
+  color: #3b71ca !important;
+}
+
+.img-container {
+  overflow: hidden;
+  position: relative;
+}
+
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll('.product-img').forEach(container => {
+    const img = container.querySelector('img');
+    const lens = container.querySelector('.magnifier-lens');
+    
+    magnify(img, lens);
+  });
+
+  function magnify(img, lens) {
+    img.parentElement.addEventListener('mousemove', moveLens);
+    img.parentElement.addEventListener('mouseleave', hideLens);
+    img.parentElement.addEventListener('mouseenter', showLens);
+
+    function showLens() {
+      lens.classList.add('active');
+    }
+
+    function hideLens() {
+      lens.classList.remove('active');
+    }
+
+    function moveLens(e) {
+      const pos = getCursorPos(e);
+      const cx = img.naturalWidth / img.width;
+      const cy = img.naturalHeight / img.height;
+
+      let x = pos.x - (lens.offsetWidth / 2);
+      let y = pos.y - (lens.offsetHeight / 2);
+
+      if (x > img.width - lens.offsetWidth) x = img.width - lens.offsetWidth;
+      if (x < 0) x = 0;
+      if (y > img.height - lens.offsetHeight) y = img.height - lens.offsetHeight;
+      if (y < 0) y = 0;
+
+      lens.style.left = x + "px";
+      lens.style.top = y + "px";
+      lens.style.backgroundImage = `url('${img.src}')`;
+      lens.style.backgroundSize = `${img.naturalWidth}px ${img.naturalHeight}px`;
+      lens.style.backgroundPosition = `-${x * cx}px -${y * cy}px`;
+    }
+
+    function getCursorPos(e) {
+      const rect = img.getBoundingClientRect();
+      return {
+        x: e.pageX - rect.left - window.pageXOffset,
+        y: e.pageY - rect.top - window.pageYOffset
+      };
+    }
+  }
+});
+
+</script>
