@@ -1,4 +1,4 @@
-
+{{!-- 
 <body>
     {{#if showHeader}}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -50,4 +50,122 @@
 </nav>
  {{/if}}
 
+  </body> --}}
+<body>
+  {{#if showHeader}}
+      <header class=" fixed top d-flex justify-content-between align-items-center p-3" >
+
+    <a href="/" class="logo text-decoration-none">Shopping-Cart</a>
+
+    <div class="navlist d-flex justify-content-center">
+      <a href="#">products</a>
+      <a href="/cart">Cart<span class="badge bg-success" id="cart-count">{{cartCount}}</span></a>
+      {{#if user}}
+      <a href="/orders">orders</a>
+      {{/if}}
+    </div>
+
+   <div class="nav-right d-flex justify-content-end">
+  <a href="#"><i class="ri-search-line"></i></a>
+  <a href="/cart"><i class="ri-shopping-cart-line"></i></a>
+ {{#unless user}}
+    <a href="#"><i class="ri-user-line"></i></a>
+  {{/unless}}
+
+  <div class="dropdown" id="menu-icon">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      {{#if user}}
+        {{user.name}}
+      {{else}}
+        Account
+      {{/if}}
+    </button>
+    <ul class="dropdown-menu">
+      {{#if user}}
+        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+      {{else}}
+        <li><a class="dropdown-item" href="/login">Login</a></li>
+      {{/if}}
+    </ul>
+  </div>
+</div>
+
+  </header>
+  {{/if}}
   </body>
+<style>
+   body{
+        background:var(--bg-color);
+        color:var(--text-color);
+        padding-bottom: 80px;
+        padding-top: 80px; 
+      }
+
+      header{
+        position:fixed;
+        top:0;
+        right:0;
+        width:100%;
+        z-index:1000;
+        background: var(--bg-color);
+        box-shadow:0 1px 6px 0 rgb(32 33 36/5%);
+        padding: 18px 14%;
+        align-items:center;
+        justify-content:space-between ;
+        transition:all .6s;
+
+      }
+      .navlist{
+        display: flex;
+        
+      }
+      .navlist a{
+        display:inline-block;
+        margin:0 30px;
+        font-size: var(--p font);
+        font-weight: 500;
+        color:var(--text-color);
+        transition:all .6s;
+      }
+      .logo{
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        color:var(--text-color)
+      }
+      .logo:hover, .logo:focus {
+      color: inherit; /* Maintain the same color on hover/focus */
+      text-decoration: none; /* Ensure underline is removed on hover/focus */
+    }
+      .navlist a:hover{
+        transform:translate(-4px);
+        color:var(--second-color);
+      }
+
+      .nav-right{
+        display:flex;
+        align-items:center;
+      }
+      .nav-right a{
+        display:inline-block;
+        font-size: 22px;
+        color:var(--text-color);
+        margin:0 20px;
+        transition: all .6s;
+      }
+      .nav-right a:hover{
+        transform:translate(-5px) scale(1.1);
+      }
+
+      #menu-icon{
+        font-size:35px;
+        color:var(--text-color);
+        z-index:100;
+        margin-left:10px;
+        cursor:pointer;
+       
+      }
+      .dropdown-menu .dropdown-item {
+  font-size: 18px; /* Adjust the size as needed */
+}
+</style>

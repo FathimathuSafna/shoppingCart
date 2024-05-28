@@ -1,0 +1,112 @@
+<section class="n-products my-5">
+  <div class="row mt-5">
+  {{#each products}}
+  <div class="col-12 col-md-3 ">
+         <a href="/view-each-product/{{this._id}}" style="text-decoration: none; color: inherit;">
+<div class="n-content ">
+          <div class="row-img " style="width: 20rem; height:18 rem">
+            <img class="card-img-top"
+              src="/images/{{this._id}}.png"
+              alt="Card image cap" style="height:18rem; width:fit-content">
+            <div class="card-body">
+              <h5 class="card-title">{{this.name}}</h5>
+              </a>
+               <div class="stars">
+        <a href=""><i class="ri-star-s-fill"></i></a>
+        <a href=""><i class="ri-star-s-fill"></i></a>
+        <a href=""><i class="ri-star-s-fill"></i></a>
+        <a href=""><i class="ri-star-s-fill"></i></a>
+        <a href=""><i class="ri-star-s-fill"></i></a>
+        <a href="">4.5/5</a>
+      </div>
+      <div class="row-in col-12">
+        <div class="row-left col-md-8">
+               <button onClick="{{#if ../user}}addToCart('{{this._id}}'){{else}}alert('Please login'){{/if}}" class=" button">Add to cart
+            <i class="ri-shopping-cart-fill"></i>
+          </button>
+        </div>
+        <div class="row-right mr-3 mt-2 col-md-4">
+          <h6>{{this.price}}</h6>
+        </div>  
+            </div>
+          </div>
+         
+          </div>
+          </div>
+          </div>
+           {{/each}}
+          </div>
+          </section>
+<style>
+    .n-products{
+        padding-left: 24px;
+        margin-top: 80px;
+    }
+         .n-content{
+        display: grid;
+        align-items:center;
+       
+      }
+      .row-img{
+        overflow: hidden;
+        border-radius: 28px;
+        margin-bottom: 15px;
+      }
+      .row-img img{
+        display:block;
+        width: 100%;
+        transition: transform 0.5s;
+        cursor: pointer;
+      }
+      .row-img:hover img{
+        transform: scale(1.1);
+      }
+      .row h3{
+        font-size:17px;
+        font-weight: 700;
+        margin-bottom :5px ;
+      }
+      .stars a{
+        font-size:16px;
+        color:var(--other-color);
+        margin-right: 5px;
+      }
+      .row-in{
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 5px;
+      }
+      
+      
+      .row-right h6{
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--second-color);
+
+      }
+      .row-right:hover{
+        transform: scale(1.1);
+      }
+     
+
+    .button {
+  background: var(--primary-color); /* Primary button background color */
+  color: var(--second-color); /* Primary button text color */
+  font-size: 15px;
+  font-weight: 500;
+  border: 1px solid var(--primary-color); /* Primary button border color */
+  transition: all 0.6s;
+  display: flex;         /* Ensure the button content is displayed in a row */
+  align-items: center;   /* Center align the icon with the text */
+}
+.button:hover{
+  transform: scale(1.1);
+}
+
+
+.button i {
+  margin-left: 6px;      /* Add space between text and icon */
+}
+
+</style>

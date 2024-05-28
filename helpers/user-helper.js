@@ -236,7 +236,7 @@ module.exports={
             },
             userId:  new ObjectId(order.userId),
             paymentMethod:order['payment-method'],
-            products:products,
+             products:products,
             totalAmount:total,
             status:status,
             date:new Date()
@@ -256,7 +256,74 @@ module.exports={
  getUserOrders:(userId)=>{
     return new Promise(async(resolve,reject)=>{
         console.log(userId)
-        let orders = await db.get().collection(collection.ORDER_COLLECTION).find({ userId: new ObjectId(userId) }).toArray()
+        let orders = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
+            {
+                $match: { userId: new ObjectId(userId) }
+            },
+            {
+                $unwind: '$products'
+            },
+            {
+                $project: {
+                    item: '$products.item',
+                    quantity: '$products.quantity',
+                    date: '$date',
+                   
+                  }
+            },
+           
+            {
+                $lookup: {
+                    from: collection.PRODUCT_COLLECTION,
+                    localField: 'item',
+                    foreignField: '_id',
+                    as: 'product'
+                }
+            },
+            {
+                $project: {
+                    item: 1,
+                    quantity: 1,
+                    date:1,
+                   
+                    product: { $arrayElemAt: ['$product', 0] }
+                }
+            },
+            {
+                $addFields: {
+                    priceNumeric: { $toDouble: "$product.price" },
+                    productName: "$product.name",
+                    productCategory: "$product.category",
+                    productDescription: "$product.description",
+                    productType: "$product.type",
+                    productColor: "$product.color",
+                    productMaterial: "$product.material",
+                    productBrand: "$product.brand"
+                }
+            },
+            {
+                $group: {
+                    _id: '$_id', 
+                    date: { $first: "$date" }, 
+                    total: { $sum: { $multiply: ['$quantity', '$priceNumeric'] } },
+                    products:{  
+                    $push: {
+                            item: "$item",
+                            quantity: "$quantity",
+                            name: "$productName",
+                            category: "$productCategory",
+                            description: "$productDescription",
+                            type: "$productType",
+                            color: "$productColor",
+                            material: "$productMaterial",
+                            brand: "$productBrand",
+                            price: "$priceNumeric"
+                        }
+                    }
+                }
+            }
+            
+        ]).toArray()
         console.log(orders)
         resolve(orders)
     })
@@ -336,6 +403,12 @@ clickOneProduct:(prodId)=>{
         let product = await db.get().collection(collection.PRODUCT_COLLECTION).findOne({_id:new ObjectId(prodId)})
         // console.log(product)
              resolve(product)
+    })
+},
+viewAllProducts:()=>{
+    return new Promise(async(resolve,reject)=>{
+        let products=await db.get().collection(collection.PRODUCT_COLLECTION).find().toArray()
+        resolve(products)
     })
 }
 }

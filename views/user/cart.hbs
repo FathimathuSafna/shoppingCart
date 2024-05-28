@@ -1,4 +1,4 @@
-<div class="container mt-2">
+<div class="container mt-5">
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-md-9">
@@ -27,16 +27,16 @@
                                                 </td>
                                                 <td>
                                                     
-                                                   <button class="cart-item-count mr-3 btn btn-white border border-secondary px-3" onClick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',-1)"><i class="fas fa-minus"></i></button></td>
+                                                   <button class="cart-item-count mr-3 btn btn-sm btn-white border border-secondary px-3" onClick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',-1)"><i class="fas fa-minus"></i></button></td>
                                                    <td> <span id="{{this.product._id}}">{{this.quantity}}</span> </td>
-                                                   <td> <button class="cart-item-count ml-3 btn btn-white border border-secondary px-3" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',1)"><i class="fas fa-plus"></i></button>
+                                                   <td> <button class="cart-item-count ml-3 btn btn-sm btn-white border border-secondary px-3" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',1)"><i class="fas fa-plus"></i></button>
                                                 </td>
                                                 <td>
                                                     <h5>{{this.product.price}}</h5>
                                                 </td>
                                                  <td>
                                                     <button class="btn btn-sm btn-danger" onClick="removeProduct('{{this._id}}','{{this.product._id}}')">
-                                                      <i class="fa fa-trash"></i> Remove item
+                                                      <i class="fa fa-trash"></i> 
                                                      </button>
                                                 </td>
 
@@ -83,6 +83,12 @@
         </div>
     </div>
 </div>
+
+<style>
+    .container{
+        padding-top: 80px;
+    }
+</style>
 
 
 

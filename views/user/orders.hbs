@@ -1,38 +1,92 @@
-<section>
-    <div class="container">
-        <div class="row mt-4">
-        <table class="table mt-5">
-            <thead>
-                <tr>
-                    <th scope="col">Date</th>
-                    <th >Address</th>   
-                    <th>Pincode</th>                                                                    
-                    <th>Mobile</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col">Payment</th>
-                    <th>status</th>
-
-
-                </tr>
-            </thead>
-            <tbody>
-                {{#each orders}}
-                <tr>
-                    <td>{{this.date}}</td>
-                    <td>{{this.deliveryDetails.address}}</td>
-                    <td>{{this.deliveryDetails.pincode}}</td>
-                    <td>{{this.deliveryDetails.mobile}}</td>
-                    <td>{{this.totalAmount}}</td>
-                    <td>{{this.paymentMethod}}</td>
-                    <td>{{this.status}}</td>
-
-                    <td>
-                        <a href="/view-order-products/{{this._id}}" class="btn btn-primary">View Products</a>
-                    </td>
-                </tr>
+    
+<body>
+    <section class="container ">
+        <h2>Your Orders</h2>
+        <div class="row">
+            {{#each orders}}
+            <div class="col-12 order-card">
+                <div class="row order-header">
+                    <div class="col-md-6">
+                        <p>ORDER PLACED: <span class="order-date">{{this.date}}</span></p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>TOTAL: <span class="order-total">RS:{{this.total}}</span></p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>SHIP TO: <span>{{this.deliveryDetails.address}}</span></p>
+                    </div>
+                </div>
+                {{#each this.products}}
+                <div class="row">
+                    <div class="col-md-2">
+                        <img src="/images/{{this._id}}.png" class="product-img" alt="Product Image">
+                    </div>
+                    <div class="col-md-10 product-details">
+                        <p>{{this.name}}</p>
+                        <p>Quantity: {{this.quantity}}</p>
+                        <p>Price: RS:{{this.price}}</p>
+                        <button onClick="{{#if ../user}}addToCart('{{this._id}}'){{else}}alert('Please login'){{/if}}" class="btn btn-primary btn-sm">Add to cart</button>
+                        <a href="/view-each-product/{{this._id}}" class="btn btn-secondary btn-sm">View your item</a>
+                    </div>
+                </div>
                 {{/each}}
-            </tbody>
-        </table>
-       </div>
-    </div>
-</section>
+                <div class="row order-actions">
+                    <div class="col-md-12">
+                        <button class="btn btn-secondary btn-sm">Archive order</button>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </section>
+</body>
+
+
+<style>
+    section{
+        padding: 90px 14% 70px;
+      }
+        * {
+            padding: 0;
+            box-sizing: border-box;
+            list-style: none;
+            text-decoration: none;
+            scroll-behavior: smooth;
+            font-family: "Poppins", sans-serif;
+        }
+        .order-card {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        .product-img {
+            width: 50px;
+            height: 50px;
+        }
+        .product-details {
+            margin-left: 15px;
+        }
+        .order-actions {
+            margin-top: 15px;
+        }
+        .order-header {
+            font-size: 14px;
+            color: #555;
+        }
+        .order-total {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .order-date {
+            font-size: 14px;
+            color: #999;
+        }
+        .container {
+            margin-top: 80px; /* Adjust to the height of your fixed navbar */
+        }
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+    </style>
