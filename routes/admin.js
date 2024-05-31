@@ -3,6 +3,8 @@ const { render } = require("../app");
 var router = express.Router();
 var productHelper = require("../helpers/product-helpers");
 const productHelpers = require("../helpers/product-helpers");
+const userHelpers=require("../helpers/admin-helpers");
+const adminHelpers = require("../helpers/admin-helpers");
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
@@ -13,8 +15,15 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/all-users", (req,res) =>{
-  res.render("admin/all-users")
-});
+ adminHelpers.usersInfo().then((user)=>{
+  res.render("admin/all-users",{user})
+ })
+ 
+})
+
+router.post('/all-users',(req,res)=>{
+  
+})
 
 router.get("/add-product", (req, res) => {
   res.render("admin/add-product");

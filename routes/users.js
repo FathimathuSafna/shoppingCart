@@ -57,31 +57,18 @@ router.get('/signup',(req,res)=>{
   res.render('user/signup')
 })
 
-router.post('/signup',(req,res)=>{
- userHelpers.doSignup(req.body).then((response)=>{
-  console.log(response)
-  // req.session.user=response
-  // req.session.user.loggedIn=true
-  res.redirect('/')
- })
-})
-
-
-  router.post('/login', (req, res) => {
-    userHelpers.doLogin(req.body).then((response)=>{
-      if(response.status){
-
-        req.session.user=response.user
-        req.session.user.loggedIn=true
-        res.redirect('/')
-      }else{
-        req.session.user.loginErr="invalid email or password"
-        res.redirect('/login')
+router.post('/signup', (req, res) => {
+  userHelpers.doSignup(req.body).then((response) => {
+      
+      if (response.status === 'active') {
+          res.redirect('/login');
+      } else {
+          res.redirect('/'); 
       }
-      
-    })
-      
-  });
+      console.log(response);
+  })
+});
+
 
   router.get('/logout',(req,res)=>{
     req.session.user=null

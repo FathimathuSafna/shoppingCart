@@ -8,16 +8,19 @@ const Razorpay=require('razorpay')
 module.exports={
     doSignup:(userData)=>{
         return new Promise(async(resolve,reject)=>{
-
+          
      userData.password=await bcrypt.hash(userData.password,10)
+     userData.status = 'active';
        db.get().collection(collection.USER_COLLECTION).insertOne(userData).then((data)=>{
-        
+          
         resolve({
             name: userData.name,
             email: userData.email,
             password: userData.password,
-            insertedId: data.insertedId
+            insertedId: data.insertedId,
+            status:  userData.status 
         })
+        console.log(  userData.status )
        })
 
         })
@@ -257,7 +260,6 @@ module.exports={
     return new Promise(async(resolve,reject)=>{
         console.log(userId)
         let orders = await db.get().collection(collection.ORDER_COLLECTION).find({ userId: new ObjectId(userId) }).toArray()
-        console.log(orders)
         resolve(orders)
     })
  },
@@ -288,7 +290,6 @@ module.exports={
                 }
             }
         ]).toArray()
-        console.log(orderItems)
        resolve(orderItems)
     })
  },

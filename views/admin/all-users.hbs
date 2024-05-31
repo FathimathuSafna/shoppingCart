@@ -1,5 +1,29 @@
 <section>
-    <h1>
-        hello
-    </h1>
+    <div class="container">
+        <div class="row mt-4">
+                            <form action="/all-users" method="post">
+            <table class="table mt-5">
+                <thead>
+                    <tr>
+                        <th>_id</th>   
+                        <th>Name</th>                                                                    
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each user}}
+                    <tr>
+                        <td>{{this._id}}</td>
+                        <td>{{this.name}}</td>
+                        <td>{{this.email}}</td>
+                          <td>
+                        <a href="/view-order-products/{{this._id}}" class="btn btn-primary">View Products</a>
+                    </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            </form>
+        </div>
+    </div>
 </section>
