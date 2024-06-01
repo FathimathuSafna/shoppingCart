@@ -10,7 +10,6 @@ module.exports={
         return new Promise(async(resolve,reject)=>{
           
      userData.password=await bcrypt.hash(userData.password,10)
-     userData.status = 'active';
        db.get().collection(collection.USER_COLLECTION).insertOne(userData).then((data)=>{
           
         resolve({
@@ -18,7 +17,7 @@ module.exports={
             email: userData.email,
             password: userData.password,
             insertedId: data.insertedId,
-            status:  userData.status 
+            status:  'active'
         })
         console.log(  userData.status )
        })
@@ -26,29 +25,33 @@ module.exports={
         })
        
     },
-    doLogin:(userData)=>{
-        return new Promise(async(resolve,reject)=>{
-            let loginStatus=false
-            let response={}
-            let user=await db.get().collection(collection.USER_COLLECTION).findOne({email:userData.email})
-            if(user){
-                bcrypt.compare(userData.password,user.password).then((status)=>{
-                    if(status){
-                        console.log("login success")
-                        response.user=user
-                        response.status=true
-                        resolve(response)
+    doLogin: (userData) => {
+        return new Promise(async (resolve, reject) => {
+            let response = {};
+            let user = await db.get().collection(collection.USER_COLLECTION).findOne({ email: userData.email });
+            
+            if (user) {
+                bcrypt.compare(userData.password, user.password).then((status) => {
+                    if (status) {
+                        if (user.status === 'blocked') {
+                            console.log("User is blocked");
+                            resolve({ status: 'blocked' });
+                        } else {
+                            console.log("Login success");
+                            response.user = user;
+                            response.status = true;
+                            resolve(response);
+                        }
                     } else {
-                        console.log("login failed")
-                        resolve({status:false})
+                        console.log("Login failed");
+                        resolve({ status: false });
                     }
-                    
-                })
+                });
             } else {
-                console.log('login failed')
-                resolve({status:false})
+                console.log('Login failed');
+                resolve({ status: false });
             }
-        })
+        });
     },
     addToCart: (prodId, userId) => {
         let proObj = {

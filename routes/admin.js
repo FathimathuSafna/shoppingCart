@@ -1,15 +1,13 @@
 var express = require("express");
 const { render } = require("../app");
 var router = express.Router();
-var productHelper = require("../helpers/product-helpers");
 const productHelpers = require("../helpers/product-helpers");
-const userHelpers=require("../helpers/admin-helpers");
 const adminHelpers = require("../helpers/admin-helpers");
+const { log } = require('handlebars');
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
   productHelpers.getAllProducts().then((products) => {
-    console.log(products);
     res.render("admin/view-products", { admin: true, products });
   });
 });
@@ -21,16 +19,12 @@ router.get("/all-users", (req,res) =>{
  
 })
 
-router.post('/all-users',(req,res)=>{
-  
-})
-
 router.get("/add-product", (req, res) => {
   res.render("admin/add-product");
 });
 
 router.post("/add-product", (req, res) => {
-  productHelper.addProduct(req.body, (insertedId) => {
+  productHelpers.addProduct(req.body, (insertedId) => {
     let image = req.files.Image;
     console.log(insertedId);
     image.mv("./public/images/" + insertedId + ".png", (err, done) => {

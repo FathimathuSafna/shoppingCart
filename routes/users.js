@@ -4,6 +4,7 @@ const productHelpers = require('../helpers/product-helpers');
 const userHelpers=require('../helpers/user-helper');
 const { log } = require('handlebars');
 const { render } = require('../app');
+const adminHelpers = require("../helpers/admin-helpers");
 
 const verifyLogin=(req,res,next)=>{
   if(req.session.user){
@@ -43,6 +44,7 @@ router.get('/view-all-products', async function(req,res){
 
 router.get('/login',(req,res)=>{
   //ith kittila
+  
  if(req.session.user){
   res.redirect('/')
  }else {
@@ -51,6 +53,21 @@ router.get('/login',(req,res)=>{
  }
   
 })
+router.post('/login', async (req, res) => {
+  let response = await userHelpers.doLogin(req.body);
+  
+  if (response.status === 'blocked') {
+      req.session.loginErr = 'Your account is blocked. Please contact support.';
+      res.redirect('/login');
+  } else if (response.status === true) {
+      req.session.user = response.user;
+      req.session.loginErr = null;
+      res.redirect('/');
+  } else {
+      req.session.loginErr = 'Invalid username or password';
+      res.redirect('/login');
+  }
+});
 
 
 router.get('/signup',(req,res)=>{
@@ -179,4 +196,19 @@ router.get('/view-each-product/:id',async(req,res)=>{
 
   // })
 })
+router.post('/blockUser', (req, res) => {
+  let userId=req.body.user;
+  adminHelpers.blockUser(userId).then((response)=>{
+    res.json(response)
+  })
+})
+
+router.post('/unBlockUser',(req,res)=>{
+  let userId=req.body.user;
+  adminHelpers.unBlockUser(userId).then((response)=>{
+    res.json(response)
+  })
+
+})
+
 module.exports = router;

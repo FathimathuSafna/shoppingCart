@@ -1,7 +1,7 @@
 <section>
     <div class="container">
         <div class="row mt-4">
-                            <form action="/all-users" method="post">
+            
             <table class="table mt-5">
                 <thead>
                     <tr>
@@ -17,13 +17,45 @@
                         <td>{{this.name}}</td>
                         <td>{{this.email}}</td>
                           <td>
-                        <a href="/view-order-products/{{this._id}}" class="btn btn-primary">View Products</a>
+                        <button  class="btn btn-primary" onClick="blockUser('{{this._id}}')">Block</button>
+                        <button  class="btn btn-primary" onClick="unBlockUser('{{this._id}}')">unBlock</button>
                     </td>
                     </tr>
                     {{/each}}
                 </tbody>
             </table>
-            </form>
         </div>
     </div>
 </section>
+
+<script>
+    function blockUser(userId) {
+       $.ajax({
+        url:"/blockUser",
+        data:{
+            user:userId
+        },
+        method:'post',
+        success:(response=>{
+            if(response.blockUser){
+                alert("user blocked")
+            }
+        })
+       })
+    }
+    function unBlockUser(userId){
+        $.ajax({
+            url:"/unBlockUser",
+            data:{
+                user:userId
+            },
+            method:'post',
+            success:(response=>{
+                if(response.unBlockUser){
+                    alert("user unblocked")
+                }
+            })
+        })
+    }
+    
+</script>
