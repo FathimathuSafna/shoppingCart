@@ -7,17 +7,28 @@ const { log } = require('handlebars');
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
-  productHelpers.getAllProducts().then((products) => {
-    res.render("admin/view-products", { admin: true, products });
-  });
+  // productHelpers.getAllProducts().then((products) => {
+  //   res.render("admin/view-products", { admin: true, products });
+  // });
+  adminHelpers.usersInfo().then((user)=>{
+    res.render("admin/view-products",{admin:true,user})
+  })
+
 });
 
-router.get("/all-users", (req,res) =>{
- adminHelpers.usersInfo().then((user)=>{
-  res.render("admin/all-users",{user})
- })
- 
+router.get("/view-admin-products",function(req,res){
+  productHelpers.getAllProducts().then((products) => {
+    console.log(products)
+  res.render("admin/view-admin-products",{products})
 })
+})
+
+// router.get("/all-users", (req,res) =>{
+//  adminHelpers.usersInfo().then((user)=>{
+//   res.render("admin/all-users",{user})
+//  })
+ 
+// })
 
 router.get("/add-product", (req, res) => {
   res.render("admin/add-product");
