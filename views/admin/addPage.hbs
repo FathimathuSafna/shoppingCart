@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Advertisement</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 400px;
+        }
+        .container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: 700;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn-success {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        .image-preview {
+            width: 100%;
+            height: 200px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<section>
+    <div class="container">
+        <h2>Add New Advertisement</h2>
+        <form action="/admin/addPage" method="post" enctype="multipart/form-data">
+            <div class="image-preview" id="imgPreview">
+                <img id="imgView" src="#" alt="Image Preview" style="display: none;">
+            </div>
+            <label for="image">Select Image:</label>
+            <input type="file" name="Image" class="form-control" onchange="viewImage(event)" required>
+            <button type="submit" class="btn btn-success mt-4">Submit</button>
+        </form>
+    </div>
+</section>
+
+<script>
+    function viewImage(event){
+        const imgView = document.getElementById('imgView');
+        imgView.src = URL.createObjectURL(event.target.files[0]);
+        imgView.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>

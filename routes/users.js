@@ -23,9 +23,9 @@ router.get('/',async function(req, res, next) {
   if(req.session.user){
     cartCount=await userHelpers.getCartCount(req.session.user._id)
   }
-
+  let advertisment=await productHelpers.viewAdds(req.body)
   productHelpers.getAllProducts().then((products)=>{
-      res.render('user/view-products',{admin:false,products,user,cartCount,showHeader:true})
+      res.render('user/view-products',{admin:false,products,user,advertisment,cartCount,showHeader:true})
     
     
     })

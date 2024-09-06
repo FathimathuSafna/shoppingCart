@@ -1,126 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="path/to/bootstrap.css">
+  <link rel="stylesheet" href="path/to/icons.css"> <!-- Assuming you're using icons -->
+  <title>Admin Dashboard</title>
+</head>
 <body>
+  {{#if admin}}
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
-      <button class="navbar-toggler me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample"> <span class="navbar-toggler-icon"  data-bs-target="#offcanvasExample"></span></button>
-    <a class="navbar-brand fw-bold text-uppercase me-auto" href="#">SHOPPING-CART (Admin)</a>
-    
-     
-   
+      <button class="navbar-toggler me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand fw-bold text-uppercase me-auto" href="#">SHOPPING-CART (Admin)</a>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <form class="form-inline my-2 my-lg-0 ms-auto">
-        <div class="input-group my-3 my-lg-0">
-          <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-          <div class="input-group-append">
-            <button class="btn btn-primary" type="button"><i class="ri-search-line"></i></button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <form class="form-inline my-2 my-lg-0 ms-auto">
+          <div class="input-group my-3 my-lg-0">
+            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button"><i class="ri-search-line"></i></button>
+            </div>
           </div>
-        </div>
-      </form>
-      <ul class="navbar-nav">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-white bg-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="ri-user-fill"></i>
-          </a>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Login</a>
-            <a class="dropdown-item" href="#">Logout</a>
-          </div>
-        </li>
-      </ul>
-    </div>
+        </form>
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white bg-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{#if admins}}
+              {{admins.name}}
+              {{else}}<i class="ri-user-fill"></i>{{/if}}
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              {{#if admins}}
+              <a class="dropdown-item" href="#">Logout</a>
+              {{else}}
+              <a class="dropdown-item" href="/admin/admin-login">Login</a>
+              {{/if}}
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </nav>
 
   <!-- Off-canvas -->
-  
- 
-
   <div class="offcanvas offcanvas-start bg-dark text-white sidebar-nav" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-    
     <div class="offcanvas-body p-0">
-  <nav class="navbar-dark">
-    <ul class="navbar-nav">
-      <li>
-        <div class="text-muted small fw-bold text-uppercase px-3"> CORE </div>
-      </li>
-      <li>
-        <a href="#" class="nav-link px-3 active">
-          <span class="me-2">
-            <i class="ri-dashboard-3-line"></i>
-          </span>
-          <span>Dashboard</span>
-        </a>
-      </li>
-      <li class="my-4">
-        <hr class="dropdown-divider"/>
-      </li>
-      <li>
-        <div class="text-muted small fw-bold text-uppercase px-3"> Interface </div>
-      </li>
-      <li>
-         <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-    <span class="me-2">
-        <i class="ri-layout-column-line"></i>
-          </span>
-          <span>Site managemnet</span>
-          <span class="right-icon ms-auto"><i class="ri-arrow-drop-down-line"></i></span>
-  </a>
-  <div class="collapse" id="collapseExample">
-  <div>
-    <ul class="navbar-nav ps-3">
-      <li>
-        <a href="/view-admin-products" class="nav-link px-3">
-          <span class="me-2">
-        <i class="ri-layout-column-line"></i>
-          </span>
-          <span>Manage products</span>
-          
-        </a>
-        <a href="#" class="nav-link px-3">
-          <span class="me-2">
-        <i class="ri-layout-column-line"></i>
-          </span>
-          <span>Manage orders</span>
-          
-        </a>
-      </li>
-    </ul>
-  </div>
-</div>
-      </li>
-    </ul>
-  </nav>  
-      </div>
-  </div>
+      <nav class="navbar-dark">
+        <ul class="navbar-nav">
+          <li>
+            <div class="text-muted small fw-bold text-uppercase px-3"> CORE </div>
+          </li>
+          <li>
+            <a href="#" class="nav-link px-3 active">
+              <span class="me-2">
+                <i class="ri-dashboard-3-line"></i>
+              </span>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li class="my-4">
+            <hr class="dropdown-divider"/>
+          </li>
+          <li>
+            <div class="text-muted small fw-bold text-uppercase px-3"> Interface </div>
+          </li>
+          <li>
+            <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#collapseSiteManagement" role="button" aria-expanded="false" aria-controls="collapseSiteManagement">
+              <span class="me-2">
+                <i class="ri-layout-column-line"></i>
+              </span>
+              <span>Site Management</span>
+              <span class="right-icon ms-auto"><i class="ri-arrow-drop-down-line"></i></span>
+            </a>
+            <div class="collapse" id="collapseSiteManagement">
+              <ul class="navbar-nav ps-3">
+                <li>
+                  <a href="/admin/view-admin-product" class="nav-link px-3">
+                    <span class="me-2">
+                      <i class="ri-layout-column-line"></i>
+                    </span>
+                    <span>Manage Products</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+           
+          </li>
 
-  <style>
-    :root {
-      --offcanvas-width: 270px;
-      --topNavbarHeight: 56px;
-    }
+          <li>
+            <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#collapseManageAds" role="button" aria-expanded="false" aria-controls="collapseManageAds">
+              <span class="me-2">
+                <i class="ri-layout-column-line"></i>
+              </span>
+              <span>Manage Ads</span>
+              <span class="right-icon ms-auto"><i class="ri-arrow-drop-down-line"></i></span>
+            </a>
+           
+            <div class="collapse" id="collapseManageAds">
+              <ul class="navbar-nav ps-3">
+                <li>
+                  <a href="/admin/addPage" class="nav-link px-3">
+                    <span class="me-2">
+                      <i class="ri-layout-column-line"></i>
+                    </span>
+                    <span>Add Ads</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="/admin/showAdd" class="nav-link px-3">
+                    <span class="me-2">
+                      <i class="ri-layout-column-line"></i>
+                    </span>
+                    <span>View Ads</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  {{/if}}
 
+  <script src="path/to/bootstrap.bundle.js"></script>
+</body>
+<style>
+  :root {
+    --offcanvas-width: 270px;
+    --topNavbarHeight: 56px;
+  }
+
+  .sidebar-nav {
+    width: var(--offcanvas-width);
+  }
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+  }
+  .sidebar-link .right-icon {
+    display: inline-flex;
+    transition: all ease 0.25s;
+  }
+  .sidebar-link[aria-expanded="true"] .right-icon {
+    transform: rotate(180deg);
+  }
+
+  @media (min-width: 992px) {
     .sidebar-nav {
-      width: var(--offcanvas-width);
+      transform: none;
+      visibility: visible !important;
+      top: var(--topNavbarHeight);
+      height: calc(100% - var(--topNavbarHeight));
     }
-    .sidebar-link{
-      display: flex;
-      align-items:center ;
-    }
-    .sidebar-link .right-icon{
-      display: inline-flex;
-      transition: all ease 0.25s;
-    }
-    .sidebar-link[aria-expanded="true"] .right-icon{
-      transform:rotate(180deg);
-    }
-
-    @media (min-width: 992px) {
-       
-      .sidebar-nav {
-        transform: none;
-        visibility: visible !important;
-        top: var(--topNavbarHeight);
-        height: calc(100% - var(--topNavbarHeight));
-      }
-    }
-  </style>
+  }
+</style>
+</html>

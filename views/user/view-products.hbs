@@ -1,96 +1,154 @@
 
 <body>
 
-{{!-- home --}}
+  {{!-- home --}}
+  <div id="demo" class="carousel slide" data-ride="carousel" data-interval="4000">
 
-<section class="home">
-  <div class="home-text">
-    <h6>New Arrivals</h6>
-      <h1>New Arrivals <br> ready to rock</h1>
-      <p>Productivity and Efficiency: Electronic gadgets like laptops and tablets enable people to work efficiently, manage tasks, and organize schedules.</p>
-  <a href="/view-all-products" class="btn"> Shop now
-  <i class="ri-arrow-right-line"></i></a>
-  </div>
-</section>
+    <!-- Indicators -->
+    <ul class="carousel-indicators">
+      {{#each advertisment}}
+      <li data-target="#demo" data-slide-to="{{@index}}" class="{{#if @first}}active{{/if}}"></li>
+      {{/each}}
+    </ul>
 
-{{!-- products --}}
-
-<section class="n-products my-5">
-  <div class="center-text">
-    <h2>All Products</h2>
-  </div>
-  <div class="n-content">
-  <div class="row ">
-  {{#each products}}
-  <div class="col-12 col-md-4 product-card">
-         <a href="/view-each-product/{{this._id}}" style="text-decoration: none; color: inherit;">
-<div class="n-content ">
-          <div class="row-img " style="width: 20rem; height:18 rem">
-            <img class="card-img-top"
-              src="/images/{{this._id}}.png"
-              alt="Card image cap" style="height:18rem; width:fit-content">
-            <div class="card-body">
-              <h5 class="card-title">{{this.name}}</h5>
-              </a>
-               <div class="stars">
-        <a href=""><i class="ri-star-s-fill"></i></a>
-        <a href=""><i class="ri-star-s-fill"></i></a>
-        <a href=""><i class="ri-star-s-fill"></i></a>
-        <a href=""><i class="ri-star-s-fill"></i></a>
-        <a href=""><i class="ri-star-s-fill"></i></a>
-        <a href="">4.5/5</a>
-      </div>
-      <div class="row-in col-12">
-        <div class="row-left col-md-8">
-               <button onClick="{{#if ../user}}addToCart('{{this._id}}'){{else}}alert('Please login'){{/if}}" class=" button">Add to cart
-            <i class="ri-shopping-cart-fill"></i>
-          </button>
+    <!-- The slideshow -->
+    <div class="carousel-inner">
+      {{#each advertisment}}
+      <div class="carousel-item {{#if @first}}active{{/if}}">
+        <div class="home">
+          <img src="/images/{{this._id}}.jpg"  class="home-bg" alt="">
+          <div class="home-text">
+            <h6>New Arrivals</h6>
+            <h1>New Arrivals <br> ready to rock</h1>
+            <p>Productivity and Efficiency: Electronic gadgets like laptops and tablets enable people to work efficiently, manage tasks, and organize schedules.</p>
+            <a href="/view-all-products" class="btn"> Shop now
+              <i class="ri-arrow-right-line"></i>
+            </a>
+          </div>
         </div>
-        <div class="row-right mr-3 mt-2 col-md-4">
-          <h6>{{this.price}}</h6>
-        </div>  
+      </div>
+      {{/each}}
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#demo" data-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </a>
+  </div>
+
+  {{!-- products --}}
+  <section class="n-products my-5">
+    <div class="center-text">
+      <h2>All Products</h2>
+    </div>
+    <div class="n-content">
+      <div class="row">
+        {{#each products}}
+        <div class="col-12 col-md-4 product-card">
+          <a href="/view-each-product/{{this._id}}" style="text-decoration: none; color: inherit;">
+            <div class="n-content">
+              <div class="row-img" style="width: 20rem; height: 18rem;">
+                <img class="card-img-top" src="/images/{{this._id}}.png" alt="Card image cap" style="height: 18rem; width: fit-content;">
+                <div class="card-body">
+                  <h5 class="card-title">{{this.name}}</h5>
+                </div>
+              </div>
+            </div>
+          </a>
+          <div class="stars">
+            <a href=""><i class="ri-star-s-fill"></i></a>
+            <a href=""><i class="ri-star-s-fill"></i></a>
+            <a href=""><i class="ri-star-s-fill"></i></a>
+            <a href=""><i class="ri-star-s-fill"></i></a>
+            <a href=""><i class="ri-star-s-fill"></i></a>
+            <a href="">4.5/5</a>
+          </div>
+          <div class="row-in col-12">
+            <div class="row-left col-md-8">
+              <button onClick="{{#if ../user}}addToCart('{{this._id}}'){{else}}alert('Please login'){{/if}}" class="button">Add to cart
+                <i class="ri-shopping-cart-fill"></i>
+              </button>
+            </div>
+            <div class="row-right mr-3 mt-2 col-md-4">
+              <h6>{{this.price}}</h6>
             </div>
           </div>
-         
-          </div>
-           </div>
-          </div>
-           {{/each}}
-           <div class="n-btn text-center mt-3">
-    <a href="/view-all-products" id="view-all-btn" class="btn2">View All</a>
-  </div>
-         
-</section>
+        </div>
+        {{/each}}
+      </div>
+      <div class="n-btn text-center mt-3">
+        <a href="/view-all-products" id="view-all-btn" class="btn2">View All</a>
+      </div>
+    </div>
+  </section>
 
-{{!-- feature --}}
+  {{!-- feature --}}
+  <section class="feature my-5">
+    <div class="feature-content">
+      <div class="box">
+        <div class="f-text f-icon">
+          <i class="ri-bank-card-fill"></i>
+          <h3>Cash on Delivery</h3>
+          <p>"Cash on delivery lets customers pay in cash upon receipt."</p>
+        </div>
+      </div>
 
-<section class="feature my-5">
-  <div class="feature-content">
-    <div class="box">
-    <div class="f-text f-icon">
-      <i class="ri-bank-card-fill"></i>
-      <h3>Cash on Delivery</h3>
-      <p>"Cash on delivery lets customers pay in cash upon receipt."</p>
+      <div class="box">
+        <div class="f-text f-icon">
+          <i class="ri-truck-fill"></i>
+          <h3>35 days return</h3>
+          <p>"Enjoy our 35-day return policy."</p>
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="f-text f-icon">
+          <i class="ri-customer-service-fill"></i>
+          <h3>Free Shipping</h3>
+          <p>"Free shipping offered."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {{!-- footer --}}
+  <section class="footer my-5">
+    <div class="footer-box col-3">
+      <h3>Company</h3>
+      <a href="#">About</a>
+      <a href="#">Features</a>
+      <a href="#">Works</a>
+      <a href="#">Career</a>
+    </div>
+
+    <div class="footer-box col-3">
+      <h3>Resources</h3>
+      <a href="#">Youtube Playlist</a>
+      <a href="#">Features</a>
+      <a href="#">Works</a>
+    </div>
+
+    <div class="footer-box col-3">
+      <h3>Social</h3>
+      <div class="social">
+        <a href="#"><i class="ri-facebook-fill"></i></a>
+        <a href="#"><i class="ri-instagram-fill"></i></a>
+        <a href="#"><i class="ri-twitter-fill"></i></a>
+      </div>
+    </div>
+  </section>
+
+  {{!-- copyright --}}
+  <div class="copyright">
+    <div class="end-text">
+      <p>copyright 2024 By Shopping-cart</p>
     </div>
   </div>
 
-  <div class="box">
-    <div class="f-text f-icon">
-      <i class="ri-truck-fill"></i>
-      <h3>35 days return</h3>
-      <p>"Enjoy our 35-day return policy."</p>
-    </div>
-  </div>
-
-  <div class="box">
-    <div class="f-text f-icon">
-      <i class="ri-customer-service-fill"></i>
-      <h3>Free Shipping</h3>
-    <p>"Free shipping offered."</p>
-    </div>
-  </div>
-  </div>
-</section>
+</body>
 
 {{!-- footer --}}
 
@@ -194,19 +252,20 @@
       section{
         padding:90px 14% 70px;
       }
-      .home{
-        height: 100vh;
-        width: 100%;
-        background: url("https://media.wired.com/photos/64daad6b4a854832b16fd3bc/191:100/w_1280,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg");
-      background-size: cover;
-      background-position: fixed;
-      display:flex;
-      align-items: center;
-      justify-content: flex-start;
-      }
-      .home-text{
-        padding-top:60px;
-      }
+      .home-bg {
+  height: 100%; /* Adjust based on your layout */
+  width: 100%; /* Adjust based on your layout */
+  background-size: cover; /* Ensures the image covers the entire element */
+  background-position: center; /* Centers the background image */
+  background-repeat: no-repeat; /* Prevents the background image from repeating */
+  position: relative; /* Allows for positioning of child elements */
+}
+     .home-text {
+  position: absolute; /* Use absolute positioning to overlay text */
+  top: 4rem;
+  left: 2rem;
+  z-index: 2; /* Ensure this is above the image */
+}
       .home-text h1{
         font-size: var(--h1-font);
         color:var(--bg-color);
@@ -436,7 +495,7 @@
 </style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function() {
   var productCards = document.querySelectorAll('.product-card');
   var viewAllBtn = document.getElementById('view-all-btn');
 
@@ -448,6 +507,12 @@
     }
   }
 
+  // Initialize Bootstrap Carousel
+  var carouselElement = document.querySelector('#demo');
+  if (carouselElement) {
+    var carousel = new bootstrap.Carousel(carouselElement, {
+      interval: 4000
+    });
+  }
 });
-
 </script>

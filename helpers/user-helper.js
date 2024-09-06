@@ -328,7 +328,7 @@ changePaymentStatus:(orderId)=>{
      db.get().collection(collection.ORDER_COLLECTION).updateOne({_id:new ObjectId(orderId)},
     {
         $set:{
-            status:'placed'
+            status:'pending'
         }
     }).then(()=>{
         resolve()

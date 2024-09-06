@@ -1,122 +1,132 @@
 <section class="section">
     <div class="container">
         <div class="mt-5 pt-3 main">
-          <div class="container-fluid">
-            <div class="row">
-               <a href="/admin/add-product"  class="btn btn-success ms-auto" style="width:auto">Add Product</a>
-              <div class="col-md-12 fw-bold fs-3">
-                Dashboard
-              </div>
-              <div class="row">
-                <div class="col-md-3 mb-3">
-                  <div class="card text-white bg-primary  h-100" >
-  <div class="card-header">Header</div>
-  <div class="card-body">
-    <h5 class="card-title">Primary card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 fw-bold fs-3 mb-3">
+                        Dashboard
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                            <div class="card text-white bg-primary h-100">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Primary card title</h5>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                            <div class="card text-white bg-success h-100">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Primary card title</h5>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                            <div class="card text-white bg-warning h-100">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Primary card title</h5>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                            <div class="card text-white bg-danger h-100">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Primary card title</h5>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                 <div class="col-md-3 mb-3">
-                  <div class="card text-white bg-success h-100" >
-  <div class="card-header">Header</div>
-  <div class="card-body">
-    <h5 class="card-title">Primary card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
-                </div>
-                 <div class="col-md-3 mb-3">
-                  <div class="card text-white bg-warning h-100">
-  <div class="card-header">Header</div>
-  <div class="card-body">
-    <h5 class="card-title">Primary card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
-                </div>
-                 <div class="col-md-3 mb-3">
-                  <div class="card text-white bg-danger h-100">
-  <div class="card-header">Header</div>
-  <div class="card-body">
-    <h5 class="card-title">Primary card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
-                </div>
-              </div>
-              
             </div>
-          </div>
         </div>
 
         <section>
-    <div class="container">
-        <div class="row mt-4">
-            
-            <table class="table mt-5">
-                <thead>
-                    <tr>
-                        <th>_id</th>   
-                        <th>Name</th>                                                                    
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each user}}
-                    <tr>
-                        <td>{{this._id}}</td>
-                        <td>{{this.name}}</td>
-                        <td>{{this.email}}</td>
-                          <td>
-                        <button  class="btn btn-primary" onClick="blockUser('{{this._id}}')">Block</button>
-                        <button  class="btn btn-primary" onClick="unBlockUser('{{this._id}}')">unBlock</button>
-                    </td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-        </div>
-    </div>
-</section>
+            <div class="container">
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table mt-5">
+                                <thead>
+                                    <tr>
+                                        <th>_id</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each user}}
+                                    <tr>
+                                        <td>{{this._id}}</td>
+                                        <td>{{this.name}}</td>
+                                        <td>{{this.email}}</td>
+                                        <td>
+                                            {{#if this.isActive}}
+                                            <button class="btn btn-sm btn-danger" onClick="blockUser('{{this._id}}')">Block</button>
+                                            {{else}}
+                                            <button class="btn btn-sm btn-success" onClick="unBlockUser('{{this._id}}')">Unblock</button>
+                                            {{/if}}
+                                        </td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
 <script>
     function blockUser(userId) {
        $.ajax({
-        url:"/blockUser",
-        data:{
-            user:userId
-        },
-        method:'post',
-        success:(response=>{
-            if(response.blockUser){
-                alert("user blocked")
+        url: "/blockUser",
+        data: { user: userId },
+        method: 'post',
+        success: (response) => {
+            if (response.blockUser) {
+                alert("User blocked");
+                location.reload();
             }
-        })
-       })
+        }
+       });
     }
-    function unBlockUser(userId){
+
+    function unBlockUser(userId) {
         $.ajax({
-            url:"/unBlockUser",
-            data:{
-                user:userId
-            },
-            method:'post',
-            success:(response=>{
-                if(response.unBlockUser){
-                    alert("user unblocked")
+            url: "/unBlockUser",
+            data: { user: userId },
+            method: 'post',
+            success: (response) => {
+                if (response.unBlockUser) {
+                    alert("User unblocked");
+                    location.reload();
                 }
-            })
-        })
+            }
+        });
     }
-    
 </script>
-      
+
 <style>
-.section{
-  margin-left:var(--offcanvas-width);
+.section {
+  margin-left: var(--offcanvas-width);
 }
 
+.btn {
+  width: 6rem;
+}
+
+@media (max-width: 991px) {
+  .section {
+    margin-left: 0;
+  }
+}
 </style>
-
-
