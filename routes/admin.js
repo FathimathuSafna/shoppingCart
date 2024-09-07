@@ -4,6 +4,7 @@ var router = express.Router();
 const productHelpers = require("../helpers/product-helpers");
 const adminHelpers = require("../helpers/admin-helpers");
 const { log } = require('handlebars');
+const userHelper = require("../helpers/user-helper");
 
 const verifyLogin=(req,res,next)=>{
   if(req.session.admin){
@@ -191,9 +192,131 @@ router.post("/edit-product/:id", (req, res) => {
       image.mv("./public/images/" + id + ".png");
     }
   });
+})
+router.get('/pending-orders', async (req, res) => {
+  try {
+      // Assuming you want to fetch orders for all users or a specific set of userIds
+      const userIds = []; // Add user IDs here if needed, or leave it empty for all orders
+      
+      // Fetch all orders from the database
+      const orders = await adminHelpers.getOrders(userIds);
+      
+      // Filter orders to include only those with a status of 'pending'
+      const pendingOrders = orders.filter(order => order.status === 'pending');
+      
+      res.render('admin/pending-orders', { orders: pendingOrders });
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Server error');
+  }
+})
+router.post('/orderPlaced', (req, res) => {
+  console.log(req.body);  // Log the request body to check if orderId is received correctly
+  let orderId = req.body.orderId;  // Use the correct key to get the orderId
+  adminHelpers.orderPlaced(orderId).then((response) => {
+      res.json(response);
+  }).catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: 'Something went wrong' });
+  });
 });
-
-
-
+router.get('/placed-orders',async(req,res)=>{
+  try {
+    // Assuming you want to fetch orders for all users or a specific set of userIds
+    const userIds = []; // Add user IDs here if needed, or leave it empty for all orders
+    
+    // Fetch all orders from the database
+    const orders = await adminHelpers.getOrders(userIds);
+    
+    // Filter orders to include only those with a status of 'pending'
+    const placedOrders = orders.filter(order => order.status === 'placed');
+    
+    res.render('admin/placed-orders', { orders: placedOrders });
+} catch (error) {
+    console.error(error);
+    res.status(500).send('Server error');
+}
+})
+router.post('/inProgress', (req, res) => {
+  console.log(req.body);  // Log the request body to check if orderId is received correctly
+  let orderId = req.body.orderId;  // Use the correct key to get the orderId
+  adminHelpers.orderProgress(orderId).then((response) => {
+      res.json(response);
+  }).catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: 'Something went wrong' });
+  });
+})
+router.get('/in-progress-orders',async(req,res)=>{
+  try {
+    // Assuming you want to fetch orders for all users or a specific set of userIds
+    const userIds = []; // Add user IDs here if needed, or leave it empty for all orders
+    
+    // Fetch all orders from the database
+    const orders = await adminHelpers.getOrders(userIds);
+    
+    // Filter orders to include only those with a status of 'pending'
+    const placedOrders = orders.filter(order => order.status === 'inProgress');
+    
+    res.render('admin/in-progress-orders', { orders: placedOrders });
+} catch (error) {
+    console.error(error);
+    res.status(500).send('Server error');
+}
+})
+router.post('/delivered', (req, res) => {
+  console.log(req.body);  // Log the request body to check if orderId is received correctly
+  let orderId = req.body.orderId;  // Use the correct key to get the orderId
+  adminHelpers.deliveredOrder(orderId).then((response) => {
+      res.json(response);
+  }).catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: 'Something went wrong' });
+  });
+})
+router.get('/delivered-orders',async(req,res)=>{
+  try {
+    // Assuming you want to fetch orders for all users or a specific set of userIds
+    const userIds = []; // Add user IDs here if needed, or leave it empty for all orders
+    
+    // Fetch all orders from the database
+    const orders = await adminHelpers.getOrders(userIds);
+    
+    // Filter orders to include only those with a status of 'pending'
+    const placedOrders = orders.filter(order => order.status === 'delivered');
+    
+    res.render('admin/delivered-orders', { orders: placedOrders });
+} catch (error) {
+    console.error(error);
+    res.status(500).send('Server error');
+}
+})
+router.post('/cancel', (req, res) => {
+  console.log(req.body);  // Log the request body to check if orderId is received correctly
+  let orderId = req.body.orderId;  // Use the correct key to get the orderId
+  adminHelpers.cancelled(orderId).then((response) => {
+      res.json(response);
+  }).catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: 'Something went wrong' });
+  });
+})
+router.get('/cancelled-orders',async(req,res)=>{
+  try {
+    // Assuming you want to fetch orders for all users or a specific set of userIds
+    const userIds = []; // Add user IDs here if needed, or leave it empty for all orders
+    
+    // Fetch all orders from the database
+    const orders = await adminHelpers.getOrders(userIds);
+    
+    // Filter orders to include only those with a status of 'pending'
+    const placedOrders = orders.filter(order => order.status === 'cancelled');
+    
+    res.render('admin/cancelled-orders', { orders: placedOrders });
+} catch (error) {
+    console.error(error);
+    res.status(500).send('Server error');
+}
+})
 
 module.exports = router;

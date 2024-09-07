@@ -15,22 +15,27 @@ const verifyLogin=(req,res,next)=>{
 }
 
 /* GET home page. */
-router.get('/',async function(req, res, next) {
+router.get('/', async function(req, res, next) {
+  let user = req.session.user;
+  let cartCount = null;
 
-  let user=req.session.user
-  console.log(user)
-  let cartCount=null
-  if(req.session.user){
-    cartCount=await userHelpers.getCartCount(req.session.user._id)
+  if (req.session.user) {
+    cartCount = await userHelpers.getCartCount(req.session.user._id);
   }
-  let advertisment=await productHelpers.viewAdds(req.body)
-  productHelpers.getAllProducts().then((products)=>{
-      res.render('user/view-products',{admin:false,products,user,advertisment,cartCount,showHeader:true})
-    
-    
-    })
-  // res.render('index', {products,admin:false});
+
+  let advertisment = await productHelpers.viewAdds(req.body);
+
+  // Limit the number of advertisements to 3
+  if (advertisment.length > 3) {
+    advertisment = advertisment.slice(0, 3);
+  }
+
+  productHelpers.getAllProducts().then((products) => {
+    res.render('user/view-products', { admin: false,products,user,advertisment,cartCount,showHeader: true
+    });
+  });
 });
+
 
 router.get('/view-all-products', async function(req,res){
   let user=req.session.user
@@ -149,15 +154,35 @@ router.post('/signup', (req, res) => {
   router.get('/order-success',(req,res)=>{
     res.render('user/order-success',{user:req.session.user._id});
   })
-  router.get('/orders',verifyLogin, async (req, res) => {    
-    let orders = await userHelpers.getUserOrders(req.session.user._id);
-    console.log("*************************")
-    console.log(orders)
-    let cartCount=null
-  if(req.session.user){
-    cartCount=await userHelpers.getCartCount(req.session.user._id)
-  }
-    res.render('user/orders', { user: req.session.user._id,cartCount, orders,showHeader:true});
+  router.get('/orders', verifyLogin, async (req, res) => {    
+    try {
+        // Fetch user-specific orders from the database
+        let orders = await userHelpers.getUserOrders(req.session.user._id);
+        
+        // Filter out orders that have been cancelled
+        const placedOrders = orders.filter(order => order.status !== 'cancelled');
+
+        // Log the filtered orders for debugging
+        console.log("*************************");
+        console.log(placedOrders);
+        
+        let cartCount = null;
+        if (req.session.user) {
+            cartCount = await userHelpers.getCartCount(req.session.user._id);
+        }
+        
+        // Render the orders page with the filtered orders
+        res.render('user/orders', {  
+            order: placedOrders,
+            user: req.session.user._id,
+            cartCount, 
+            orders: placedOrders, // Passing the filtered orders for rendering
+            showHeader: true
+        });
+    } catch (error) {
+        console.error('Error fetching user orders:', error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
   router.get('/view-order-products/:id', async (req, res) => {

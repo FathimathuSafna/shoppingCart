@@ -244,7 +244,7 @@ module.exports={
             paymentMethod:order['payment-method'],
              products:products,
             totalAmount:total,
-            status:status,
+            status:'pending',
             date:new Date()
          }
          db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((response)=>{
@@ -328,7 +328,7 @@ changePaymentStatus:(orderId)=>{
      db.get().collection(collection.ORDER_COLLECTION).updateOne({_id:new ObjectId(orderId)},
     {
         $set:{
-            status:'pending'
+            status:'placed'
         }
     }).then(()=>{
         resolve()
