@@ -60,7 +60,7 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <h5 class="card-title">Cart Summary</h5>
-                        <p>Total RS: {{totalValue}}</p>
+                        <p>Total RS:<span id="total"> {{totalValue}}</span></p>
                         <hr>
                         <p class="text-muted small">Confirm your order</p>
                         <div class="text-center">
@@ -140,11 +140,10 @@
         method:'post',
         success:(response)=>{
             if(response.removeProduct){
-            alert("Product Removed from cart")
             location.reload()
             }else{
                 document.getElementById(prodId).innerHTML=quantity+count
-                document.getElementById('total').innerHTML=response.total         
+                document.getElementById("total").innerHTML=response.total         
             }
         }
     })
@@ -163,7 +162,7 @@
         method:'post',
         success:(response)=>{
             if(response.removeProduct){
-            alert("Product Removed from cart")
+            ("Product Removed from cart")
             location.reload()
             
             }

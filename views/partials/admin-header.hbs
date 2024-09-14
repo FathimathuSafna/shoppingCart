@@ -9,12 +9,12 @@
 </head>
 <body>
   {{#if admin}}
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <nav class=" col-12 navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
       <button class="navbar-toggler me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand fw-bold text-uppercase me-auto" href="#">SHOPPING-CART (Admin)</a>
+      <a class="navbar-brand fw-bold text-uppercase me-auto" href="#">Volt-Cart(Admin)</a>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <form class="form-inline my-2 my-lg-0 ms-auto">
@@ -32,7 +32,6 @@
               {{admins.name}}
               {{else}}<i class="ri-user-fill"></i>{{/if}}
             </a>
-
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               {{#if admins}}
               <a class="dropdown-item" href="#">Logout</a>
@@ -55,122 +54,57 @@
             <div class="text-muted small fw-bold text-uppercase px-3"> CORE </div>
           </li>
           <li>
-            <a href="#" class="nav-link px-3 active">
-              <span class="me-2">
-                <i class="ri-dashboard-3-line"></i>
-              </span>
-              <span>Dashboard</span>
+            <a href="/admin" class="nav-link px-3 active">
+              <span class="me-2"><i class="ri-dashboard-3-line"></i></span>
+              <span>User Management</span>
             </a>
           </li>
-          <li class="my-4">
-            <hr class="dropdown-divider"/>
-          </li>
+          <li class="my-4"><hr class="dropdown-divider"/></li>
           <li>
             <div class="text-muted small fw-bold text-uppercase px-3"> Interface </div>
           </li>
           <li>
             <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#collapseSiteManagement" role="button" aria-expanded="false" aria-controls="collapseSiteManagement">
-              <span class="me-2">
-                <i class="ri-layout-column-line"></i>
-              </span>
+              <span class="me-2"><i class="ri-layout-column-line"></i></span>
               <span>Site Management</span>
               <span class="right-icon ms-auto"><i class="ri-arrow-drop-down-line"></i></span>
             </a>
             <div class="collapse" id="collapseSiteManagement">
               <ul class="navbar-nav ps-3">
-                <li>
-                  <a href="/admin/view-admin-product" class="nav-link px-3">
-                    <span class="me-2">
-                      <i class="ri-layout-column-line"></i>
-                    </span>
-                    <span>Manage Products</span>
-                  </a>
-                </li>
+                <li><a href="/admin/view-admin-product" class="nav-link px-3"><i class="ri-layout-column-line me-2"></i> Manage Products</a></li>
               </ul>
             </div>
           </li>
 
+          <!-- Manage Ads Section -->
           <li>
             <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#collapseManageAds" role="button" aria-expanded="false" aria-controls="collapseManageAds">
-              <span class="me-2">
-                <i class="ri-layout-column-line"></i>
-              </span>
+              <span class="me-2"><i class="ri-layout-column-line"></i></span>
               <span>Manage Ads</span>
               <span class="right-icon ms-auto"><i class="ri-arrow-drop-down-line"></i></span>
             </a>
             <div class="collapse" id="collapseManageAds">
               <ul class="navbar-nav ps-3">
-                <li>
-                  <a href="/admin/addPage" class="nav-link px-3">
-                    <span class="me-2">
-                      <i class="ri-layout-column-line"></i>
-                    </span>
-                    <span>Add Ads</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="/admin/showAdd" class="nav-link px-3">
-                    <span class="me-2">
-                      <i class="ri-layout-column-line"></i>
-                    </span>
-                    <span>View Ads</span>
-                  </a>
-                </li>
+                <li><a href="/admin/addPage" class="nav-link px-3"><i class="ri-layout-column-line me-2"></i> Add Ads</a></li>
+                <li><a href="/admin/showAdd" class="nav-link px-3"><i class="ri-layout-column-line me-2"></i> View Ads</a></li>
               </ul>
             </div>
           </li>
 
-          <!-- New section for Manage Orders -->
+          <!-- Manage Orders Section -->
           <li>
             <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#collapseManageOrders" role="button" aria-expanded="false" aria-controls="collapseManageOrders">
-              <span class="me-2">
-                <i class="ri-layout-column-line"></i>
-              </span>
+              <span class="me-2"><i class="ri-layout-column-line"></i></span>
               <span>Manage Orders</span>
               <span class="right-icon ms-auto"><i class="ri-arrow-drop-down-line"></i></span>
             </a>
             <div class="collapse" id="collapseManageOrders">
               <ul class="navbar-nav ps-3">
-                <li>
-                  <a href="/admin/pending-orders" class="nav-link px-3">
-                    <span class="me-2">
-                      <i class="ri-layout-column-line"></i>
-                    </span>
-                    <span>Pending Orders</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="/admin/placed-orders" class="nav-link px-3">
-                    <span class="me-2">
-                      <i class="ri-layout-column-line"></i>
-                    </span>
-                    <span>Placed Orders</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="/admin/in-progress-orders" class="nav-link px-3">
-                    <span class="me-2">
-                      <i class="ri-layout-column-line"></i>
-                    </span>
-                    <span>In-Progress Orders</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="/admin/delivered-orders" class="nav-link px-3">
-                    <span class="me-2">
-                      <i class="ri-layout-column-line"></i>
-                    </span>
-                    <span>Delivered Orders</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="/admin/cancelled-orders" class="nav-link px-3">
-                    <span class="me-2">
-                      <i class="ri-layout-column-line"></i>
-                    </span>
-                    <span>Cancelled Orders</span>
-                  </a>
-                </li>
+                <li><a href="/admin/pending-orders" class="nav-link px-3"><i class="ri-layout-column-line me-2"></i> Pending Orders</a></li>
+                <li><a href="/admin/placed-orders" class="nav-link px-3"><i class="ri-layout-column-line me-2"></i> Placed Orders</a></li>
+                <li><a href="/admin/in-progress-orders" class="nav-link px-3"><i class="ri-layout-column-line me-2"></i> In-Progress Orders</a></li>
+                <li><a href="/admin/delivered-orders" class="nav-link px-3"><i class="ri-layout-column-line me-2"></i> Delivered Orders</a></li>
+                <li><a href="/admin/cancelled-orders" class="nav-link px-3"><i class="ri-layout-column-line me-2"></i> Cancelled Orders</a></li>
               </ul>
             </div>
           </li>
@@ -188,8 +122,10 @@
     --topNavbarHeight: 56px;
   }
 
+  /* Responsive Styles */
   .sidebar-nav {
     width: var(--offcanvas-width);
+    margin-right: 3rem;
   }
   .sidebar-link {
     display: flex;
@@ -209,6 +145,28 @@
       visibility: visible !important;
       top: var(--topNavbarHeight);
       height: calc(100% - var(--topNavbarHeight));
+    }
+  }
+
+  /* Adjusting the width of the sidebar for smaller devices */
+  @media (max-width: 768px) {
+    .sidebar-nav {
+      width: 230px;
+    }
+    .navbar-brand {
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .sidebar-nav {
+      width: 200px;
+    }
+    .navbar-toggler {
+      margin-right: auto;
+    }
+    .navbar-brand {
+      font-size: 0.8rem;
     }
   }
 </style>

@@ -28,7 +28,7 @@
                             <a href="/view-order-products/{{this._id}}" class="btn btn-primary btn-sm w-100">View Products</a>
                         </td>
                         <td>
-                            <button class="btn btn-warning btn-sm w-100" onClick="cancelled('{{this._id}}')">Cancel Order</button>
+                            <button class="btn btn-warning btn-sm w-100" onClick="cancelOrder('{{this._id}}')">Cancel Order</button>
                         </td>
                     </tr>
                     {{/each}}
@@ -47,7 +47,7 @@
         return;
     }
 
-    alert('Cancel button clicked!');
+   
 
     $.ajax({
         url: '/admin/cancel',
@@ -57,15 +57,12 @@
             console.log('Response from server:', response);
 
             if (response.cancelled) {
-                alert('Order cancelled successfully.');
                 location.reload();
             } else {
-                alert('Failed to cancel order.');
             }
         },
         error: function(err) {
             console.error('Error cancelling order:', err);
-            alert('Something went wrong!');
         }
     });
 }

@@ -1,171 +1,195 @@
-{{!-- 
-<body>
-    {{#if showHeader}}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/">Shopping Cart</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
-    aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="path/to/bootstrap.min.css"> <!-- Ensure Bootstrap CSS is included -->
+  <link rel="stylesheet" href="path/to/icons.css"> <!-- Ensure icon styles are included -->
+  <title>Volt-Cart</title>
+  <style>
+    body {
+      background: var(--bg-color);
+      color: var(--text-color);
+      padding-bottom: 80px;
+      padding-top: 80px;
+    }
 
-  <div class="collapse navbar-collapse justify-content-between" id="navbarTogglerDemo02">
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item active">
-        <a class="nav-link" href="/">Products</a>
-      </li>
+    nav {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      z-index: 10000;
+      background: var(--bg-color);
+      box-shadow: 0 1px 6px 0 rgb(32 33 36 / 5%);
+      padding: 18px 14%;
+      align-items: center;
+      justify-content: space-between;
+      transition: all .6s;
+    }
+
+    .navbar-nav {
+      flex: 1; /* Allows centering by taking up remaining space */
+    }
+
+    .navlist {
+      display: flex;
+      justify-content: center; /* Centers nav items */
+      gap: 15px;
+    }
+
+    .navlist a {
+      display: inline-block;
+      margin: 0;
+      font-size: var(--p-font);
+      font-weight: 500;
+      color: var(--text-color);
+      transition: all .6s;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: var(--text-color);
+    }
+
+    .logo:hover, .logo:focus {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .navlist a:hover {
+      transform: translate(-4px);
+      color: var(--second-color);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-right a {
+      display: inline-block;
+      font-size: 22px;
+      color: var(--text-color);
+      transition: all .6s;
+    }
+
+    .nav-right a:hover {
+      transform: translate(-5px) scale(1.1);
+    }
+
+    #menu-icon {
+      font-size: 35px;
+      color: var(--text-color);
+      cursor: pointer;
+    }
+
+    .dropdown-menu .dropdown-item {
+      font-size: 18px;
+    }
+
+    @media (max-width: 991px) {
+      nav {
+        padding: 18px 5%;
+      }
+
+      .navlist {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+      }
+
+      .navlist a {
+        margin: 10px 0;
+      }
+
+      .nav-right {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+      }
       
-      <li class="nav-item">
-        <a class="nav-link" href="/cart">Cart <span class="badge bg-success" id="cart-count">{{cartCount}}</span></a>
-      </li>
-      {{#if user}}
-      <li class="nav-item">
-        <a class="nav-link" href="/orders">Orders</a>
-      </li>
-      {{/if}}
-    </ul>
-    
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-   {{#if user}}
-   {{user.name}}
-   {{else}}
-   Account
-   {{/if}}
-   
-  </button>
-  <ul class="dropdown-menu">
-    {{#if user}}
-         <li><a class="dropdown-item" href="/logout">Logout</a></li>
+      .nav-right a {
+        margin: 5px 0;
+      }
+    }
+    .logo {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern, clean font */
+      font-size: 2rem; /* Larger size for better visibility */
+      font-weight: 600; /* Semi-bold for prominence */
+      color: #212529; /* Dark color for contrast */
+      text-transform: uppercase; /* Clean, standard look */
+      letter-spacing: 1.5px; /* Slightly increased spacing */
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+      transition: color 0.3s ease, text-shadow 0.3s ease; /* Smooth transition for hover effect */
+    }
 
-   {{else}}
-       <li><a class="dropdown-item" href="/login">Login</a></li>
-
-   {{/if}}
-   
-    
-  </ul>
-</div>
-    
-  </div>
-</nav>
- {{/if}}
-
-  </body> --}}
+    .logo:hover {
+      color: #0056b3; /* Bootstrap primary color for hover effect */
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+      text-decoration: none; /* Ensure no underline */
+      
+  </style>
+</head>
 <body>
   {{#if showHeader}}
-      <header class=" d-flex justify-content-between align-items-center p-3" >
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <a href="/" class="navbar-brand logo">Volt-Cart</a>
 
-    <a href="/" class="logo text-decoration-none">Shopping-Cart</a>
-
-    <div class="navlist d-flex justify-content-center">
-      <a href="/view-all-products">products</a>
-      <a href="/cart">Cart<span class="badge bg-success" id="cart-count">{{cartCount}}</span></a>
-      {{#if user}}
-      <a href="/orders">orders</a>
-      {{/if}}
-    </div>
-
-   <div class="nav-right d-flex justify-content-end">
-  <a href="#"><i class="ri-search-line"></i></a>
-  <a href="/cart"><i class="ri-shopping-cart-line"></i></a>
- {{#unless user}}
-    <a href="#"><i class="ri-user-line"></i></a>
-  {{/unless}}
-
-  <div class="dropdown" id="menu-icon">
-    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-      {{#if user}}
-        {{user.name}}
-      {{else}}
-        Account
-      {{/if}}
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
     </button>
-    <ul class="dropdown-menu">
-      {{#if user}}
-        <li><a class="dropdown-item" href="/logout">Logout</a></li>
-      {{else}}
-        <li><a class="dropdown-item" href="/login">Login</a></li>
-      {{/if}}
-    </ul>
-  </div>
-</div>
 
-  </header>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav navlist">
+        <li class="nav-item">
+          <a class="nav-link" href="/view-all-products">Products</a>
+        </li>
+        {{#if user}}
+        <li class="nav-item">
+          <a class="nav-link" href="/orders">Orders</a>
+        </li>
+        {{/if}}
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Terms & Conditions</a>
+        </li>
+      </ul>
+
+      <div class="d-flex align-items-center nav-right" >
+        <a href="#"><i class="ri-search-line "></i></a>
+        <a href="/cart">
+          <i class="ri-shopping-cart-line" style="padding-left: 0.2rem;"></i>
+          <sup><span class="badge bg-success" id="cart-count">{{cartCount}}</span></sup>
+        </a>
+        {{#unless user}}
+        <a href="#"><i class="ri-user-line"></i></a>
+        {{/unless}}
+
+        <div class="dropdown ms-3" id="menu-icon">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{#if user}}
+              {{user.name}}
+            {{else}}
+              Account
+            {{/if}}
+          </button>
+          <ul class="dropdown-menu">
+            {{#if user}}
+              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            {{else}}
+              <li><a class="dropdown-item" href="/login">Login</a></li>
+            {{/if}}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
   {{/if}}
-  </body>
-<style>
-   body{
-        background:var(--bg-color);
-        color:var(--text-color);
-        padding-bottom: 80px;
-        padding-top: 80px; 
-      }
-
-      header{
-        position:fixed;
-        top:0;
-        right:0;
-        width:100%;
-        z-index:10000;
-        background: var(--bg-color);
-        box-shadow:0 1px 6px 0 rgb(32 33 36/5%);
-        padding: 18px 14%;
-        align-items:center;
-        justify-content:space-between ;
-        transition:all .6s;
-
-      }
-      .navlist{
-        display: flex;
-        
-      }
-      .navlist a{
-        display:inline-block;
-        margin:0 30px;
-        font-size: var(--p font);
-        font-weight: 500;
-        color:var(--text-color);
-        transition:all .6s;
-      }
-      .logo{
-        font-size: 1.5rem;
-        font-weight: bold;
-        text-transform: uppercase;
-        color:var(--text-color)
-      }
-      .logo:hover, .logo:focus {
-      color: inherit; /* Maintain the same color on hover/focus */
-      text-decoration: none; /* Ensure underline is removed on hover/focus */
-    }
-      .navlist a:hover{
-        transform:translate(-4px);
-        color:var(--second-color);
-      }
-
-      .nav-right{
-        display:flex;
-        align-items:center;
-      }
-      .nav-right a{
-        display:inline-block;
-        font-size: 22px;
-        color:var(--text-color);
-        margin:0 20px;
-        transition: all .6s;
-      }
-      .nav-right a:hover{
-        transform:translate(-5px) scale(1.1);
-      }
-
-      #menu-icon{
-        font-size:35px;
-        color:var(--text-color);
-        z-index:100;
-        margin-left:10px;
-        cursor:pointer;
-       
-      }
-      .dropdown-menu .dropdown-item {
-  font-size: 18px; /* Adjust the size as needed */
-}
-</style>
+</body>
+</html>

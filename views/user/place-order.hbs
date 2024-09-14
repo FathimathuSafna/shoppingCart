@@ -66,7 +66,6 @@
             method: 'post',
             data: $('#checkout-form').serialize(),
             success: (response) => {
-                alert(response);
                 if (response.codSuccess) {
                     location.href = '/order-success';
                 } else {
@@ -116,7 +115,15 @@
                 if (response.status) {
                     location.href = '/order-success';
                 } else {
-                    alert("Payment failed");
+                    Swal.fire({
+  title: "Payment failed",
+  timer: 50000, // 50 seconds
+  timerProgressBar: true,
+  icon: 'warning',
+  showConfirmButton: false,
+  
+});
+
                 }
             }
         });
@@ -128,14 +135,15 @@
         width: 20px;
         height: 20px;
         padding-left: 1rem;
-        padding-right: 1rem;
+        margin-right: 2rem;
+       
     }
 
     label.radio-inline {
         display: flex;
-        align-items: center;
+         margin-left: 2rem;
     }
-
+   
     .checkout {
         border: 1px solid;
         border-radius: 3px;

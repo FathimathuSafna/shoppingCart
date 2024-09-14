@@ -93,7 +93,15 @@
         method: 'post',
         success: (response) => {
             if (response.blockUser) {
-                alert("User blocked");
+           Swal.fire({
+  title: "User Blocked",
+  timer: 100000, // 50 seconds
+  timerProgressBar: true,
+  icon: 'warning',
+  showConfirmButton: false,
+  
+});
+ 
                 location.reload();
             }
         }
@@ -107,7 +115,14 @@
             method: 'post',
             success: (response) => {
                 if (response.unBlockUser) {
-                    alert("User unblocked");
+                       Swal.fire({
+  title: "User UnBlocked",
+  timer: 100000, // 50 seconds
+  timerProgressBar: true,
+  icon: 'warning',
+  showConfirmButton: false,
+  
+});
                     location.reload();
                 }
             }

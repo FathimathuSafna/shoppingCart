@@ -65,7 +65,8 @@ if(response.status === 'active'){
  })
   })
   router.get('/addPage',(req,res)=>{
-    res.render("admin/addPage",{admin:true})
+    let admins=req.session.admin
+    res.render("admin/addPage",{admin:true,admins})
   })    
     router.post('/addPage', (req, res) => {
     console.log("#############################");
@@ -85,17 +86,17 @@ if(response.status === 'active'){
 })
 
 router.get('/showAdd',async function(req,res){
+  let admins=req.session.admin
   let advertisment=await productHelpers.viewAdds(req.body)
-  const ads = await productHelpers.viewAdds(); // Assuming viewAdds fetches the ads from the database
-  const adCount = ads.length;
-  res.render('admin/showAdd',{advertisment,admin:true,adCount: adCount})
+  res.render('admin/showAdd',{advertisment,admin:true,admins})
   
 })
 // Route to display the edit form
 router.get('/editAdd/:id', async (req, res) => {
   try {
+    let admins=req.session.admin
       let product = await productHelpers.viewExistingAdd(req.params.id);
-      res.render('admin/editAdd', { product, admin: true });
+      res.render('admin/editAdd', { product, admin: true ,admins});
   } catch (err) {
       console.error('Error fetching product:', err);
       res.redirect('/admin'); // Redirect to the admin page if there's an error
@@ -129,9 +130,10 @@ router.post("/editAdd/:id", (req, res) => {
  
   
 router.get("/view-admin-product",(req,res)=>{
+  let admins=req.session.admin
   productHelpers.getAllProducts().then((products) => {
     console.log(products)
-  res.render("admin/view-adminproducts",{products,admin:true})
+  res.render("admin/view-adminproducts",{products,admin:true,admins})
 })
 })
 
@@ -147,7 +149,8 @@ router.get("/view-admin-product",(req,res)=>{
 // })
 
 router.get("/add-product", (req, res) => {
-  res.render("admin/add-product");
+  let admins=req.session.admin
+  res.render("admin/add-product",{admin:true});
 });
 
 router.post("/add-product", (req, res) => {
@@ -178,10 +181,11 @@ router.get("/deleteAdd/:id", (req, res) => {
   });
 });
 router.get("/edit-product/:id", async (req, res) => {
+  let admins=req.session.admin
   let product = await productHelpers.getProductDetails(req.params.id);
   console.log(product);
-  res.render("admin/edit-product", { product });
-});
+  res.render("admin/edit-product", { product ,admin:true});
+})
 
 router.post("/edit-product/:id", (req, res) => {
   let id = req.params.id;
@@ -195,6 +199,7 @@ router.post("/edit-product/:id", (req, res) => {
 })
 router.get('/pending-orders', async (req, res) => {
   try {
+    let admins=req.session.admin
       // Assuming you want to fetch orders for all users or a specific set of userIds
       const userIds = []; // Add user IDs here if needed, or leave it empty for all orders
       
@@ -204,7 +209,7 @@ router.get('/pending-orders', async (req, res) => {
       // Filter orders to include only those with a status of 'pending'
       const pendingOrders = orders.filter(order => order.status === 'pending');
       
-      res.render('admin/pending-orders', { orders: pendingOrders });
+      res.render('admin/pending-orders', { orders: pendingOrders ,admin:true,admins});
   } catch (error) {
       console.error(error);
       res.status(500).send('Server error');
@@ -222,6 +227,7 @@ router.post('/orderPlaced', (req, res) => {
 });
 router.get('/placed-orders',async(req,res)=>{
   try {
+    let admins=req.session.admin
     // Assuming you want to fetch orders for all users or a specific set of userIds
     const userIds = []; // Add user IDs here if needed, or leave it empty for all orders
     
@@ -231,7 +237,7 @@ router.get('/placed-orders',async(req,res)=>{
     // Filter orders to include only those with a status of 'pending'
     const placedOrders = orders.filter(order => order.status === 'placed');
     
-    res.render('admin/placed-orders', { orders: placedOrders });
+    res.render('admin/placed-orders', { orders: placedOrders,admin:true,admins });
 } catch (error) {
     console.error(error);
     res.status(500).send('Server error');
@@ -249,6 +255,7 @@ router.post('/inProgress', (req, res) => {
 })
 router.get('/in-progress-orders',async(req,res)=>{
   try {
+    let admins=req.session.admin
     // Assuming you want to fetch orders for all users or a specific set of userIds
     const userIds = []; // Add user IDs here if needed, or leave it empty for all orders
     
@@ -258,7 +265,7 @@ router.get('/in-progress-orders',async(req,res)=>{
     // Filter orders to include only those with a status of 'pending'
     const placedOrders = orders.filter(order => order.status === 'inProgress');
     
-    res.render('admin/in-progress-orders', { orders: placedOrders });
+    res.render('admin/in-progress-orders', { orders: placedOrders,admin:true,admins });
 } catch (error) {
     console.error(error);
     res.status(500).send('Server error');
@@ -276,6 +283,7 @@ router.post('/delivered', (req, res) => {
 })
 router.get('/delivered-orders',async(req,res)=>{
   try {
+    let admins=req.session.admin
     // Assuming you want to fetch orders for all users or a specific set of userIds
     const userIds = []; // Add user IDs here if needed, or leave it empty for all orders
     
@@ -285,7 +293,7 @@ router.get('/delivered-orders',async(req,res)=>{
     // Filter orders to include only those with a status of 'pending'
     const placedOrders = orders.filter(order => order.status === 'delivered');
     
-    res.render('admin/delivered-orders', { orders: placedOrders });
+    res.render('admin/delivered-orders', { orders: placedOrders ,admin:true,admins});
 } catch (error) {
     console.error(error);
     res.status(500).send('Server error');
@@ -303,6 +311,7 @@ router.post('/cancel', (req, res) => {
 })
 router.get('/cancelled-orders',async(req,res)=>{
   try {
+    let admins=req.session.admin
     // Assuming you want to fetch orders for all users or a specific set of userIds
     const userIds = []; // Add user IDs here if needed, or leave it empty for all orders
     
@@ -312,7 +321,7 @@ router.get('/cancelled-orders',async(req,res)=>{
     // Filter orders to include only those with a status of 'pending'
     const placedOrders = orders.filter(order => order.status === 'cancelled');
     
-    res.render('admin/cancelled-orders', { orders: placedOrders });
+    res.render('admin/cancelled-orders', { orders: placedOrders,admin:true ,admins});
 } catch (error) {
     console.error(error);
     res.status(500).send('Server error');

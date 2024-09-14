@@ -20,6 +20,7 @@
     "morgan": "~1.9.1",
     "nodemon": "^3.1.0",
     "razorpay": "^2.9.4",
+    "sweetalert2": "^11.14.0",
     "zooming": "^2.1.1"
   }
 }

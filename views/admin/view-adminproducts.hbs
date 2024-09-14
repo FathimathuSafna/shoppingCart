@@ -1,171 +1,122 @@
-<div class="container" style="margin-top: 70px;">
-    <div class="table">
-        <div class="table_header ">
-            <p>Product Details</p>
-            <div>
-                <input id="searchInput" placeholder="Search for a product..." onkeyup="filterProducts()">
-                <a href="/admin/add-product" class="add_new ">Add New +</a>
-            </div>
-        </div>
-        <div class="table_section">
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Category</th>
-                            <th scope="col">Description</th>
-                            <th>Image</th>
-                            <th>Options</th>
-                        </tr>
-                    </thead>
-                    <tbody id="productTable">
-                        {{#each products}}
-                        <tr>
-                            <th scope="row">{{@index}}</th>
-                            <td>{{this.name}}</td>
-                            <td>{{this.category}}</td>
-                            <td>{{this.description}}</td>
-                            <td><img style="width:50px;height:50px" src='/images/{{this._id}}.png' alt=''></td>
-                            <td>
-                                <a href="/admin/edit-product/{{this._id}}" class="btn btn-primary">Edit</a>
-                                <a href="/admin/delete-product/{{this._id}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete {{this.name}}?')">Delete</a>
-                            </td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<div class="container">
+  <div class="table">
+    <div class="table_header">
+      <p>Product Details</p>
+      <div class="header_right">
+        <input id="searchInput" placeholder="Search for a product..." onkeyup="filterProducts()">
+        <a href="/admin/add-product" class="add_new">Add New +</a>
+      </div>
     </div>
+    <div class="table_section">
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">Title</th>
+              <th scope="col">Category</th>
+              <th scope="col">Description</th>
+              <th>Image</th>
+              <th>Options</th>
+            </tr>
+          </thead>
+          <tbody id="productTable">
+            {{#each products}}
+            <tr>
+              <th scope="row">{{@index}}</th>
+              <td>{{this.name}}</td>
+              <td>{{this.category}}</td>
+              <td>{{this.description}}</td>
+              <td><img style="width:50px;height:50px" src='/images/{{this._id}}.png' alt=''></td>
+              <td>
+                <a href="/admin/edit-product/{{this._id}}" class="btn btn-primary">Edit</a>
+                <a href="/admin/delete-product/{{this._id}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete {{this.name}}?')">Delete</a>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
 
-<script>
-    function filterProducts() {
-        // Get the search input value
-        const input = document.getElementById('searchInput');
-        const filter = input.value.toLowerCase();
-        const table = document.getElementById('productTable');
-        const rows = table.getElementsByTagName('tr');
-
-        // Loop through all table rows, and hide those who don't match the search query
-        for (let i = 0; i < rows.length; i++) {
-            const title = rows[i].getElementsByTagName('td')[0];
-            const category = rows[i].getElementsByTagName('td')[1];
-            const description = rows[i].getElementsByTagName('td')[2];
-            if (title || category || description) {
-                const textValue = (title.textContent || title.innerText) +
-                                  (category.textContent || category.innerText) +
-                                  (description.textContent || description.innerText);
-                if (textValue.toLowerCase().indexOf(filter) > -1) {
-                    rows[i].style.display = '';
-                } else {
-                    rows[i].style.display = 'none';
-                }
-            }       
-        }
-    }
-</script>
-
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Poppins', sans-serif;
-        overflow: auto;
-        margin-left: var(--offcanvas-width);
-    }
-
-    .table_header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px;
-        background-color: rgb(240, 240, 240);
-    }
-
-    .table_header p {
-        color: black;
-    }
-
-    button {
-        outline: none;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-    }
-
-    .table_header .add_new {
-        padding: 10px 20px;
-        color: #ffffff;
-        background-color: #0298cf;
-        text-decoration: none;
-    }
-
-    .table_header .add_new:hover {
-        background-color: #027abf;
-    }
-
-    input {
-        padding: 10px 20px;
-        margin: 0 10px;
-        outline: none;
-        border: 1px solid #0298cf;
-        border-radius: 6px;
-        color: #0298cf;
-    }
-
-    ::placeholder {
-        color: #0298cf;
-    }
-
     .container {
-        margin-top: 70px;
-        padding: 20px;
-    }
+    margin-top: 70px;
+    padding: 20px;
+    margin-left: var(--offcanvas-width); /* Default margin to avoid sidebar overlap */
+    transition: margin-left 0.3s ease; /* Smooth transition for sidebar toggle */
+}
 
-    .table_section {
-        margin-top: 20px;
+/* Ensure full-width table when sidebar is collapsed or on smaller screens */
+@media (max-width: 992px) {
+    .container {
+        margin-left: 0; /* Remove margin when sidebar is collapsed */
     }
+}
 
-    .table-responsive {
-        overflow-x: auto;
+/* Make the table fully responsive */
+.table-responsive {
+    overflow-x: auto; /* Allow horizontal scrolling if the table overflows */
+}
+
+/* Reduce table padding and adjust layout for smaller screens */
+@media (max-width: 768px) {
+    .table_section table th, .table_section table td {
+        padding: 8px; /* Reduced padding */
     }
 
     .table_section table {
+        width: 100%; /* Ensure table takes full width */
+        font-size: 14px; /* Slightly smaller font for mobile */
+    }
+}
+
+/* Even smaller screens - reduce image size */
+@media (max-width: 576px) {
+    .table_section table img {
+        width: 30px;
+        height: 30px; /* Smaller images */
+    }
+
+    /* Stack the search and add new button vertically */
+    .table_header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .table_header input {
+        width: 100%; /* Full width input */
+        margin-bottom: 10px; /* Add margin below the input */
+    }
+
+    .table_header .add_new {
         width: 100%;
-        border-collapse: collapse;
+        text-align: center; /* Center the button */
     }
+}
 
-    .table_section table th, .table_section table td {
-        padding: 12px;
-        border: 1px solid #ddd;
-        text-align: left;
-    }
-
-    @media (max-width: 768px) {
-        .table_section table th, .table_section table td {
-            padding: 8px;
-        }
-
-        .table_header input {
-            width: 100%;
-        }
-    }
-
-    @media (max-width: 576px) {
-        .table_header {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .table_header .add_new {
-            margin-top: 10px;
-        }
-    }
 </style>
+<script>
+function filterProducts() {
+  // Get the search input value and convert it to lowercase
+  let searchValue = document.getElementById("searchInput").value.toLowerCase();
+
+  // Get the table rows
+  let rows = document.querySelectorAll("#productTable tr");
+
+  // Loop through the rows to filter based on the product title or category
+  rows.forEach((row) => {
+    let title = row.querySelector("td:nth-child(2)").textContent.toLowerCase(); // Get the title text
+    let category = row.querySelector("td:nth-child(3)").textContent.toLowerCase(); // Get the category text
+    
+    // If the title or category matches the search value, display the row, otherwise hide it
+    if (title.includes(searchValue) || category.includes(searchValue)) {
+      row.style.display = "";
+    } else {
+      row.style.display = "none";
+    }
+  });
+}
+</script>

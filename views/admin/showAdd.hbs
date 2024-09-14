@@ -1,75 +1,98 @@
 <section class="n-products my-5">
-  <div class="row mt-5">
-    {{#each advertisment}}
-    <div class="col-12 col-md-4 col-lg-3 mb-4">
-      <div class="card h-100 n-content">
-        <div class="row-img">
-          <img class="card-img-top"
-            src="/images/{{this._id}}.jpg"
-            alt="Card image cap">
-        </div>
-        <div class="card-body text-center">
-          <div class="img-actions mt-2">
-            <a href="/admin/editAdd/{{this._id}}" class="btn btn-success mx-2">Edit</a>
-            <a href="/admin/deleteAdd/{{this._id}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+  <div class="container">
+    <div class="row mt-5">
+      {{#each advertisment}}
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 n-content">
+          <div class="row-img">
+            <img class="card-img-top"
+              src="/images/{{this._id}}.jpg"
+              alt="Card image cap">
+          </div>
+          <div class="card-body text-center">
+            <div class="img-actions mt-2">
+              <a href="/admin/editAdd/{{this._id}}" class="btn btn-success mx-2">Edit</a>
+              <a href="/admin/deleteAdd/{{this._id}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+            </div>
           </div>
         </div>
       </div>
+      {{/each}}
     </div>
-    {{/each}}
   </div>
 </section>
 <style>
   .n-products {
-    padding-left: 64px;
-    padding-top: 1rem;
-    margin-left:var(--offcanvas-width);
-   
+  padding: 1rem;
+   padding-left: 9.5rem;
 }
 
 .n-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 15px;
-    overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .n-content:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .row-img {
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
 }
 
 .row-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
 }
 
 .row-img:hover img {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .img-actions .btn {
-    transition: background-color 0.3s;
+  transition: background-color 0.3s;
 }
 
 .img-actions .btn:hover {
-    background-color: #28a745; /* For Edit button */
+  background-color: #28a745; /* For Edit button */
 }
 
 .img-actions .btn-danger:hover {
-    background-color: #dc3545; /* For Delete button */
+  background-color: #dc3545; /* For Delete button */
 }
 
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .n-products {
+    padding-left: 0;
+    margin-left: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .n-products {
+    padding: 0rem;
+  }
+
+  .n-content {
+    margin: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .row-img {
+    height: 150px; /* Adjust height for smaller screens */
+  }
+}
 </style>

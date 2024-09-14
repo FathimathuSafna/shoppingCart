@@ -2,63 +2,112 @@
 <section>
     <div class="container">
         <div class="row mt-4">
-            <table class="table mt-5">
-                <thead>
-                    <tr>
-                        <th scope="col">Date</th>
-                        <th>Address</th>   
-                        <th>Pincode</th>                                                                    
-                        <th>Mobile</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">Payment</th>
-                        <th>Status</th>
-                        <th>Action</th> <!-- Added Action column for button -->
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each orders}}
-                    <tr>
-                        <td>{{this.date}}</td>
-                        <td>{{this.deliveryDetails.address}}</td>
-                        <td>{{this.deliveryDetails.pincode}}</td>
-                        <td>{{this.deliveryDetails.mobile}}</td>
-                        <td>{{this.totalAmount}}</td>
-                        <td>{{this.paymentMethod}}</td>
-                        <td>{{this.status}}</td>
-                        <td>
-                            <button class="btn btn-sm btn-success" onClick="cancelled('{{this._id}}')">Progress Order</button> <!-- Changed to order ID -->
-                          
-                        </td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table mt-5">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th>Address</th>   
+                            <th>Pincode</th>                                                                    
+                            <th>Mobile</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Payment</th>
+                            <th>Status</th>
+                            <th>Action</th> <!-- Added Action column for button -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each orders}}
+                        <tr>
+                            <td>{{this.date}}</td>
+                            <td>{{this.deliveryDetails.address}}</td>
+                            <td>{{this.deliveryDetails.pincode}}</td>
+                            <td>{{this.deliveryDetails.mobile}}</td>
+                            <td>{{this.totalAmount}}</td>
+                            <td>{{this.paymentMethod}}</td>
+                            <td>{{this.status}}</td>
+                            <td>
+                                <button class="btn btn-sm btn-warning" onClick="cancelled('{{this._id}}')">Cancel Order</button> <!-- Changed to order ID -->
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </section>
-
-<!-- JavaScript Function -->
-<script>
-   function cancelled(orderId) {
-    alert('Button clicked!')
-    $.ajax({
-        url: '/admin/cancel',
-        data: { orderId: orderId },  // Make sure this key matches what the backend expects
-        method: 'post',
-        success: (response) => {
-            console.log('Response from server:', response);  // Log the response to see what the server returns
-            if (response.cancelled) {
-                alert('order cancelled');
-                location.reload();
-            } else {
-                alert('Failed to place order.');
-            }
-        },
-        error: (err) => {
-            console.error('Error placing order:', err);
-            alert('Something went wrong!');
-        }
-    });
+<style>
+    .container {
+    padding-top: 1rem;
+    margin-left: var(--offcanvas-width);
 }
 
+/* Ensure the table can scroll horizontally on smaller screens */
+.table-responsive {
+    overflow-x: auto;
+    margin: 0; /* Remove margin to avoid extra space */
+}
+
+/* Ensure the table fits within the container */
+.table {
+    margin: 0;
+}
+
+/* Prevent text from wrapping and ensure padding is consistent */
+.table th, .table td {
+    white-space: nowrap; /* Prevents text from wrapping in table cells */
+    padding: 0.75rem; /* Add padding for better readability */
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .container {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .table th, .table td {
+        padding: 0.5rem; /* Reduce padding on smaller screens */
+    }
+
+    .table-responsive {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .table th, .table td {
+        font-size: 0.875rem; /* Reduce font size on very small screens */
+        padding: 0.25rem; /* Further reduce padding */
+    }
+
+    .table-responsive {
+        overflow-x: auto; /* Ensure horizontal scrolling is available on very small screens */
+    }
+}
+
+</style>
+<script>
+   function cancelled(orderId) {
+        $.ajax({
+            url: '/admin/cancel',
+            data: { orderId: orderId },  // Make sure this key matches what the backend expects
+            method: 'POST',
+            success: (response) => {
+                console.log('Response from server:', response);  // Log the response to see what the server returns
+                if (response.cancelled) {
+                    location.reload();  // Reload the page to reflect the changes
+                } else {
+                    alert('Failed to mark the order as delivered.');
+                }
+            },
+            error: (err) => {
+                console.error('Error:', err);
+            }
+        });
+    }
 </script>

@@ -2,34 +2,89 @@
 <section>
     <div class="container">
         <div class="row mt-4">
-            <table class="table mt-5">
-                <thead>
-                    <tr>
-                        <th scope="col">Date</th>
-                        <th>Address</th>   
-                        <th>Pincode</th>                                                                    
-                        <th>Mobile</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">Payment</th>
-                        <th>Status</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each orders}}
-                    <tr>
-                        <td>{{this.date}}</td>
-                        <td>{{this.deliveryDetails.address}}</td>
-                        <td>{{this.deliveryDetails.pincode}}</td>
-                        <td>{{this.deliveryDetails.mobile}}</td>
-                        <td>{{this.totalAmount}}</td>
-                        <td>{{this.paymentMethod}}</td>
-                        <td>{{this.status}}</td>
-                        
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table mt-5">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th>Address</th>   
+                            <th>Pincode</th>                                                                    
+                            <th>Mobile</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Payment</th>
+                            <th>Status</th>
+                            <th>Action</th> <!-- Added Action column for button -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each orders}}
+                        <tr>
+                            <td>{{this.date}}</td>
+                            <td>{{this.deliveryDetails.address}}</td>
+                            <td>{{this.deliveryDetails.pincode}}</td>
+                            <td>{{this.deliveryDetails.mobile}}</td>
+                            <td>{{this.totalAmount}}</td>
+                            <td>{{this.paymentMethod}}</td>
+                            <td>{{this.status}}</td>
+                            <td>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </section>
+<style>
+    .container {
+    padding-top: 1rem;
+    margin-left: var(--offcanvas-width);
+}
+
+.table-responsive {
+    overflow-x: auto; /* Allows horizontal scrolling on small screens */
+    margin: 0; /* Remove margin to avoid extra space */
+}
+
+.table {
+    margin: 0; /* Remove default margin */
+}
+
+/* Ensure table header and cells fit well */
+.table th, .table td {
+    white-space: nowrap; /* Prevents text from wrapping in table cells */
+    padding: 0.75rem; /* Add padding for better readability */
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .container {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .table th, .table td {
+        padding: 0.5rem; /* Reduce padding on smaller screens */
+    }
+
+    .table-responsive {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .table th, .table td {
+        font-size: 0.875rem; /* Reduce font size on very small screens */
+        padding: 0.25rem; /* Further reduce padding */
+    }
+
+    .table-responsive {
+        overflow-x: auto; /* Ensure horizontal scrolling is available on very small screens */
+    }
+}
+
+</style>

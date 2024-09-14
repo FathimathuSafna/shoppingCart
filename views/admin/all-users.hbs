@@ -38,7 +38,15 @@
         method:'post',
         success:(response=>{
             if(response.blockUser){
-                alert("user blocked")
+               Swal.fire({
+  title: "User Blocked",
+  timer: 50000, // 50 seconds
+  timerProgressBar: true,
+  icon: 'warning',
+  showConfirmButton: false,
+ 
+});
+
             }
         })
        })
@@ -52,7 +60,20 @@
             method:'post',
             success:(response=>{
                 if(response.unBlockUser){
-                    alert("user unblocked")
+                  Swal.fire({
+  title: "User UnBlocked",
+  timer: 50000, // 50 seconds
+  timerProgressBar: true,
+  icon: 'warning',
+  showConfirmButton: false,
+  willOpen: () => {
+    Swal.showLoading(); // Ensures timer progress is shown
+  },
+  didClose: () => {
+    console.log("Alert closed after 50 seconds");
+  }
+});
+
                 }
             })
         })
