@@ -14,21 +14,30 @@ const verifyLogin=(req,res,next)=>{
   }
 }
 /* GET users listing. */
-router.get("/", function (req, res, next) {
-  // productHelpers.getAllProducts().then((products) => {
-  //   res.render("admin/view-products", { admin: true, products });
-  // });
-  let admins=req.session.admin
-    adminHelpers.usersInfo().then((user)=>{
-    const preparedUsers = user.map(user => ({
-      ...user,
-      isActive: user.status === 'active'
-  }));
-  
-    res.render("admin/view-products",{user:preparedUsers,admin:true,admins})
-  })
+router.get("/", async function (req, res, next) {
+  try {
+    let userCount = await adminHelpers.getusercount();  // Fetch user count
+    let orderCount = await adminHelpers.getOrderCount(); 
+    let productCount = await adminHelpers.getproductcount(); 
+    let pendingOrderCount = await adminHelpers.getPendingOrderCount();
+    let admins = req.session.admin;
+    
+    // Fetch users info and prepare the data
+    adminHelpers.usersInfo().then((user) => {
+      const preparedUsers = user.map(user => ({
+        ...user,
+        isActive: user.status === 'active'  // Determine if the user is active
+      }));
 
+      // Render the view with the user data and admin info
+      res.render("admin/view-products", { user: preparedUsers,admin: true, admins,userCount,orderCount,productCount,pendingOrderCount   // Pass the user count to the view
+      });
+    });
+  } catch (error) {
+    next(error);  // Handle errors if any
+  }
 });
+
 router.get('/admin-login',(req,res)=>{
     if(req.session.admin){
       

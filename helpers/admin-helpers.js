@@ -67,6 +67,36 @@ module.exports={
                 resolve(user)
             })
         },
+        getusercount: () => { 
+             return new Promise(async (resolve, reject) => {      
+             try {
+             let userCount = await db.get().collection(collection.USER_COLLECTION).countDocuments(); 
+              resolve(userCount);       
+             } catch (err) {            
+                reject(err)     
+               } 
+               });
+            },
+            getproductcount: () => { 
+                return new Promise(async (resolve, reject) => {      
+                try {
+                let productCount = await db.get().collection(collection.PRODUCT_COLLECTION).countDocuments(); 
+                 resolve(productCount);       
+                } catch (err) {            
+                   reject(err)     
+                  } 
+                  });
+               },
+               getPendingOrderCount: () => {  
+                  return new Promise(async (resolve, reject) => { 
+                   try {          
+                        let pendingOrderCount = await db.get().collection(collection.ORDER_COLLECTION).countDocuments({ status: "pending" });       
+                             resolve(pendingOrderCount);  
+                              } catch (err) {        
+                                 reject(err);  
+                                     }
+                                        });
+                                    },
         blockUser: (userId) => {
             return new Promise(async (resolve, reject) => {
                 try {
@@ -102,6 +132,16 @@ module.exports={
             return new Promise(async (resolve, reject) => {
                 let order=await db.get().collection(collection.ORDER_COLLECTION).find().toArray()
                 resolve(order)
+            })
+        },
+        getOrderCount:()=>{
+            return new Promise(async(resolve,reject)=>{
+                try{
+                    let orderCount=await db.get().collection(collection.ORDER_COLLECTION).countDocuments()
+                    resolve(orderCount)
+                }catch(err){
+                    reject(err)
+                }
             })
         },
       
