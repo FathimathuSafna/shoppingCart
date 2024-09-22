@@ -131,13 +131,14 @@
       color: #0056b3; /* Bootstrap primary color for hover effect */
       text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
       text-decoration: none; /* Ensure no underline */
+    }
       
   </style>
 </head>
 <body>
   {{#if showHeader}}
   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-    <a href="/" class="navbar-brand logo">Volt-Cart</a>
+    <a href="/" class="navbar-brand logo" >Volt-Cart</a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -193,3 +194,13 @@
   {{/if}}
 </body>
 </html>
+
+<style>
+  @media (max-width: 576px) {
+  .logo{
+    font-size: larger;
+    padding-bottom: 0%;
+  }
+  }
+
+</style>

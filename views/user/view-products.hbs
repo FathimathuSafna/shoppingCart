@@ -17,7 +17,7 @@
       <div class="carousel-item {{#if @first}}active{{/if}}">
         <div class="home">
           <img src="/images/{{this._id}}.jpg"  class="home-bg img-fluid " alt="">
-          <div class="home-text">
+          <div class="home-text col-12 col-md-12 col-lg-12">
             <h6>New Arrivals</h6>
             <h1>New Arrivals <br> ready to rock</h1>
             <p>Productivity and Efficiency: Electronic gadgets like laptops and tablets enable people to work efficiently, manage tasks, and organize schedules.</p>
@@ -41,17 +41,17 @@
 
   {{!-- products --}}
   <section class="n-products my-5">
-    <div class="center-text">
+    <div class="center-text col-12 col-md-12 col-lg-12">
       <h2>All Products</h2>
     </div>
     <div class="n-content">
       <div class="row ">
         {{#each products}}
-        <div class=" product-card col-12 col-md-4">
+        <div class=" product-card col-12 col-md-4 col-lg-4">
           <a href="/view-each-product/{{this._id}}" style="text-decoration: none; color: inherit;">
             <div class="n-content">
-              <div class="row-img" style="width: 20rem; height: 18rem;">
-                <img class="card-img-top" src="/images/{{this._id}}.png" alt="Card image cap" style="height: 18rem; width: fit-content;">
+              <div class="row-img">
+                <img class="img-fluid" src="/images/{{this._id}}.png" alt="Card image cap" style="height: 18rem; width: fit-content;">
                 <div class="card-body">
                   <h5 class="card-title">{{this.name}}</h5>
                 </div>
@@ -79,7 +79,7 @@
         </div>
         {{/each}}
       </div>
-      <div class="n-btn text-center mt-3">
+      <div class="n-btn text-center col-12 col-md-12  col-lg-12 mt-3">
         <a href="/view-all-products" id="view-all-btn" class="btn2">View All <i class="ri-arrow-right-line"></i></a>
       </div>
     </div>
@@ -91,7 +91,7 @@
     <div class="row d-flex justify-content-center align-items-center text-center">
       <div class="box col-12 col-md-4 col-lg-4 mb-4">
         <div class="f-text f-icon">
-          <i class="ri-bank-card-fill" style="font-size: 2rem;"></i>
+          <i class="ri-bank-card-fill" style="font-size: 4rem;"></i>
           <h3>Cash on Delivery</h3>
           <p>"Cash on delivery lets customers pay in cash upon receipt."</p>
         </div>
@@ -99,7 +99,7 @@
 
       <div class="box col-12 col-md-4 col-lg-4 mb-4">
         <div class="f-text f-icon">
-          <i class="ri-truck-fill" style="font-size: 2rem;"></i>
+          <i class="ri-truck-fill" style="font-size: 4rem;"></i>
           <h3>35 days return</h3>
           <p>"Enjoy our 35-day return policy."</p>
         </div>
@@ -107,7 +107,7 @@
 
       <div class="box col-12 col-md-4 col-lg-4 mb-4">
         <div class="f-text f-icon">
-          <i class="ri-customer-service-fill" style="font-size: 2rem;"></i>
+          <i class="ri-customer-service-fill" style="font-size: 4rem;"></i>
           <h3>Free Shipping</h3>
           <p>"Free shipping offered."</p>
         </div>
@@ -160,7 +160,7 @@
 
 <div class="copyright">
   <div class="end-text">
-    <p>copyright 2024 By Shopping-cart</p>
+    <p>copyright 2024 <i class="ri-copyright-line"></i></p>
   </div>
 </div>
 
@@ -172,7 +172,60 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-
+@media (max-width: 576px) {
+  .row img {
+    width: 2rem; /* Further reduce the size for smaller screens */
+    height: 2rem;
+  }
+  .card-title{
+    font-size: 1.1rem;
+  }
+  .stars{
+    position: relative;
+    top: -8px;
+    left: -9%;
+  }
+.button{
+  width: 8rem;
+  height: 2.5rem;
+  font-size: medium;
+  position: relative;
+    top: -35px;
+    left: -26px;
+}
+ .row-right{
+  position: relative;
+    top: -35px;
+    left:-15px;
+    font-size: medium;
+ } 
+  .ri-customer-service-fill{
+    font-size: 3rem
+  }
+  .ri-truck-fill{
+    font-size: 3rem;
+  }
+  .ri-bank-card-fill{
+    font-size: 3rem;
+  }
+  .feature{
+    position: relative;
+    top: -45px;
+  }
+  .footer{
+    position: relative;
+    top: -10rem;
+    left: -1rem;
+  }
+  .end-text{
+    position: relative;
+    top: -15rem;
+    left:-1.9rem
+  }
+ .home-text{
+  margin-top: 1rem;
+ }
+}
 
 :root {
   --bg-color: #ffffff;
@@ -187,8 +240,11 @@
   --p-font: 1rem;
 }
 
-body, html {
+
+body,section, html {
   overflow-x: hidden;
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .carousel-item img {
@@ -274,8 +330,7 @@ body, html {
   .carousel-item img {
     height: 50vh; /* Make carousel images shorter on smaller screens */
   }
-
-  .home-text {
+.home-text {
     padding: 20px;
     top: 10%; /* Adjust spacing */
   }
@@ -388,7 +443,7 @@ section {
 
 .end-text p {
   font-size: 15px;
-  padding-left: 105px;
+  padding-left: 90px;
 }
 
 .center-text {
@@ -396,13 +451,13 @@ section {
 }
 
 .center-text h2 {
-  font-size: var(--h2-font);
+  font-size: 2.6rem;
   font-weight: 700;
   padding-bottom: 50px;
 }
   .product-card {
   display: none; /* Hide all product cards initially */
-   padding-bottom: 40px; 
+   padding-bottom: 5px; 
 }
 
 .product-card.visible {
@@ -412,10 +467,14 @@ section {
         padding-left: 290px;
         margin-top: 30px;
     }
+    
 @media (max-width: 576px) {
   .n-products {
     padding-left: 5rem; /* Even less padding for small screens */
     margin-top: 30px;   /* Adjust margin for small screens */
+  }
+  .center-text h2{
+    font-size: 2rem;
   }
 }
          .n-content{     
@@ -442,10 +501,20 @@ section {
         font-weight: 700;
         margin-bottom :5px ;
       }
+      .stars{
+        padding-left: 2rem;
+      }
+      .card-title{
+        position: relative;
+    left: -20px;
+      }
       .stars a{
         font-size:16px;
         color:var(--other-color);
         margin-right: 5px;
+        position: relative;
+       top: -35px;
+      
       }
       .row-in{
         display:flex;
@@ -461,16 +530,18 @@ section {
       }
      
 
-   .button {
-  color: var(--second-color); /* Primary button text color */
-  font-size: 15px;
-  background: transparent; /* Make the background transparent */
-  border: none; /* Remove the button border */
-  transition: all 0.6s;
-  display: flex;         /* Ensure the button content is displayed in a row */
-  align-items: center;   /* Center align the icon with the text */
-}
-
+  .button {
+  color: var(--second-color);    
+  font-size: 15px;                
+  background-color: transparent;  
+  padding: 10px 15px;             
+  border: 2px solid var(--text-color); 
+  border-radius: 4px;             
+  cursor: pointer;                
+  transition: all 0.3s ease;      
+  display: flex;                 
+  align-items: center;            
+  }
 .button:hover{
   transform: scale(1.1);
 }
