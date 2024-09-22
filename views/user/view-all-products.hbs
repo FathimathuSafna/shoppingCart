@@ -1,113 +1,163 @@
 <section class="n-products my-5">
   <div class="row mt-5">
-  {{#each products}}
-  <div class="col-12 col-md-3 ">
-         <a href="/view-each-product/{{this._id}}" style="text-decoration: none; color: inherit;">
-<div class="n-content ">
-          <div class="row-img " style="width: 20rem; height:18 rem">
-            <img class="card-img-top"
-              src="/images/{{this._id}}.png"
-              alt="Card image cap" style="height:18rem; width:fit-content">
+    {{#each products}}
+      <div class="col-6 col-md-3 mb-4"> <!-- 2 cards on small screens, 4 on medium and larger -->
+        <a href="/view-each-product/{{this._id}}" style="text-decoration: none; color: inherit;">
+          <div class="n-content">
+            <div class="row-img">
+              <img class="card-img-top" src="/images/{{this._id}}.png" alt="Card image cap">
+            </div>
             <div class="card-body">
               <h5 class="card-title">{{this.name}}</h5>
-              </a>
-               <div class="stars">
-        <a href=""><i class="ri-star-s-fill"></i></a>
-        <a href=""><i class="ri-star-s-fill"></i></a>
-        <a href=""><i class="ri-star-s-fill"></i></a>
-        <a href=""><i class="ri-star-s-fill"></i></a>
-        <a href=""><i class="ri-star-s-fill"></i></a>
-        <a href="">4.5/5</a>
-      </div>
-      <div class="row-in col-12">
-        <div class="row-left col-md-8">
-               <button onClick="{{#if ../user}}addToCart('{{this._id}}'){{else}}alert('Please login'){{/if}}" class=" button">Add to cart
-            <i class="ri-shopping-cart-fill"></i>
-          </button>
-        </div>
-        <div class="row-right mr-3 mt-2 col-md-4">
-          <h6>{{this.price}}</h6>
-        </div>  
+              <div class="stars">
+                <a href=""><i class="ri-star-s-fill"></i></a>
+                <a href=""><i class="ri-star-s-fill"></i></a>
+                <a href=""><i class="ri-star-s-fill"></i></a>
+                <a href=""><i class="ri-star-s-fill"></i></a>
+                <a href=""><i class="ri-star-s-fill"></i></a>
+                <a href="">4.5/5</a>
+              </div>
+              <div class="row-in col-12">
+                <div class="row-left col-8">
+                  <button onClick="{{#if ../user}}addToCart('{{this._id}}'){{else}}alert('Please login'){{/if}}" class="button">Add to cart
+                    <i class="ri-shopping-cart-fill"></i>
+                  </button>
+                </div>
+                <div class="row-right col-4">
+                  <h6>{{this.price}}</h6>
+                </div>  
+              </div>
             </div>
           </div>
-         
-          </div>
-          </div>
-          </div>
-           {{/each}}
-          </div>
-          </section>
+        </a>
+      </div>
+    {{/each}}
+  </div>
+</section>
+
 <style>
-    .n-products{
-        padding-left: 64px;
-       margin-top: 140px;
+  .n-products {
+    padding-left: 1rem; /* Adjusted for better responsiveness */
+    margin-top: -80px; /* Adjust as needed */
+  }
+
+  .n-products .col-6 {
+    padding: 0 0.5rem; /* Horizontal padding for spacing between cards */
+    margin-bottom: 20px; /* Space between rows */
+  }
+
+  .n-content {
+    display: flex;
+    flex-direction: column; /* Ensure content stacks vertically */
+    align-items: center;
+    height: 100%; /* Make sure the content takes full height */
+  }
+
+  .row-img {
+    overflow: hidden;
+    border-radius: 28px;
+    margin-bottom: 15px;
+    flex: 1; /* Make image container flexible */
+    height: 200px; /* Set a fixed height for images */
+    display: flex; /* Allow for centering */
+    justify-content: center; /* Center the image */
+    align-items: center; /* Center the image */
+  }
+
+  .row-img img {
+    max-height: 100%; /* Ensure images fit within the row-img container */
+    width: auto; /* Maintain aspect ratio */
+    transition: transform 0.5s;
+    cursor: pointer;
+  }
+
+  .row-img:hover img {
+    transform: scale(1.1);
+  }
+
+  .card-body {
+    text-align: center; /* Center-align text for better appearance */
+    min-height: 150px; /* Set a minimum height for the card body */
+  }
+
+  .stars a {
+    font-size: 16px;
+    color: var(--other-color);
+    margin-right: 5px;
+  }
+
+  .row-in {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5px;
+  }
+
+  .row-right h6 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--second-color);
+  }
+
+  .button {
+    background: var(--primary-color);
+    color: var(--second-color);
+    font-size: 15px;
+    font-weight: 500;
+    border: 1px solid var(--primary-color);
+    transition: all 0.6s;
+    display: flex;
+    align-items: center;
+  }
+
+  .button:hover {
+    transform: scale(1.1);
+  }
+
+  .button i {
+    margin-left: 6px; /* Space between text and icon */
+  }
+
+  /* Media Queries for responsiveness */
+  @media (max-width: 768px) {
+    .n-products .col-6 {
+      padding: 0 1rem; /* Increase padding for smaller screens */
     }
-         .n-content{
-        display: grid;
-        align-items:center;
-       
-      }
-      .row-img{
-        overflow: hidden;
-        border-radius: 28px;
-        margin-bottom: 15px;
-      }
-      .row-img img{
-        display:block;
-        width: 100%;
-        transition: transform 0.5s;
-        cursor: pointer;
-      }
-      .row-img:hover img{
-        transform: scale(1.1);
-      }
-      .row h3{
-        font-size:17px;
-        font-weight: 700;
-        margin-bottom :5px ;
-      }
-      .stars a{
-        font-size:16px;
-        color:var(--other-color);
-        margin-right: 5px;
-      }
-      .row-in{
-        display:flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: 5px;
-      }
-      
-      
-      .row-right h6{
-        font-size: 16px;
-        font-weight: 600;
-        color: var(--second-color);
+    .row-img img {
+      max-width: 80%; /* Scale down images on smaller screens */
+    }
+  }
 
-      }
-      .row-right:hover{
-        transform: scale(1.1);
-      }
-     
-
-    .button {
-  background: var(--primary-color); /* Primary button background color */
-  color: var(--second-color); /* Primary button text color */
-  font-size: 15px;
-  font-weight: 500;
-  border: 1px solid var(--primary-color); /* Primary button border color */
-  transition: all 0.6s;
-  display: flex;         /* Ensure the button content is displayed in a row */
-  align-items: center;   /* Center align the icon with the text */
-}
-.button:hover{
-  transform: scale(1.1);
-}
-
-
-.button i {
-  margin-left: 6px;      /* Add space between text and icon */
-}
-
-
+  @media (max-width: 576px) {
+    .n-products {
+      padding-left: 0.5rem; /* Reduce padding on extra small screens */
+      margin-left: 1.8rem;
+    }
+    .row-img img {
+      max-width: 70%; /* Further scale down images for extra small screens */
+    }
+  }
 </style>
+
+<script>
+  function addToCart(productId) {
+  $.ajax({
+    url: '/add-to-cart/' + productId,
+    method: 'get',
+    success: (response) => {
+      if (response.status) {
+        alert('Product added to cart!');
+        // Optionally, update cart count or reload page
+        location.reload(); // if you want to reload the page
+      } else {
+        alert('Failed to add product to cart.');
+      }
+    },
+    error: (err) => {
+      console.error(err);
+      alert('Something went wrong. Please try again.');
+    }
+  });
+}
+
+</script>

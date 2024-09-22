@@ -6,15 +6,15 @@ const adminHelpers = require("../helpers/admin-helpers");
 const { log } = require('handlebars');
 const userHelper = require("../helpers/user-helper");
 
-const verifyLogin=(req,res,next)=>{
+const verifyLogins=(req,res,next)=>{
   if(req.session.admin){
     next()
   }else{
-    res.redirect('/admin-login')
+    res.redirect('/admin/admin-login')
   }
 }
 /* GET users listing. */
-router.get("/", async function (req, res, next) {
+router.get("/",verifyLogins, async function (req, res, next) {
   try {
     let userCount = await adminHelpers.getusercount();  // Fetch user count
     let orderCount = await adminHelpers.getOrderCount(); 
