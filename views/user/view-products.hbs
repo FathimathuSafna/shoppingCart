@@ -319,6 +319,12 @@ body,section, html {
   transition: all .6s;
   min-height: 250px;
   box-sizing: border-box;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition for smooth effect */
+}
+
+.box:hover {
+  transform: translateY(-5px); /* Lift the box slightly */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
 }
 
 
