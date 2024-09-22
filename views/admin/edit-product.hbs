@@ -1,40 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align items to the start */
+            padding-top: 20px; /* Add padding at the top */
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+            margin-top: 20px; /* Add some margin at the top */
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .form-control {
+            margin-bottom: 15px;
+        }
+        .image-preview {
+            width: 100%;
+            height: auto; /* Adjust height to auto for content fit */
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .image-preview img {
+            max-width: 100%;
+            max-height: 150px; /* Limit the max height to maintain aspect ratio */
+            object-fit: contain; /* Ensure the image fits within the container */
+        }
+        .btn-submit {
+            width: 100%;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
 <section>
-    
     <div class="container mt-4">
-<div class="row">
-
-    <div class="col-md-6">
-    <h2 class="text-center">Edit Product</h2>
-    <form action="/admin/edit-product/{{product._id}}" method="post" enctype="multipart/form-data" >
-       
+        <h2 class="text-center">Edit Product</h2>
+        <form action="/admin/edit-product/{{product._id}}" method="post" enctype="multipart/form-data">
             <label for="name">Name:</label>
-            <input type="text" class="form-control" name="name" value="{{product.name}}" >
-        
+            <input type="text" class="form-control" name="name" value="{{product.name}}" required>
+
             <label for="category">Category:</label>
-            <input type="text" class="form-control" name="category" value="{{product.category}}">
-       
+            <input type="text" class="form-control" name="category" value="{{product.category}}" required>
+
             <label for="price">Price:</label>
-            <input type="number" class="form-control" name="price" value="{{product.price}}" >
-       
+            <input type="number" class="form-control" name="price" value="{{product.price}}" required>
+
             <label for="description">Description:</label>
-            <input type="text" class="form-control" name="description" value="{{product.description}}" >
+            <input type="text" class="form-control" name="description" value="{{product.description}}" required>
 
-            <label for="">Image:</label>
-            <img src="/images/{{product._id}}.png" alt="" style="width:100px;height:auto" id="imgView" class="pt-3">
-            <input type="file" name="Image" class="form-control" onchange="viewImage(event)" >
-        
+            <label for="image">Image:</label>
+            <div class="image-preview" id="imgPreview">
+                <img src="/images/{{product._id}}.png" alt="" id="imgView" style="display: block;">
+            </div>
+            <input type="file" name="Image" class="form-control" onchange="viewImage(event)">
+
             <button type="submit" class="btn btn-success mt-4">Submit</button>
-        
-    </form>
-
-</div>
-</div>
-</div>
-
+        </form>
+    </div>
 </section>
-<script>
-    function viewImage(event){
-        document.getElementById('imgView').src=URL.createObjectURL(event.target.files[0])
 
+<script>
+    function viewImage(event) {
+        const imgView = document.getElementById('imgView');
+        imgView.src = URL.createObjectURL(event.target.files[0]);
     }
 </script>
+
+</body>
+</html>
