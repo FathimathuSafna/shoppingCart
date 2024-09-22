@@ -98,6 +98,7 @@ if(response.status === 'active'){
 
     image.mv("./public/images/" + insertedId + ".jpg", (err, done) => {
       if (!err) {
+        let admins = req.session.admin;
         res.redirect("/admin/addPage",{admin:true,admins});
       } else {
         console.log(err);
