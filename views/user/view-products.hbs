@@ -21,7 +21,7 @@
             <h6>New Arrivals</h6>
             <h1>New Arrivals <br> ready to rock</h1>
             <p>Productivity and Efficiency: Electronic gadgets like laptops and tablets enable people to work efficiently, manage tasks, and organize schedules.</p>
-            <a href="/view-all-products" class="btn btn-outline-dark"> Shop now
+            <a href="/view-all-products" class="btn btn-outline-light"> Shop now
               <i class="ri-arrow-right-line"></i>
             </a>
           </div>
@@ -131,12 +131,13 @@
   <div class="container py-2">
     <div class="row py-5">
       <div class="col-lg-5 m-auto text-center">
-        <h1 class="h1">All Products</h1>
+        <h1 class="h1">Our Products</h1>
       </div>
     </div>
     <div class="row">
       {{#each products}}
-      <div class="col-lg-3 col-md-3 mb-2 product-card">
+      <div class="col-lg-3 col-md-3  mb-2 product-card">
+                <a href="/view-each-product/{{this._id}}" style="text-decoration: none; color: inherit;">
         <div class="card border-0 h-100 d-flex flex-column">
           <div class="card-body">
             <img class="img-fluid" src="/images/{{this._id}}.png" style="height: 14rem; object-fit: cover;">
@@ -149,12 +150,13 @@
           <div class="d-flex justify-content-between align-items-center px-3 mb-3">
             <button 
               onClick="{{#if ../user}}addToCart('{{this._id}}'){{else}}alert('Please login'){{/if}}" 
-              class="btn btn-dark btn-sm">
+              class="btn btn-dark btn-sm ">
               Add to cart
             </button>
-            <p class="mb-0">{{this.price}}</p>
+            <p class="mb-0"> ₹ {{this.price}}</p>
           </div>
         </div>
+        </a>
       </div>
       {{/each}}
     </div>
@@ -202,11 +204,51 @@
   </div>
 </section>
 
+<section class="product">
+  <div class="container py-2">
+    <div class="row py-5">
+      <div class="col-lg-5 m-auto text-center">
+        <h1 class="h1">All Products</h1>
+      </div>
+    </div>
+    <div class="row">
+      {{#each products}}
+      <div class="col-lg-3 col-md-3  mb-2 product-card">
+                <a href="/view-each-product/{{this._id}}" style="text-decoration: none; color: inherit;">
+        <div class="card border-0 h-100 d-flex flex-column">
+          <div class="card-body">
+            <img class="img-fluid" src="/images/{{this._id}}.png" style="height: 14rem; object-fit: cover;">
+          </div>
+          <!-- Product name with fixed height using Bootstrap -->
+          <h6 class=" h6 text-center mb-2" style="min-height: 2rem;">
+            {{this.name}}
+          </h6>
+          <!-- Button and price aligned using Bootstrap -->
+          <div class="d-flex justify-content-between align-items-center px-3 mb-3">
+            <button 
+              onClick="{{#if ../user}}addToCart('{{this._id}}'){{else}}alert('Please login'){{/if}}" 
+              class="btn btn-dark btn-sm ">
+              Add to cart
+            </button>
+            <p class="mb-0"> ₹ {{this.price}}</p>
+          </div>
+        </div>
+        </a>
+      </div>
+      {{/each}}
+    </div>
+
+   
+    </div>
+</section>
+
+
+
 </body>
 
 {{!-- footer --}}
 
-<section class="footer  container ">
+{{!-- <section class="footer  container ">
   <div class="footer-box col-3  col-md-6">
     <h3>Company</h3>
     <a href="#">About</a>
@@ -240,17 +282,109 @@
   </div>
 
 
-</section>
+</section> --}}
 
 {{!-- copyright --}}
 
-<div class="copyright">
+{{!-- <div class="copyright">
   <div class="text-center">
     <p>copyright 2024 <i class="ri-copyright-line"></i></p>
   </div>
-</div>
+</div> --}}
+ </body>
+        <div class="container my-2"></div>
+<!-- Footer -->
+<footer class="text-dark" style="background-color:#eee">
+  <!-- Grid container -->
+  <div class="container p-2 pb-0">
+    <!-- Section: Links -->
+    <section class="">
+      <!--Grid row-->
+      <div class="row">
+        <!-- Grid column for Volt-Cart section (increased width) -->
+        <div class="col-md-4 col-lg-4 col-xl-4" style="padding-left: 0;">
+          <h6 class="text-uppercase  mb-3 font-weight-bold">
+            Volt-Cart
+          </h6>
+          <p class="text-start" style="width: 100%; margin-bottom: 5px;">
+            Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          </p>
+        </div>
+        <!-- Grid column -->
 
-          </body>
+        <hr class="w-100 clearfix d-md-none" />
+
+        <!-- Grid column for Products -->
+        <div class="col-md-2 col-lg-2 col-xl-2">
+          <h6 class="text-uppercase mb-2 font-weight-bold">Products</h6>
+          <p><a class="text-dark">Laptops</a></p>
+          <p><a class="text-dark">Phones</a></p>
+          <p><a class="text-dark">Speakers</a></p>
+        </div>
+        <!-- Grid column -->
+
+        <hr class="w-100 clearfix d-md-none" />
+
+        <!-- Grid column for Help -->
+        <div class="col-md-3 col-lg-3 col-xl-3">
+          <h6 class="text-uppercase mb-2 font-weight-bold">Help</h6>
+          <p>Payment</p>
+          <p>Shipping</p>
+          <p>FAQ</p>
+          <p>Cancellation & Returns</p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column for Social Links -->
+        <div class="col-md-3 col-lg-3 col-xl-3 text-center social">
+          <h6 class="text-uppercase mb-3 font-weight-bold">Follow us</h6>
+          <!-- Facebook -->
+          <a
+            class="btn btn-dark btn-floating m-1"
+            style="background-color:#000000"
+            href="#!"
+            role="button"
+            ><i class="fab fa-facebook-f"></i
+          ></a>
+
+          <!-- Twitter -->
+          <a
+            class="btn btn-dark btn-floating m-1"
+            style="background-color:#000000"
+            href="#!"
+            role="button"
+            ><i class="fab fa-twitter"></i
+          ></a>
+
+          <!-- Google -->
+          <a href="#!" class="btn btn-dark btn-floating m-1" style="background-color:#000000">
+            <i class="fab fa-google"></i>
+          </a>
+
+          <!-- Instagram -->
+          <a href="#" class="btn btn-dark btn-floating m-1" style="background-color:#000000">
+            <i class="ri-instagram-fill"></i>
+          </a>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!--Grid row-->
+    </section>
+    <!-- Section: Links -->
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+    © 2024 Copyright:
+    <a class="text-white" href="#">Volt-Cart</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+<!-- Footer -->
+
 <style>
   * {
   padding: 0;
@@ -309,7 +443,7 @@ body,section, html {
 .home-text {
   padding: 40px;
   position: absolute;
-  top: 10%; /* Adjust as needed */
+  top: 15%; /* Adjust as needed */
   left: 5%; /* Align to the left side */
   transform: translateY(0); /* Remove horizontal centering */
   z-index: 10; /* Ensure it's above the carousel */
@@ -324,14 +458,14 @@ body,section, html {
 
 .home-text h6 {
   font-size: 15px;
-  color: var(--second-color);
+  color: var(--bg-color);
   letter-spacing: 2px;
   margin-bottom: 15px;
 }
 
 .home-text p {
   font-size: var(--p-font);
-  color: var(--second-color);
+  color: var(--bg-color);
   margin-bottom: 25px;
 }
 
@@ -345,13 +479,7 @@ body,section, html {
   margin-top: 0;
 
 }
-.n-btn {
-  text-align: center; /* Center the button */
-  padding-left: 0; /* Remove left padding if needed */
-  padding-right: 5rem;
-  margin: 0 auto; /* Automatically adjust left and right margins */
-  padding-top: 20px; /* Optional: Add top padding */
-}
+
 .btn2 {
   padding: 12px 42px;
   background-color: var(--text-color);
