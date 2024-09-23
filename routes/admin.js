@@ -214,6 +214,7 @@ router.get("/edit-product/:id", async (req, res) => {
 })
 
 router.post("/edit-product/:id", (req, res) => {
+  let admins=req.session.admin
   let id = req.params.id;
   productHelpers.updateProduct(req.params.id, req.body).then(() => {
     res.redirect("/admin",{admins});
