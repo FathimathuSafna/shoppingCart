@@ -93,6 +93,7 @@ if(response.status === 'active'){
     console.log("#############################");
     let product=  productHelpers.adds(req.body,(insertedId)=>{
         console.log(req.body)
+        let admins=req.session.admin
       let image = req.files.Image;
       console.log(insertedId)
 
@@ -182,7 +183,7 @@ router.post("/add-product", (req, res) => {
     console.log(insertedId);
     image.mv("./public/images/" + insertedId + ".png", (err, done) => {
       if (!err) {
-        res.render("admin/add-product",{admins});
+        res.redirect("admin/add-product",{admins});
       } else {
         console.log(err);
       }
