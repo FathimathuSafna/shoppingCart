@@ -177,6 +177,7 @@ router.get("/add-product", (req, res) => {
 
 router.post("/add-product", (req, res) => {
   productHelpers.addProduct(req.body, (insertedId) => {
+    let admins=req.session.admin
     let image = req.files.Image;
     console.log(insertedId);
     image.mv("./public/images/" + insertedId + ".png", (err, done) => {
@@ -190,6 +191,7 @@ router.post("/add-product", (req, res) => {
 });
 router.get("/delete-product/:id", (req, res) => {
   let proId = req.params.id;
+  let admins=req.session.admin
   console.log(proId);
   productHelpers.deleteProduct(proId).then((response) => {
     res.redirect("/admin/view-admin-product",{admins});
@@ -197,6 +199,7 @@ router.get("/delete-product/:id", (req, res) => {
 });
 router.get("/deleteAdd/:id", (req, res) => {
   let proId = req.params.id;
+  let admins=req.session.admin
   console.log(proId);
   productHelpers.deleteAdd(proId).then((response) => {
     res.redirect("/admin/showAdd",{admins});
