@@ -31,8 +31,10 @@ router.get('/', async function(req, res, next) {
   }
 
   productHelpers.getAllProducts().then((products) => {
-    res.render('user/view-products', { admin: false,products,user,advertisment,cartCount,showHeader: true
+    productHelpers.getTrendingProduct().then((TrendingProduct)=>{
+    res.render('user/view-products', { admin: false,products,user,advertisment,cartCount,TrendingProduct,showHeader: true
     });
+  })
   });
 });
 

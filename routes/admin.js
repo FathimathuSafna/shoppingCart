@@ -142,7 +142,7 @@ router.post("/editAdd/:id", (req, res) => {
               }
           });
       } else {
-          res.redirect("/admin/editAdd/" + id,{admins}); // Redirect back to the edit page if there's no image to move
+          res.redirect("/admin/editAdd/" + id); // Redirect back to the edit page if there's no image to move
       }
   }).catch((err) => {
       console.error("Failed to update advertisement:", err);
@@ -178,12 +178,11 @@ router.get("/add-product", (req, res) => {
 
 router.post("/add-product", (req, res) => {
   productHelpers.addProduct(req.body, (insertedId) => {
-    let admins=req.session.admin
     let image = req.files.Image;
     console.log(insertedId);
     image.mv("./public/images/" + insertedId + ".png", (err, done) => {
       if (!err) {
-        res.redirect("admin/add-product",{admins});
+        res.redirect("/admin/add-product");
       } else {
         console.log(err);
       }
@@ -203,9 +202,9 @@ router.get("/deleteAdd/:id", (req, res) => {
   let admins=req.session.admin
   console.log(proId);
   productHelpers.deleteAdd(proId).then((response) => {
-    res.redirect("/admin/showAdd",{admins});
-  });
+    res.redirect({admins},"/admin/showAdd")
 });
+})
 router.get("/edit-product/:id", async (req, res) => {
   let admins=req.session.admin
   let product = await productHelpers.getProductDetails(req.params.id);
@@ -214,11 +213,10 @@ router.get("/edit-product/:id", async (req, res) => {
 })
 
 router.post("/edit-product/:id", (req, res) => {
-  let admins=req.session.admin
   let id = req.params.id;
   productHelpers.updateProduct(req.params.id, req.body).then(() => {
-    res.redirect("/admin",{admins});
-    if (req.files.Image) {
+    res.redirect("/admin/edit-product");
+    if (req.files) {
       let image = req.files.Image;
       image.mv("./public/images/" + id + ".png");
     }
@@ -353,6 +351,18 @@ router.get('/cancelled-orders',async(req,res)=>{
     console.error(error);
     res.status(500).send('Server error');
 }
+})
+
+router.get('/view-trending-products',(req,res)=>{
+   productHelpers.getTrendingProduct().then((TrendingProduct)=>{
+    res.render("admin/view-trending-products",{TrendingProduct,admin:true})
+   })
+})
+
+router.get('/view-best-seller',(req,res)=>{
+  productHelpers.get().then((Bestsellers)=>{
+   res.render("admin/view-best-seller",{Bestsellers,admin:true})
+  })
 })
 
 module.exports = router;

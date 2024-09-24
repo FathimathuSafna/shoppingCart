@@ -135,7 +135,7 @@
       </div>
     </div>
     <div class="row">
-      {{#each products}}
+      {{#each TrendingProduct}}
       <div class="col-lg-3 col-md-3  mb-2 product-card">
                 <a href="/view-each-product/{{this._id}}" style="text-decoration: none; color: inherit;">
         <div class="card border-0 h-100 d-flex flex-column">
@@ -207,7 +207,7 @@
 <section class="product">
   <div class="container py-2">
     <div class="row py-5">
-      <div class="col-lg-5 m-auto text-center">
+      <div class="col-lg-5  text-center">
         <h1 class="h1">All Products</h1>
       </div>
     </div>
@@ -217,7 +217,7 @@
                 <a href="/view-each-product/{{this._id}}" style="text-decoration: none; color: inherit;">
         <div class="card border-0 h-100 d-flex flex-column">
           <div class="card-body">
-            <img class="img-fluid" src="/images/{{this._id}}.png" style="height: 14rem; object-fit: cover;">
+            <img class="img-fluid me-2" src="/images/{{this._id}}.png" style="height: 14rem; object-fit: cover;">
           </div>
           <!-- Product name with fixed height using Bootstrap -->
           <h6 class=" h6 text-center mb-2" style="min-height: 2rem;">

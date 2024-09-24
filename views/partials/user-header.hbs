@@ -52,6 +52,7 @@
       font-weight: bold;
       text-transform: uppercase;
       color: var(--text-color);
+      
     }
 
     .logo:hover, .logo:focus {
@@ -68,14 +69,16 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      padding-left: 20rem;
     }
 
-    .nav-right a {
+    .d-flex a {
       display: inline-block;
       font-size: 22px;
       color: var(--text-color);
       transition: all .6s;
     }
+    
 
     .nav-right a:hover {
       transform: translate(-5px) scale(1.1);
@@ -138,13 +141,16 @@
 <body>
   {{#if showHeader}}
   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-    <a href="/" class="navbar-brand logo" >Volt-Cart</a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+   <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+        <a href="/" class="navbar-brand logo " >Volt-Cart</a>
 
-    <div class="collapse navbar-collapse" id="navbarNav">
+
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
       <ul class="navbar-nav navlist">
         <li class="nav-item">
           <a class="nav-link" href="/view-all-products">Products</a>
@@ -161,34 +167,23 @@
           <a class="nav-link" href="#">Terms & Conditions</a>
         </li>
       </ul>
+       </div>
 
-      <div class="d-flex align-items-center nav-right" >
+      <div class="d-flex align-items-center"  >
         <a href="#"><i class="ri-search-line "></i></a>
         <a href="/cart">
           <i class="ri-shopping-cart-line" style="padding-left: 0.2rem;"></i>
           <sup><span class="badge bg-success" id="cart-count">{{cartCount}}</span></sup>
         </a>
-        {{#unless user}}
-        <a href="#"><i class="ri-user-line"></i></a>
-        {{/unless}}
-
-        <div class="dropdown ms-3" id="menu-icon">
-          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{#if user}}
+        
+       {{#if user}}
               {{user.name}}
             {{else}}
-              Account
+              <a href="/login"><i class="ri-user-line "></i></a>
             {{/if}}
-          </button>
-          <ul class="dropdown-menu">
-            {{#if user}}
-              <li><a class="dropdown-item" href="/logout">Logout</a></li>
-            {{else}}
-              <li><a class="dropdown-item" href="/login">Login</a></li>
-            {{/if}}
-          </ul>
-        </div>
-      </div>
+
+       
+     
     </div>
   </nav>
   {{/if}}
@@ -201,6 +196,6 @@
     font-size: larger;
     padding-bottom: 0%;
   }
-  }
+  
 
 </style>

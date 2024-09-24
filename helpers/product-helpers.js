@@ -34,6 +34,18 @@ module.exports = {
       resolve(products);
     });
   },
+  getTrendingProduct:()=>{
+    return new Promise((resolve,reject)=>{
+      let TrendingProduct= db.get().collection(collection.PRODUCT_COLLECTION).find({"category" : "trending"}).toArray()
+      resolve(TrendingProduct)
+    })
+  },
+  getBestsellers:()=>{
+    return new Promise((resolve,reject)=>{
+      let Bestsellers= db.get().collection(collection.PRODUCT_COLLECTION).find({"category" : "bestSeller"}).toArray()
+      resolve(Bestsellers)
+    })
+  },
   deleteProduct: (prodId) => {
     return new Promise((resolve, reject) => {
       console.log(prodId);
