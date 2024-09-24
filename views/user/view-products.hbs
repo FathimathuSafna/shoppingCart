@@ -131,7 +131,7 @@
   <div class="container py-2">
     <div class="row py-5">
       <div class="col-lg-5 m-auto text-center">
-        <h1 class="h1">Our Products</h1>
+        <h1 class="h1">Trending Products</h1>
       </div>
     </div>
     <div class="row">
@@ -161,13 +161,7 @@
       {{/each}}
     </div>
 
-    <div class="row">
-      <div class="col-lg-6 col-12 col-md-12 text-center m-auto mt-6">
-        <a href="/view-all-products" id="view-all-btn" class="btn btn-outline-dark">
-          View All <i class="ri-arrow-right-line"></i>
-        </a>
-      </div>
-    </div>
+   
   </div>
 </section>
 
@@ -212,7 +206,7 @@
       </div>
     </div>
     <div class="row">
-      {{#each products}}
+      {{#each Bestsellers }}
       <div class="col-lg-3 col-md-3  mb-2 product-card">
                 <a href="/view-each-product/{{this._id}}" style="text-decoration: none; color: inherit;">
         <div class="card border-0 h-100 d-flex flex-column">
