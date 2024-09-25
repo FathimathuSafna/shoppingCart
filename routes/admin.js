@@ -100,7 +100,7 @@ if(response.status === 'active'){
     image.mv("./public/images/" + insertedId + ".jpg", (err, done) => {
       if (!err) {
         let admins = req.session.admin;
-        res.redirect("/admin/addPage",{admin:true,admins});
+        res.redirect("/admin/addPage");
       } else {
         console.log(err);
       }
@@ -138,7 +138,7 @@ router.post("/editAdd/:id", (req, res) => {
                   console.error("Failed to move image file:", err);
                   res.status(500).send("Error updating advertisement.");
               } else {
-                  res.redirect("/admin/showAdd",{admins}); // Redirect to the show add page if the image is updated
+                  res.redirect("/admin/showAdd"); // Redirect to the show add page if the image is updated
               }
           });
       } else {
@@ -194,7 +194,7 @@ router.get("/delete-product/:id", (req, res) => {
   let admins=req.session.admin
   console.log(proId);
   productHelpers.deleteProduct(proId).then((response) => {
-    res.redirect("/admin/view-admin-product",{admins});
+    res.redirect("/admin/view-admin-product")
   });
 });
 router.get("/deleteAdd/:id", (req, res) => {
@@ -202,7 +202,7 @@ router.get("/deleteAdd/:id", (req, res) => {
   let admins=req.session.admin
   console.log(proId);
   productHelpers.deleteAdd(proId).then((response) => {
-    res.redirect({admins},"/admin/showAdd")
+    res.redirect("/admin/showAdd",{admins})
 });
 })
 router.get("/edit-product/:id", async (req, res) => {
@@ -215,12 +215,14 @@ router.get("/edit-product/:id", async (req, res) => {
 router.post("/edit-product/:id", (req, res) => {
   let id = req.params.id;
   productHelpers.updateProduct(req.params.id, req.body).then(() => {
-    res.redirect("/admin/edit-product");
     if (req.files) {
       let image = req.files.Image;
       image.mv("./public/images/" + id + ".png");
     }
-  });
+   
+    res.redirect("/admin/edit-product/"+id);
+   
+  })
 })
 router.get('/pending-orders', async (req, res) => {
   try {

@@ -119,7 +119,7 @@ module.exports = {
           }
         )
         .then((response) => {
-          resolve();
+          resolve(response);
         });
     });
   },
