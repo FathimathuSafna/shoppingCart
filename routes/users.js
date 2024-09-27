@@ -237,6 +237,7 @@ router.get('/view-each-product/:id',async(req,res)=>{
 router.post('/blockUser', (req, res) => {
   let userId=req.body.user;
   adminHelpers.blockUser(userId).then((response)=>{
+    console.log(response)
     res.json(response)
   })
 })

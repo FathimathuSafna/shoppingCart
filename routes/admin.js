@@ -30,7 +30,7 @@ router.get("/",verifyLogins, async function (req, res, next) {
       }));
 
       // Render the view with the user data and admin info
-      res.render("admin/view-products", { user: preparedUsers,admin: true, admins,userCount,orderCount,productCount,pendingOrderCount   // Pass the user count to the view
+      res.render("admin/view-products", { user: preparedUsers,admin: true, admins,userCount,orderCount,productCount,pendingOrderCount  // Pass the user count to the view
       });
     });
   } catch (error) {

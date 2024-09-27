@@ -50,6 +50,7 @@
     <section>
       <div class="container">
         <div class="row mt-4">
+          <h1 class="h4  mb-4"> PENDING ORDERS</h1>
           <div class="table-responsive">
             <table class="table table-bordered">
               <thead>
@@ -75,7 +76,7 @@
                   <td>{{this.paymentMethod}}</td>
                   <td>{{this.status}}</td>
                   <td>
-                    <button class="btn btn-sm btn-success" onClick="orderProgress('{{this._id}}')">Progress Order</button>
+                    <button class="btn btn-sm btn-success" onClick="orderProgress('{{this._id}}')">Place Order</button>
                   </td>
                 </tr>
                 {{/each}}

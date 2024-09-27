@@ -9,16 +9,15 @@ module.exports={
     doSignup: (userData) => {
         return new Promise(async (resolve, reject) => {
           try {
-            // Hash the password
             userData.password = await bcrypt.hash(userData.password, 10);
             
             // Find if user exists
             let user = await db.get().collection(collection.USER_COLLECTION).findOne({ email: userData.email });
             
-            // If user exists, resolve with userExist flag
             if (user) {
               resolve({ userExist: 'true' });
             } else {
+                userData.status = 'active';
               // Insert new user data
               db.get().collection(collection.USER_COLLECTION).insertOne(userData).then((data) => {
                 resolve({
@@ -26,7 +25,7 @@ module.exports={
                   email: userData.email,
                   password: userData.password,
                   insertedId: data.insertedId,
-                  status: 'active'
+                  status: userData.status  
                 });
               }).catch((err) => {
                 reject(err); // Handle any error during insertion
