@@ -1,23 +1,23 @@
 
 <section class="products py-5">
   <div class="container">
-    <div class="row gx-5">
-      <aside class="col-lg-6">
-        <div class="product-img border rounded-4 mb-3 d-flex justify-content-center img-container">
-          <a data-fslightbox="mygalley" class="rounded-4 zoom" target="_blank" data-type="image" href="/images/{{product._id}}.png " style="max-width: 100%; height: 200px; object-fit:contain">
-            <img id="product-image" style="max-width: 100%; max-height: 80vh; margin: auto;" class="rounded-4 fit zoom" src="/images/{{product._id}}.png" />
+    <div class="row ">
+      <div class="col-lg-4 col-md-3 col-6 mx-auto pr-5 ">
+        <div class="product-img  rounded-4 mb-3   align-items: center;">
+          <a  href="/images/{{product._id}}.png " >
+            <img id="product-image"  class="rounded-4 fit zoom " src="/images/{{product._id}}.png" style="max-width: 100%; height:auto; object-fit:contain  " />
             <div id="magnifier-lens" class="magnifier-lens"></div>
           </a>
         </div>
-      </aside>
-      <main class="col-lg-6">
-        <div class="ps-lg-3">
-          <h4 class="title text-dark">{{product.name}}</h4>
+      </div>
+      <main class="col-lg-8 col-12 pl-5">
+        <div class="ps-lg-6">
+          <h4 class="h4 text-dark">{{product.name}}</h4>
           <div class="mb-3">
-            <span class="h5">{{product.price}}</span>
+            <span class="h6">{{product.price}}</span>
             <span class="text-warning"><i class="fas fa-star"></i> {{product.averageRating}} (10 Reviews)</span>
           </div>
-          <p>{{product.description}}</p>
+          <p class="" style="font-size:0.95rem;">{{product.description}}</p>
           <div class="row">
             <dt class="col-3">Type:</dt>
             <dd class="col-9">{{product.type}}</dd>
@@ -44,6 +44,9 @@
   </div>
 </section>
 <style>
+  section{
+  padding: 30px 2% 30px;
+}
   .product-img {
   position: relative;
 }

@@ -141,7 +141,8 @@
     padding-bottom: 0%;
   }
   }
-
+  
+  
   </style>
 </head>
 <body>
@@ -182,9 +183,10 @@
           <sup><span class="badge bg-success" id="cart-count">{{cartCount}}</span></sup>
         </a>
             <li class="nav-item dropdown" style="list-style-type: none">
-  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <a class="nav-link dropdown-toggle black"  href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     {{#if user}}
-      {{user.name}}
+    <i class="ri-account-circle-line text-dark"></i>
+      <span class="username" style="font-size:medium">{{user.name}}</span>
     {{else}}
       <i class="ri-user-line"></i>
     {{/if}}
