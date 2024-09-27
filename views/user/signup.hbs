@@ -17,6 +17,11 @@
           <div class="card-body">
             <form action="/signup" method="post">
               <div class="mb-3">
+                 {{#if loginErr}}
+                <div class="col-12">
+                  <p class="error text-danger">{{loginErr}}</p>
+                </div>
+              {{/if}}
                 <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="name" name="name" required placeholder="Enter your name">
               </div>

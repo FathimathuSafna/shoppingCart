@@ -10,8 +10,11 @@ module.exports={
         return new Promise(async(resolve,reject)=>{
           
      userData.password=await bcrypt.hash(userData.password,10)
+     let user = db.get().collection(collection.USER_COLLECTION).findOne({ email: userData.email });
+     if(user){
+        resolve({ userExist:'true'})
+       } else{
        db.get().collection(collection.USER_COLLECTION).insertOne(userData).then((data)=>{
-          
         resolve({
             name: userData.name,
             email: userData.email,
@@ -19,8 +22,11 @@ module.exports={
             insertedId: data.insertedId,
             status:  'active'
         })
+    })
+    }
+    console.log(userData.userExist)
         console.log(  userData.status )
-       })
+    
 
         })
        

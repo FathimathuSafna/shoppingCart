@@ -48,7 +48,7 @@ router.get('/view-all-products', async function(req,res){
   if(req.session.user){
     cartCount=await userHelpers.getCartCount(req.session.user._id)
   }
-    res.render('user/view-all-products',{showHeader:true,user,products})
+    res.render('user/view-all-products',{showHeader:true,user,cartCount,products})
 })
 
 router.get('/login',(req,res)=>{
@@ -80,19 +80,25 @@ router.post('/login', async (req, res) => {
 
 
 router.get('/signup',(req,res)=>{
-  res.render('user/signup')
+  res.render('user/signup',{"loginErr":req.session.loginErr,})
+  req.session.loginErr=false
 })
 
 router.post('/signup', (req, res) => {
   userHelpers.doSignup(req.body).then((response) => {
-      
-      if (response.status === 'active') {
-          res.redirect('/login');
-      } else {
-          res.redirect('/'); 
-      }
-      console.log(response);
-  })
+    if (response.userExist === 'true') {
+      req.session.loginErr = 'User already exists';
+      res.redirect('/signup');
+    } else if (response.status === 'active') {
+      res.redirect('/login');
+    } else if (response.status === 'blocked') {
+      req.session.loginErr = 'User is blocked, please contact support';
+      res.redirect('/signup');
+    }
+  }).catch((err) => {
+    req.session.loginErr = 'An error occurred during signup';
+    res.redirect('/signup');
+  });
 });
 
 
@@ -127,7 +133,7 @@ router.post('/signup', (req, res) => {
   router.post('/change-product-quantity',(req,res,next)=>{
     console.log(req.body)
     userHelpers.changeProductQuantity(req.body).then(async(response)=>{
-      response.total=await userHelpers.getTotalAmount(req.session.user._id)
+      total=await userHelpers.getTotalAmount(req.session.user._id)
 
       res.json(response)
     })
@@ -191,6 +197,9 @@ router.post('/signup', (req, res) => {
 
   router.get('/view-order-products/:id', async (req, res) => {
     let products = await userHelpers.getOrderProducts(req.params.id);
+    console.log("#####################################")
+    console.log(products)
+    console.log("#######################")
     let cartCount=null
   if(req.session.user){
     cartCount=await userHelpers.getCartCount(req.session.user._id)

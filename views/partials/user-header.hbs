@@ -135,7 +135,13 @@
       text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
       text-decoration: none; /* Ensure no underline */
     }
-      
+       @media (max-width: 576px) {
+  .logo{
+    font-size: larger;
+    padding-bottom: 0%;
+  }
+  }
+
   </style>
 </head>
 <body>
@@ -169,26 +175,34 @@
       </ul>
        </div>
 
-      <div class="d-flex align-items-center px-2">
-        <a href="#"><i class="ri-search-line "></i></a>
+      <div class="d-flex align-items-center px-2 pl-1 pr-1">
+        <a href="#"><i class="ri-search-line " style="padding-right: 0.2rem;"></i></a>
         <a href="/cart">
-          <i class="ri-shopping-cart-line" style="padding-left: 0.2rem;"></i>
+          <i class="ri-shopping-cart-line" style="padding-left: 0.3rem;"></i>
           <sup><span class="badge bg-success" id="cart-count">{{cartCount}}</span></sup>
         </a>
-        
-       {{#if user}}
-              {{user.name}}
-            {{else}}
-              <a href="/login"><i class="ri-user-line "></i></a>
-            {{/if}}
+            <li class="nav-item dropdown" style="list-style-type: none">
+  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    {{#if user}}
+      {{user.name}}
+    {{else}}
+      <i class="ri-user-line"></i>
+    {{/if}}
+  </a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    {{#if user}}
+      <a class="dropdown-item" href="/logout">Logout</a>
+    {{else}}
+      <a class="dropdown-item" href="/login">Login</a>
+    {{/if}}
+  </div>
+</li>
 
-       
-     
     </div>
   </nav>
   {{/if}}
-</body>
-</html>
+ 
+</body></html>
 
 <style>
   @media (max-width: 576px) {
@@ -196,6 +210,6 @@
     font-size: larger;
     padding-bottom: 0%;
   }
-  
+  }
 
 </style>
