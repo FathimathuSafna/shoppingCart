@@ -143,14 +143,15 @@
             <img class="img-fluid" src="/images/{{this._id}}.png" style="max-width: 100%; height: 200px; object-fit:contain">
           </div>
           <!-- Product name with fixed height using Bootstrap -->
-          <h6 class=" h6 text-center mb-2" style="min-height: 2rem;">
+          <h6 class=" h6 text-center  mb-2" style="min-height: 2rem;">
             {{this.name}}
           </h6>
           <!-- Button and price aligned using Bootstrap -->
-          <div class="d-flex justify-content-between align-items-center px-3 mb-3">
+          <div class=" d-flex justify-content-between align-items-center mb-3">
+            
             <button 
               onClick="{{#if ../user}}addToCart('{{this._id}}'){{else}}alert('Please login'){{/if}}" 
-              class="btn btn-dark btn-sm ">
+              class="btn btn-dark btn-sm d-inline  "  >
               Add to cart
             </button>
             <p class="mb-0"> ₹ {{this.price}}</p>
@@ -208,7 +209,7 @@
     </div>
     <div class="row">
       {{#each Bestsellers }}
-      <div class="col-lg-3 col-md-3 col-6 mb-2 product-card">
+      <div class="col-lg-3 col-md-3 col-6 mb-5 product-card">
                 <a href="/view-each-product/{{this._id}}" style="text-decoration: none; color: inherit;">
         <div class="card border-0 h-100 d-flex flex-column">
           <div class="card-body">
@@ -219,10 +220,10 @@
             {{this.name}}
           </h6>
           <!-- Button and price aligned using Bootstrap -->
-          <div class="d-flex justify-content-between align-items-center px-3 mb-3">
+          <div class="d-flex justify-content-between align-items-center  mb-3" >
             <button 
               onClick="{{#if ../user}}addToCart('{{this._id}}'){{else}}alert('Please login'){{/if}}" 
-              class="btn btn-dark btn-sm ">
+              class="btn btn-dark btn-sm " >
               Add to cart
             </button>
             <p class="mb-0"> ₹ {{this.price}}</p>
@@ -239,7 +240,6 @@
 
 
 
-</body>
 
 {{!-- footer --}}
 
@@ -287,13 +287,13 @@
   </div>
 </div> --}}
  </body>
-        <div class="container my-2"></div>
+        <div class="container my-3"></div>
 <!-- Footer -->
 <footer class="text-dark" style="background-color:#eee">
   <!-- Grid container -->
-  <div class="container p-2 pb-0">
+  <div class="container p-2 pb-0 ">
     <!-- Section: Links -->
-    <section class="">
+    <section class="feature">
       <!--Grid row-->
       <div class="row">
         <!-- Grid column for Volt-Cart section (increased width) -->
@@ -552,7 +552,7 @@ body,section, html {
 }
 
 /* Other Styles */
-section {
+.feature {
   padding: 90px 14% 70px;
 }
 
