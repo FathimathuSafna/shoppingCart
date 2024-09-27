@@ -6,31 +6,38 @@ const { response } = require('../app')
 const Razorpay=require('razorpay')
 
 module.exports={
-    doSignup:(userData)=>{
-        return new Promise(async(resolve,reject)=>{
-          
-     userData.password=await bcrypt.hash(userData.password,10)
-     let user = db.get().collection(collection.USER_COLLECTION).findOne({ email: userData.email });
-     if(user){
-        resolve({ userExist:'true'})
-       } else{
-       db.get().collection(collection.USER_COLLECTION).insertOne(userData).then((data)=>{
-        resolve({
-            name: userData.name,
-            email: userData.email,
-            password: userData.password,
-            insertedId: data.insertedId,
-            status:  'active'
-        })
-    })
-    }
-    console.log(userData.userExist)
-        console.log(  userData.status )
-    
-
-        })
-       
-    },
+    doSignup: (userData) => {
+        return new Promise(async (resolve, reject) => {
+          try {
+            // Hash the password
+            userData.password = await bcrypt.hash(userData.password, 10);
+            
+            // Find if user exists
+            let user = await db.get().collection(collection.USER_COLLECTION).findOne({ email: userData.email });
+            
+            // If user exists, resolve with userExist flag
+            if (user) {
+              resolve({ userExist: 'true' });
+            } else {
+              // Insert new user data
+              db.get().collection(collection.USER_COLLECTION).insertOne(userData).then((data) => {
+                resolve({
+                  name: userData.name,
+                  email: userData.email,
+                  password: userData.password,
+                  insertedId: data.insertedId,
+                  status: 'active'
+                });
+              }).catch((err) => {
+                reject(err); // Handle any error during insertion
+              });
+            }
+          } catch (err) {
+            reject(err); // Handle any error during password hashing or user lookup
+          }
+        });
+      }
+      ,
     doLogin: (userData) => {
         return new Promise(async (resolve, reject) => {
             let response = {};

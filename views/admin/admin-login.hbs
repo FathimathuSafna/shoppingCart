@@ -134,6 +134,11 @@ form .btn input[type="submit"] {
 <body>
 <div class="container">
   <form action="/admin/admin-login" method="post">
+  {{#if loginErr}}
+           <div class="col-12">
+            <p class="error text-danger">{{loginErr}}</p>
+           </div>
+              {{/if}}
     <div class="wrapper">
         <div class="title-text">
             <div class="title login" style="font-size: 25px;">Admin Login</div>

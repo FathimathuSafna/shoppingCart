@@ -88,7 +88,7 @@ router.post('/signup', (req, res) => {
   userHelpers.doSignup(req.body).then((response) => {
     if (response.userExist === 'true') {
       req.session.loginErr = 'User already exists';
-      res.redirect('/signup');
+      res.redirect('/login');
     } else if (response.status === 'active') {
       res.redirect('/login');
     } else if (response.status === 'blocked') {
