@@ -147,14 +147,14 @@
             {{this.name}}
           </h6>
           <!-- Button and price aligned using Bootstrap -->
-          <div class=" d-flex justify-content-between align-items-center mb-3">
+          <div class=" d-flex px-md-5 justify-content-between align-items-center mb-3">
             
             <button 
               onClick="{{#if ../user}}addToCart('{{this._id}}'){{else}}alert('Please login'){{/if}}" 
-              class="btn btn-dark btn-sm d-inline m-2 "  >
+              class="btn btn-dark btn-sm d-inline m-2 px-1 py-2 "  >
               Add to cart
             </button>
-            <p class="mb-0 mr-1"> ₹ {{this.price}}</p>
+            <p class="mb-0"> ₹ {{this.price}}</p>
           </div>
         </div>
         </a>
@@ -220,13 +220,13 @@
             {{this.name}}
           </h6>
           <!-- Button and price aligned using Bootstrap -->
-          <div class="d-flex justify-content-between align-items-center  mb-3" >
+          <div class="  px-md-5 d-flex justify-content-between align-items-center  mb-3" >
             <button 
               onClick="{{#if ../user}}addToCart('{{this._id}}'){{else}}alert('Please login'){{/if}}" 
-              class="btn btn-dark btn-sm m-2" >
+              class="btn btn-dark btn-sm m-2 px-1 py-2" >
               Add to cart
             </button>
-            <p class="mb-0 m-1"> ₹ {{this.price}}</p>
+            <p class="mb-0"> ₹ {{this.price}}</p>
           </div>
         </div>
         </a>
@@ -554,9 +554,6 @@ body,section, html {
 /* Other Styles */
 .feature {
   padding: 90px 14% 70px;
-}
-section{
-  padding: 40px 6% 40px ;
 }
 
 .footer {
