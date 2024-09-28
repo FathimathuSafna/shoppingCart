@@ -2,15 +2,25 @@
 <section class="products py-5">
   <div class="container">
     <div class="row ">
-      <div class="col-lg-4 col-md-3 col-6 mx-auto pr-5 ">
+      {{!-- <div class="col-lg-4 col-md-3 col-6 mx-auto pr-5 ">
         <div class="product-img  rounded-4 mb-3   align-items: center;">
           <a  href="/images/{{product._id}}.png " >
-            <img id="product-image"  class="rounded-4 fit zoom " src="/images/{{product._id}}.png" style="max-width: 100%; height:auto; object-fit:contain  " />
+            <img id="product-image"  class="rounded-4 fit zoom pt-4 pb-2 " src="/images/{{product._id}}.png" style="max-width: 100%; height:auto; object-fit:conatin  " />
             <div id="magnifier-lens" class="magnifier-lens"></div>
           </a>
         </div>
-      </div>
-      <main class="col-lg-8 col-12 pl-5">
+      </div> --}}
+
+
+      <div class="card col-lg-4 col-md-4 col-8 mx-auto py-1" style="width: 18rem; height:fit-content">
+                <div class="product-img  rounded-4 mb-3   align-items: center;">
+                  <a  href="/images/{{product._id}}.png " >
+        <img id="product-image"  class="rounded-4 fit zoom pt-4 " src="/images/{{product._id}}.png" style="max-width: 100%; height:auto; object-fit:conatin  " />
+                   <div id="magnifier-lens" class="magnifier-lens"></div>
+                   </a>
+       </div>
+</div>
+      <main class="col-lg-8 col-12 pl-5 mt-3">
         <div class="ps-lg-6">
           <h4 class="h4 text-dark">{{product.name}}</h4>
           <div class="mb-3">
