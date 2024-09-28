@@ -160,10 +160,10 @@
           <div class="d-flex justify-content-between align-items-center mb-3">
             <button 
               onClick="{{#if ../user}}addToCart('{{this._id}}'){{else}}alert('Please login'){{/if}}" 
-              class="btn btn-dark btn-sm ms-2">
+              class=" col-6  btn btn-dark btn-sm d-inline m-1 ">
               Add to cart
             </button>
-            <p class="mb-0"> ₹ {{this.price}}</p>
+            <p class="mb-0 mr-1"> ₹ {{this.price}}</p>
           </div>
         </div>
          </a>
@@ -177,7 +177,7 @@
 
 <style>
   .btn{
-  height: 30px;
+  max-height: 50px;
   width: 55%;
   border: none;
   outline: none;

@@ -141,7 +141,25 @@
     padding-bottom: 0%;
   }
   }
-  
+  .col-3{
+    padding-left: 0;
+  }
+  #cart-count {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    font-size: 10px; /* Make the cart count smaller */
+    padding: 0.2rem 0.5rem;
+    background-color: red; /* Optional: change the badge color */
+  }
+
+  /* On smaller screens, adjust the position */
+  @media (max-width: 576px) {
+    #cart-count {
+      top: -10px;
+      right: -5px;
+    }
+  }
   
   </style>
 </head>
@@ -176,7 +194,7 @@
       </ul>
        </div>
 
-      <div class=" col-5 col-lg-2 col-md-2   d-flex align-items-center  px-1 ">
+      <div class=" col-5 col-lg-2 col-md-2   d-flex align-items-center  px-1  ">
         <a href="#"><i class="ri-search-line " style="padding-right: 0.2rem; padding-left:1rem"></i></a>
         <a href="/cart">
           <i class="ri-shopping-cart-line" style="padding-left: 0.4rem;"></i>

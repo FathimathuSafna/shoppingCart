@@ -144,8 +144,12 @@ router.post('/signup', (req, res) => {
     })
   })
   router.get('/place-order',verifyLogin,async(req,res)=>{
+    let cartCount=null
+  if(req.session.user){
+    cartCount=await userHelpers.getCartCount(req.session.user._id)
+  }
     let total=await userHelpers.getTotalAmount(req.session.user._id)
-    res.render('user/place-order',{total,user:req.session.user})
+    res.render('user/place-order',{total,user:req.session.user,cartCount,showHeader:true})
   })
   router.post('/place-order',async(req,res)=>{
     let products=await userHelpers.getCartProductList(req.body.userId)

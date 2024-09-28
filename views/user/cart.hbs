@@ -6,51 +6,46 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <h5 class="card-title">Items in your cart</h5>
-                        <div class="table-responsive ">
-                            <table class="table shoping-cart-table ">
-                                <!-- Cart items rendering goes here -->
-                                <tbody>
-                                    {{#if products.length}}
-                                        {{#each products}}
-                                            <tr>
-                                                <td width="90">
-                                                    <div class="cart-product-imitation">
-                                                        <td><img style="width: 70px;height:70px" src="/images/{{this.product._id}}.png"></td>
-                                                    </div>
-                                                </td>
-                                                <td class="desc">
-                                                    <h6>{{this.product.name}}</h6>
-                                                   
-                                                </td>
-                                                <td>
-                                                    
-                                                   <button class="cart-item-count mr-3 btn btn-sm btn-white border border-secondary px-3" onClick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',-1)"><i class="fas fa-minus"></i></button></td>
-                                                   <td> <span id="{{this.product._id}}">{{this.quantity}}</span> </td>
-                                                   <td> <button class="cart-item-count ml-3 btn btn-sm btn-white border border-secondary px-3" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',1)"><i class="fas fa-plus"></i></button>
-                                                </td>
-                                                <td>
-                                                    <h5>{{this.product.price}}</h5>
-                                                </td>
-                                                 <td>
-                                                    <button class="btn btn-sm btn-danger" onClick="removeProduct('{{this._id}}','{{this.product._id}}')">
-                                                      <i class="fa fa-trash"></i> 
-                                                     </button>
-                                                </td>
-
-                                            </tr>
-                                        {{/each}}
-                                    {{else}}
-                                        <tr>
-                                            <td colspan="4" class="text-center">Your shopping cart is empty</td>
-                                        </tr>
-                                    {{/if}}
-                                </tbody>
-
-                            </table>
+                        <hr>
+                        <div class="cart-items">
+                            {{#if products.length}}
+                                {{#each products}}
+                                <div class="cart-item d-flex align-items-center justify-content-between py-2">
+                                    <div class="cart-item-image">
+                                        <img style="width: 70px; height:70px" src="/images/{{this.product._id}}.png" alt="{{this.product.name}}">
+                                    </div>
+                                    <div class="cart-item-details mt-2">
+                                        <h6>{{this.product.name}}</h6>
+                                    </div>
+                                    <div class="cart-item-quantity d-flex align-items-center">
+                                        <button class="cart-item-count btn btn-sm btn-white border border-secondary" onClick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',-1)">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <span id="{{this.product._id}}" class="mx-2">{{this.quantity}}</span>
+                                        <button class="cart-item-count btn btn-sm btn-white border border-secondary" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',1)">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                    <div class="cart-item-price mb-2 mt-2">
+                                        <h5>{{this.product.price}}</h5>
+                                    </div>
+                                    <div class="cart-item-remove">
+                                        <button class="btn btn-sm btn-danger" onClick="removeProduct('{{this._id}}','{{this.product._id}}')">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <hr> <!-- Divider between items -->
+                                {{/each}}
+                            {{else}}
+                                <p class="text-center">Your shopping cart is empty</p>
+                            {{/if}}
                         </div>
                         <div class="text-center mt-3">
+                             {{#if products.length}}
                             <a href="/place-order" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Checkout</a>
                             <a href="/" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Continue shopping</a>
+                            {{/if}}
                         </div>
                     </div>
                 </div>
@@ -60,11 +55,13 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <h5 class="card-title">Cart Summary</h5>
-                        <p>Total RS:<span id="total"> {{totalValue}}</span></p>
+                        <p>Total RS:<span id="total">{{totalValue}}</span></p>
                         <hr>
                         <p class="text-muted small">Confirm your order</p>
                         <div class="text-center">
+                             {{#if products.length}}
                             <a href="/place-order" class="btn btn-primary btn-sm"><i class="fa fa-shopping-cart"></i> Checkout</a>
+                      {{/if}}
                         </div>
                     </div>
                 </div>
@@ -82,47 +79,49 @@
 </div>
 
 <style>
-    .container{
+    .cart-items {
         padding-top: 20px;
+    }
+
+    .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .cart-item-image img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .cart-item-quantity {
+        display: flex;
+        align-items: center;
+    }
+
+    .cart-item-price h5 {
+        margin: 0;
+    }
+
+    .cart-item-remove button {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+    }
+
+    @media (max-width: 768px) {
+        .cart-item {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .cart-item-quantity {
+            margin-top: 10px;
+        }
     }
 </style>
 
-
-
-            {{!-- <div class="ibox">
-                <div class="ibox-content">
-
-                    <p class="font-bold">
-                    Other products you may be interested
-                    </p>
-                    <hr>
-                    <div>
-                        <a href="#" class="product-name">{{this.name}}</a>
-                        <div class="small m-t-xs">
-                            Many desktop publishing packages and web page editors now.
-                        </div>
-                        <div class="m-t text-righ">
-
-                            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-                        </div>
-                    </div>
-                    <hr>
-                    <div>
-                        <a href="#" class="product-name"> Product 2</a>
-                        <div class="small m-t-xs">
-                            Many desktop publishing packages and web page editors now.
-                        </div>
-                        <div class="m-t text-righ">
-
-                            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-                        </div>
-                    </div> --}}
-                {{!-- </div>
-            </div>
-        </div> --}}
-    </div>
-</div>
-</div>
 
 <script>
     function changeQuantity(cartId,prodId,userId,count){
