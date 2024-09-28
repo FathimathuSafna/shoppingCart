@@ -76,7 +76,7 @@
                   <td>{{this.paymentMethod}}</td>
                   <td>{{this.status}}</td>
                   <td>
-                    <button class="btn btn-sm btn-success" onClick="orderProgress('{{this._id}}')">Place Order</button>
+                    <button class="btn btn-sm btn-success" onClick="orderPlaced('{{this._id}}')">Place Order</button>
                   </td>
                 </tr>
                 {{/each}}
@@ -91,14 +91,14 @@
   <script src="path/to/jquery.js"></script> <!-- Include jQuery -->
   <script src="path/to/bootstrap.bundle.js"></script>
   <script>
-    function orderProgress(orderId) {
+    function orderPlaced(orderId) {
       $.ajax({
-        url: '/admin/inProgress',
+        url: '/admin/orderPlaced',
         data: { orderId: orderId },  // Make sure this key matches what the backend expects
         method: 'POST',
         success: (response) => {
           console.log('Response from server:', response);  // Log the response to see what the server returns
-          if (response.orderProgress) {
+          if (response.orderPlaced) {
             location.reload();  // Reload the page to reflect the changes
           } else {
             alert('Failed to update order status.');
