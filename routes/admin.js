@@ -129,7 +129,7 @@ router.get('/editAdd/:id', async (req, res) => {
 });
 
 // Route to handle the form submission
-router.post("/editAdd/:id", (req, res) => {
+router.post("/admin/editAdd/:id", (req, res) => {
   let id = req.params.id;
 
   productHelpers.updateAdd(id, req.body).then(() => {
