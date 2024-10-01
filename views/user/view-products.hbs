@@ -151,7 +151,7 @@
             {{this.name}}
           </h6>
           <!-- Button and price aligned using Bootstrap -->
-          <div class="  d-flex  justify-content-between align-items-center mb-3">
+          <div class="  d-flex m-1 justify-content-between align-items-center mb-3">
             
             <button 
               onClick="{{#if ../user}}addToCart('{{this._id}}'){{else}}alert('Please login'){{/if}}" 
@@ -222,11 +222,11 @@
          </a>
           </div>
           <!-- Product name with fixed height using Bootstrap -->
-          <h6 class=" h6 text-center mb-2" style="min-height: 2rem;">
+          <h6 class=" h6 text-center mb-2 m-1" style="min-height: 2rem;">
             {{this.name}}
           </h6>
           <!-- Button and price aligned using Bootstrap -->
-          <div class="   d-flex justify-content-between align-items-center  mb-3" >
+          <div class="   d-flex justify-content-between align-items-center m-1 mb-3" >
             <button 
               onClick="{{#if ../user}}addToCart('{{this._id}}'){{else}}alert('Please login'){{/if}}" 
               class=" col-5 btn1 btn-dark btn-sm m-2 px-1 py-2" >
