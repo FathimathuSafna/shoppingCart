@@ -1,7 +1,7 @@
 <div class="container mt-5">
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-9 col-lg-8">
                 <!-- Items in Cart Card -->
                 <div class="card mb-4">
                     <div class="card-body">
@@ -14,8 +14,8 @@
                                     <div class="cart-item-image">
                                         <img style="width: 70px; height:70px" src="/images/{{this.product._id}}.png" alt="{{this.product.name}}">
                                     </div>
-                                    <div class="cart-item-details">
-                                        <h6>{{this.product.name}}</h6>
+                                    <div class="cart-item-details flex-grow-1 mx-2">
+                                        <h6 class="h6">{{this.product.name}}</h6>
                                     </div>
                                     <div class="cart-item-quantity d-flex align-items-center">
                                         <button class="cart-item-count btn btn-sm btn-white border border-secondary" onClick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',-1)">
@@ -23,10 +23,10 @@
                                         </button>
                                         <span id="{{this.product._id}}" class="mx-2">{{this.quantity}}</span>
                                         <button class="cart-item-count btn btn-sm btn-white border border-secondary" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',1)">
-                                            <i class="fas fa-plus"></i>
+                                            <i class="fas fa-plus mr-1 "></i>
                                         </button>
                                     </div>
-                                    <div class="cart-item-price">
+                                    <div class="cart-item-price mr-2 ml-1">
                                         <h5>{{this.product.price}}</h5>
                                     </div>
                                     <div class="cart-item-remove">
@@ -35,7 +35,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <hr> <!-- Divider between items -->
+                                <hr>
                                 {{/each}}
                             {{else}}
                                 <p class="text-center">Your shopping cart is empty</p>
@@ -50,18 +50,18 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-lg-4">
                 <!-- Cart Summary Card -->
                 <div class="card mb-4">
                     <div class="card-body">
                         <h5 class="card-title">Cart Summary</h5>
-                        <p>Total RS:<span id="total">{{totalValue}}</span></p>
+                        <p>Total RS: <span id="total">{{totalValue}}</span></p>
                         <hr>
                         <p class="text-muted small">Confirm your order</p>
                         <div class="text-center">
                              {{#if products.length}}
                             <a href="/place-order" class="btn btn-primary btn-sm"><i class="fa fa-shopping-cart"></i> Checkout</a>
-                      {{/if}}
+                            {{/if}}
                         </div>
                     </div>
                 </div>
@@ -70,105 +70,64 @@
                     <div class="card-body">
                         <h5 class="card-title">Support</h5>
                         <p class="text-center"><i class="fa fa-phone"></i> +43 100 783 001</p>
-                        <p class="text-center small">Please contact with us if you have any questions. We are available 24h.</p>
+                        <p class="text-center small">Please contact us if you have any questions. We are available 24h.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <style>
     .cart-items {
-        padding-top: 20px;
-    }
+    padding-top: 20px;
+}
 
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap; /* Prevent wrapping */
+}
+
+.cart-item-image img {
+    width: 70px; /* Fixed width for consistent alignment */
+    height: 70px; /* Fixed height for consistent alignment */
+}
+
+.cart-item-details {
+    flex-grow: 1; /* Allow to grow and take available space */
+    margin: 0 10px; /* Margin for spacing */
+}
+
+.cart-item-quantity {
+    display: flex;
+    align-items: center;
+}
+
+.cart-item-price h5 {
+    margin: 0;
+}
+
+.cart-item-remove button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+
+@media (max-width: 768px) {
     .cart-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-
-    .cart-item-image img {
-        max-width: 100%;
-        height: auto;
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        align-items: flex-start;
     }
 
     .cart-item-quantity {
-        display: flex;
-        align-items: center;
+        margin-top: 10px;
     }
 
-    .cart-item-price h5 {
-        margin: 0;
+    .cart-item-price {
+        text-align: left;
+        margin-top: 10px;
     }
+}
 
-    .cart-item-remove button {
-        background-color: #dc3545;
-        color: white;
-        border: none;
-    }
-
-    @media (max-width: 768px) {
-        .cart-item {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .cart-item-quantity {
-            margin-top: 10px;
-        }
-    }
 </style>
-
-<script>
-    function changeQuantity(cartId,prodId,userId,count){
-        let quantity=parseInt(document.getElementById(prodId).innerHTML)
-        count=parseInt(count)
-    $.ajax({
-        url:'/change-product-quantity',
-        data:{
-            user:userId,
-            cart:cartId,
-            product:prodId,
-            count:count,
-            quantity:quantity
-        },
-        method:'post',
-        success:(response)=>{
-            if(response.removeProduct){
-            location.reload()
-            }else{
-                document.getElementById(prodId).innerHTML=quantity+count
-                document.getElementById("total").innerHTML=response.total   
-                location.reload()      
-            }
-        }
-    })
-    }
-    function removeProduct(cartId,prodId,count){
-        let quantity=parseInt(document.getElementById(prodId).innerHTML)
-        count=parseInt(count)
-    $.ajax({
-        url:'/remove-product',
-        data:{
-            cart:cartId,
-            product:prodId,
-            count:count,
-            quantity:quantity
-        },
-        method:'post',
-        success:(response)=>{
-            if(response.removeProduct){
-            ("Product Removed from cart")
-            location.reload()
-            
-            }
-        }
-    })
-    }
-
-</script>
-
-
