@@ -204,7 +204,7 @@ router.get("/deleteAdd/:id", (req, res) => {
   let admins=req.session.admin
   console.log(proId);
   productHelpers.deleteAdd(proId).then((response) => {
-    res.redirect("/admin/showAdd",{admins})
+    res.redirect("/admin/showAdd")
 });
 })
 router.get("/edit-product/:id", async (req, res) => {
