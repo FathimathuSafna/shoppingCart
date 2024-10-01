@@ -193,8 +193,7 @@ router.post("/add-product", (req, res) => {
 });
 router.get("/delete-product/:id", (req, res) => {
   let proId = req.params.id;
-  let admins=req.session.admin
-  console.log(proId);
+    console.log(proId);
   productHelpers.deleteProduct(proId).then((response) => {
     res.redirect("/admin/view-admin-product")
   });
@@ -204,7 +203,7 @@ router.get("/deleteAdd/:id", (req, res) => {
   let admins=req.session.admin
   console.log(proId);
   productHelpers.deleteAdd(proId).then((response) => {
-    res.redirect("/admin/showAdd")
+    res.redirect("/admin/showAdd" )
 });
 })
 router.get("/edit-product/:id", async (req, res) => {
