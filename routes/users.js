@@ -24,18 +24,15 @@ router.get('/', async function(req, res, next) {
   }
 
   let advertisment = await productHelpers.viewAdds(req.body);
-
+   let Bestsellers=await productHelpers.getBestsellers(req.body)
+   let TrendingProduct=await productHelpers.getTrendingProduct(req.body)
   // Limit the number of advertisements to 3
   if (advertisment.length > 3) {
     advertisment = advertisment.slice(0, 3);
   }
 
   productHelpers.getAllProducts().then((products) => {
-    productHelpers.getTrendingProduct().then((TrendingProduct)=>{
-      productHelpers. getBestsellers().then(( Bestsellers)=>{
     res.render('user/view-products', { admin: false,products,user,advertisment,cartCount,TrendingProduct, Bestsellers,showHeader: true
-    })
-  })
   })
   });
 });

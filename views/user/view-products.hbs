@@ -138,7 +138,7 @@
       
       {{#each TrendingProduct}}
       
-      <div class="col-lg-3 col-md-3 col-6 mb-2 product-card">
+      <div class="col-lg-3 col-md-3 col-6 mb-2 product">
         
         <div class="card border-0 h-100 d-flex flex-column">
           <div class="card-body">
@@ -213,8 +213,8 @@
 
     </div>
     <div class="row">
-      {{#each Bestsellers }}
-      <div class="col-lg-3 col-md-3 col-6 mb-5 product-card">
+      {{#each Bestsellers}}
+      <div class="col-lg-3 col-md-3 col-6 mb-5 product">
         <div class="card border-0 h-100 d-flex flex-column">
           <div class="card-body">
              <a href="/view-each-product/{{this._id}}" style="text-decoration: none; color: inherit;">
@@ -709,6 +709,19 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 });
+document.addEventListener("DOMContentLoaded", function() {
+  var productCards = document.querySelectorAll('.product');
+  var viewAllBtn = document.getElementById('view-all-btn');
+
+  // Show the first 3 products initially
+  var limit = 4;
+  for (var i = 0; i < limit; i++) {
+    if (productCards[i]) {
+      productCards[i].classList.add('visible');
+    }
+  }
+
+  
 function addToCart(productId) {
   $.ajax({
     url: '/add-to-cart/' + productId,
