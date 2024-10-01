@@ -364,7 +364,7 @@ router.get('/view-trending-products',(req,res)=>{
 })
 
 router.get('/view-best-seller',(req,res)=>{
-  productHelpers.get().then((Bestsellers)=>{
+  productHelpers.getBestsellers().then((Bestsellers)=>{
    res.render("admin/view-best-seller",{Bestsellers,admin:true})
   })
 })
