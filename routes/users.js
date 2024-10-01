@@ -185,7 +185,7 @@ router.post('/signup', (req, res) => {
         // Render the orders page with the filtered orders
         res.render('user/orders', {  
             order: placedOrders,
-            user: req.session.user._id,
+            user:req.session.user._id,
             cartCount, 
             orders: placedOrders, // Passing the filtered orders for rendering
             showHeader: true
