@@ -7,7 +7,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Items in your cart</h5>
                         <hr>
-                        <div class="cart-items">
+                        <div class="cart-items mx-2">
                             {{#if products.length}}
                                 {{#each products}}
                                 <div class="cart-item d-flex align-items-center justify-content-between py-2">
@@ -23,7 +23,7 @@
                                         </button>
                                         <span id="{{this.product._id}}" class="mx-2">{{this.quantity}}</span>
                                         <button class="cart-item-count btn btn-sm btn-white border border-secondary" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',1)">
-                                            <i class="fas fa-plus mr-1 "></i>
+                                            <i class="fas fa-plus  "></i>
                                         </button>
                                     </div>
                                     <div class="cart-item-price mr-2 ml-1">
